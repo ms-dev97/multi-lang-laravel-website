@@ -226,4 +226,16 @@ class DocumentController extends Controller implements HasMiddleware
         $document->delete();
         return back()->with('success', 'تم الحذف بنجاح');
     }
+
+    /**
+     * Search for the search term
+     */
+    public function search(Request $request) {
+        $search = $request->search;
+        $currentLang = $request->lang ?? env('APP_LOCALE');
+        $langs = config('translatable.locales');
+
+        $documents = Document::latest()->whereTranslationLike('title', "%{$search}%", $currentLang)->paginate(15)->withQueryString();
+        return view('admin.documents.index', compact('documents', 'currentLang', 'langs', 'search'));
+    }
 }
