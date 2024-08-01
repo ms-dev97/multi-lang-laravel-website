@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $categoryTrans->title
+    'title' => $documentTrans->title
 ])
 
 @section('main')
@@ -29,8 +29,8 @@
     <div class="card">
         <div class="card-header">
             <div class="flex justify-content-between align-items-center">
-                <div class="header-title">معلومات القسم</div>
-                <a href="{{ route('admin.document-categories.index') }}">عودة</a>
+                <div class="header-title">معلومات المستند</div>
+                <a href="{{ route('admin.documents.index') }}">عودة</a>
             </div>
         </div>
 
@@ -42,25 +42,62 @@
 
             <div class="show-field">
                 <div class="show-field-name">الاسم</div>
-                <div class="show-field-value">{{ $categoryTrans->title }}</div>
+                <div class="show-field-value">{{ $documentTrans->title }}</div>
+            </div>
+
+            <hr>
+
+            <div class="show-field">
+                <div class="show-field-name">الوصف المختصر</div>
+                <div class="show-field-value">{{ $documentTrans->excerpt ?? '-' }}</div>
+            </div>
+
+            <hr>
+
+            <div class="show-field">
+                <div class="show-field-name">المحتوى</div>
+                <div class="show-field-value">{{ $documentTrans->body ?? '-' }}</div>
+            </div>
+
+            <hr>
+
+            @if ($document->get_from_link)
+                <div class="show-field">
+                    <div class="show-field-name">رابط الملف</div>
+                    <div class="show-field-value">{{ $document->link ?? '-' }}</div>
+                </div>
+
+                <hr>
+            @else
+                <div class="show-field-name">الملف</div>
+                    <div class="show-field-value">
+                        <a href="{{ asset('storage/' . $document->file) }}">الملف</a>
+                    </div>
+                </div>
+
+                <hr>
+            @endif
+
+            <div class="show-field-name">القسم</div>
+                <div class="show-field-value">{{ $document->category->translate($currentLang, true) ?? '-' }}</div>
             </div>
 
             <hr>
 
             <div class="show-field">
                 <div class="show-field-name">تاريخ الاضافة</div>
-                <div class="show-field-value">{{ Carbon\Carbon::parse($category->created_at)->locale('ar')->isoFormat('Do MMMM YYYY') }}</div>
+                <div class="show-field-value">{{ Carbon\Carbon::parse($document->created_at)->locale($currentLang)->isoFormat('Do MMMM YYYY') }}</div>
             </div>
 
             <hr>
 
             <div class="show-field">
                 <div class="show-field-name">تاريخ التعديل</div>
-                <div class="show-field-value">{{ Carbon\Carbon::parse($category->updated_at)->locale('ar')->isoFormat('Do MMMM YYYY') }}</div>
+                <div class="show-field-value">{{ Carbon\Carbon::parse($document->updated_at)->locale($currentLang)->isoFormat('Do MMMM YYYY') }}</div>
             </div>
 
             @can('edit-doc-cat')
-                <a href="{{ route('admin.document-categories.edit', [$category, 'lang' => $currentLang]) }}" class="btn btn-primary btn-fill">
+                <a href="{{ route('admin.documents.edit', [$document, 'lang' => $currentLang]) }}" class="btn btn-primary btn-fill">
                     تعديل
                 </a>
             @endcan

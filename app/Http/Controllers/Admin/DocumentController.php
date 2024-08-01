@@ -66,7 +66,7 @@ class DocumentController extends Controller implements HasMiddleware
             'file' => ['exclude_with:get_from_link', 'required', 'file'],
             'link' => ['exclude_without:get_from_link', 'required', 'url'],
             'excerpt' => ['nullable', 'string'],
-            'body' => ['required', 'string'],
+            'body' => ['nullable', 'string'],
         ]);
 
         $lang = $request->lang ?? env('APP_LOCALE');
@@ -121,9 +121,15 @@ class DocumentController extends Controller implements HasMiddleware
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Document $document)
     {
-        //
+        $langs = config('translatable.locales');
+        $currentLang = request()->lang ?? env('APP_LOCALE');
+        $documentTrans = $document->translate($currentLang);
+
+        if ($documentTrans == null) abort(404);
+
+        return view('admin.documents.show', compact('document', 'documentTrans', 'langs', 'currentLang'));
     }
 
     /**
@@ -145,7 +151,7 @@ class DocumentController extends Controller implements HasMiddleware
             'file' => ['exclude_with:get_from_link', 'nullable', 'file'],
             'link' => ['exclude_without:get_from_link', 'required', 'url'],
             'excerpt' => ['nullable', 'string'],
-            'body' => ['required', 'string'],
+            'body' => ['nullable', 'string'],
         ]);
 
         $lang = $request->lang ?? env('APP_LOCALE');
