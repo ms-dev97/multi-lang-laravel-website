@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $category->title . ' | تعديل'
+    'title' => $document->title . ' | تعديل'
 ])
 
 @section('main')
@@ -29,7 +29,7 @@
     <div class="card">
         <div class="card-header">
             <div class="flex justify-content-between align-items-center g-1rem">
-                <div class="card-title">تعديل قسم</div>
+                <div class="card-title">تعديل المستند</div>
                 <a href="{{ url()->previous() }}" class="ms-auto">عودة</a>
                 <button class="btn btn-fill btn-primary" form="edit">
                     حفظ
@@ -37,8 +37,16 @@
             </div>
         </div>
 
+        @if ($errors->any())
+            <ul class="form-errors">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
+
         <div class="card-body">
-            <form action="{{ route('admin.document-categories.update', $category) }}" method="POST" id="edit" class="main-form">
+            <form action="{{ route('admin.documents.update', $document) }}" method="POST" id="edit" class="main-form" enctype="multipart/form-data">
                 @csrf
                 @method('put')
 
@@ -56,7 +64,7 @@
                         'id' => 'title',
                         'label' => 'الإسم',
                         'required' => true,
-                        'value' => old('title') ?? $category->translate($currentLang)->title ?? ''
+                        'value' => old('title') ?? $document->translate($currentLang)->title ?? ''
                     ])
 
                     @include('admin.partials.text-input', [
@@ -64,9 +72,69 @@
                         'name' => 'slug',
                         'id' => 'slug',
                         'label' => 'slug',
-                        'required' => false,
-                        'value' => old('slug') ?? $category->slug
+                        'required' => true,
+                        'value' => old('slug') ?? $document->slug
                     ])
+                </div>
+
+                <div class="form-group">
+                    @include('admin.partials.toggle', [
+                        'name' => 'get_from_link',
+                        'id' => 'get_from_link',
+                        'label' =>  'استخدام رابط خارجي',
+                        'checked' => old('get_from_link') ?? $document->get_from_link
+                    ])
+                </div>
+
+                <div class="form-group file-upload">
+                    <label for="file">رفع ملف</label>
+                    <input type="file" name="file" id="file" class="form-control @error('file') is-invalid @enderror" accept="application/pdf">
+                    @error('file')
+                        <div class="input-invalid">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                <div class="external-link">
+                    @include('admin.partials.text-input', [
+                        'type' => 'url',
+                        'name' => 'link',
+                        'id' => 'link',
+                        'label' => 'رابط الملف',
+                        'placeholder' => 'رابط الملف',
+                        'required' => false,
+                        'value' => old('link') ?? $document->link
+                    ])
+                </div>
+
+                @include('admin.partials.textarea', [
+                    'id' => 'excerpt',
+                    'name' => 'excerpt',
+                    'label' => 'الوصف المختصر',
+                    'required' => false,
+                    'value' => old('excerpt') ?? $document->translate($currentLang)->excerpt ?? '',
+                    'placeholder' => 'الوصف المختصر للخبر'
+                ])
+
+                @include('admin.partials.rich-textarea', [
+                    'id' => 'document-body',
+                    'name' => 'body',
+                    'label' => 'المحتوى',
+                    'required' => false,
+                    'value' => old('body') ?? $document->translate($currentLang)->body ?? '',
+                    'placeholder' => 'اضف المحتوى'
+                ])
+
+                <div class="form-group">
+                    <label for="categories">القسم</label>
+                    <select name="category_id" id="categories" class="form-control">
+                        @foreach ($categories as $cat)
+                            <option value="{{ $cat->id }}" @selected($cat->id == $document->document_category_id)>
+                                {{ $cat->translate($currentLang, true)?->title }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -74,7 +142,7 @@
                         'name' => 'status',
                         'id' => 'status',
                         'label' => 'الحالة',
-                        'checked' => old('status') ?? $category->status
+                        'checked' => old('status') ?? $document->status
                     ])
                 </div>
 
@@ -83,7 +151,7 @@
                         'name' => 'featured',
                         'id' => 'featured',
                         'label' => 'مميز',
-                        'checked' => old('featured') ?? $category->featured
+                        'checked' => old('featured') ?? $document->featured
                     ])
                 </div>
 
@@ -94,3 +162,48 @@
         </div>
     </div>
 @endsection
+
+@push('styles')
+    <style>
+        .external-link {
+            display: none;
+        }
+    </style>
+    <link href="{{ asset('assets/admin/css/select2.min.css') }}" rel="stylesheet" />
+@endpush
+
+@push('scripts')
+    {{-- jQuery required for select2 --}}
+    <script src="{{ asset('assets/admin/js/jquery-3.7.1.min.js') }}"></script>
+
+    @include('admin.partials.scripts.select2', [
+        'selector' => '#categories',
+        'placeholder' => 'اختر قسم',
+    ])
+
+    @include('admin.partials.scripts.rich-editor', ['direction' => 'rtl'])
+
+    <script>
+        // toggle between file upload and external link
+        const linkFileToggle = document.getElementById('get_from_link');
+        const fileUpload = document.querySelector('.file-upload');
+        const externalLink = document.querySelector('.external-link');
+
+        function toggleFileLink() {
+            if (linkFileToggle.checked) {
+                externalLink.style.display = 'block';
+                fileUpload.style.display = 'none';
+                externalLink.querySelector('input[name="link"]').required =  true;
+                fileUpload.querySelector('input[name="file"]').required =  false;
+            } else {
+                externalLink.style.display = 'none';
+                fileUpload.style.display = 'block';
+                externalLink.querySelector('input[name="link"]').required =  false;
+                fileUpload.querySelector('input[name="file"]').required =  true;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', toggleFileLink);
+        linkFileToggle.addEventListener('change', toggleFileLink);
+    </script>
+@endpush

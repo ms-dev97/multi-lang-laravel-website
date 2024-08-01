@@ -135,9 +135,13 @@ class DocumentController extends Controller implements HasMiddleware
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Document $document)
     {
-        //
+        $langs = config('translatable.locales');
+        $currentLang = request()->lang ?? env('APP_LOCALE');
+        $categories = DocumentCategory::active()->translatedIn($currentLang)->with('translations')->latest()->get();
+
+        return view('admin.documents.edit', compact('langs', 'currentLang', 'document', 'categories'));
     }
 
     /**
