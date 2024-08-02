@@ -120,9 +120,15 @@ class StoryController extends Controller implements HasMiddleware
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Story $story)
     {
-        //
+        $langs = config('translatable.locales');
+        $currentLang = request()->lang ?? env('APP_LOCALE');
+        $storyTrans = $story->translate($currentLang);
+
+        if ($storyTrans == null) abort(404);
+
+        return view('admin.stories.show', compact('story', 'storyTrans', 'langs', 'currentLang'));
     }
 
     /**
