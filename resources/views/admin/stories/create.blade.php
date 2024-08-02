@@ -120,7 +120,7 @@
                     <div class="form-group">
                         <label for="type">النوع</label>
                         <select name="type" id="type">
-                            <option value="1">قصة مقروءة</option>
+                            <option selected value="1">قصة مقروءة</option>
                             <option value="2">قصة فيديو</option>
                         </select>
                     </div>
