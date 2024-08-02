@@ -127,7 +127,7 @@
                 <div class="input-half">
                     <div class="form-group">
                         <label for="type">النوع</label>
-                        <select name="type" id="type">
+                        <select name="type" id="type" class="form-control">
                             <option selected value="1">قصة مقروءة</option>
                             <option value="2">قصة فيديو</option>
                         </select>
