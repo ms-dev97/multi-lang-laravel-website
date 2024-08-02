@@ -212,8 +212,9 @@ class StoryController extends Controller implements HasMiddleware
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Story $story)
     {
-        //
+        $story->delete();
+        return back()->with('success', 'تم الحذف بنجاح');
     }
 }
