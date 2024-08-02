@@ -134,9 +134,14 @@ class StoryController extends Controller implements HasMiddleware
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Story $story)
     {
-        //
+        $langs = config('translatable.locales');
+        $currentLang = request()->lang ?? env('APP_LOCALE');
+        $programs = Program::active()->translatedIn($currentLang)->with('translations')->latest()->get();
+        $projects = Project::active()->translatedIn($currentLang)->with('translations')->latest()->get();
+
+        return view('admin.stories.edit', compact('langs', 'currentLang', 'projects', 'programs', 'story'));
     }
 
     /**
