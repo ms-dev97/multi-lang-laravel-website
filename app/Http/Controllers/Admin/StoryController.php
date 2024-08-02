@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Program;
+use App\Models\Project;
 use App\Models\Story;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -46,7 +48,12 @@ class StoryController extends Controller implements HasMiddleware
      */
     public function create()
     {
-        //
+        $langs = config('translatable.locales');
+        $currentLang = env('APP_LOCALE');
+        $programs = Program::active()->with('translations')->latest()->get();
+        $projects = Project::active()->with('translations')->latest()->get();
+
+        return view('admin.stories.create', compact('langs', 'programs', 'projects', 'currentLang'));
     }
 
     /**
