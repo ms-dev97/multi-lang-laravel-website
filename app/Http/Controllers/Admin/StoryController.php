@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\AdminHelpers;
 use App\Http\Controllers\Controller;
 use App\Models\Program;
 use App\Models\Project;
@@ -9,6 +10,8 @@ use App\Models\Story;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class StoryController extends Controller implements HasMiddleware
 {
@@ -61,7 +64,57 @@ class StoryController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'slug' => ['required', 'string', 'unique:stories,slug'],
+            'image' => ['nullable', 'image', 'max:2000'],
+            'gallery' => ['nullable', 'string'],
+            'video_link' => ['nullable', 'url'],
+            'excerpt' => ['nullable', 'string'],
+            'body' => ['required', 'string'],
+        ]);
+
+        $lang = $request->lang ?? env('APP_LOCALE');
+        $slug = $validated['slug'] ? Str::slug($validated['slug'], '-') : Str::slug($validated['title'], '-');
+        $imagePath = null;
+        $galleryItems = $request->gallery_input;
+
+        DB::beginTransaction();
+
+        try {
+            if ($request->hasFile('image')) {
+                $imagePath = AdminHelpers::storeModelImage($request, 'image', self::Model_Directory);
+            }
+
+            $stories = Story::create([
+                'slug' => $slug,
+                'status' => $request->has('status') ? true : false,
+                'featured' => $request->has('featured') ? true : false,
+                'image' => $imagePath,
+                'gallery' => !is_null($galleryItems) ? explode(',', $galleryItems) : [],
+                'type' => $request->type,
+                'video_link' => $request->video_link,
+                'program_id' =>  $request->has('program_id') ? $request->program_id : null,
+                'project_id' =>  $request->has('project_id') ? $request->project_id : null,
+                $lang => [
+                    'title' => $validated['title'],
+                    'excerpt' => $validated['excerpt'],
+                    'body' => $validated['body'],
+                ]
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('admin.stories.index', ['lang' => $lang])->with('success', 'تمت الاضافة بنجاح');
+        } catch (\Throwable $th) {
+            if (!is_null($imagePath)) {
+                AdminHelpers::removeModelImage($imagePath);
+            }
+
+            DB::rollBack();
+
+            return back()->with('error', 'حدث خطأ غير متوقع! حاول مرة اخرى.');
+        }
     }
 
     /**
