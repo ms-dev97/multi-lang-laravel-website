@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class StoryTranslation extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['title', 'excerpt', 'body'];
+    public $timestamps = false;
 }
