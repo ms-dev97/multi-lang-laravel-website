@@ -217,4 +217,19 @@ class StoryController extends Controller implements HasMiddleware
         $story->delete();
         return back()->with('success', 'تم الحذف بنجاح');
     }
+
+    /**
+     * Search for the search term
+     */
+    public function search(Request $request) {
+        $search = $request->search;
+        $currentLang = $request->lang ?? env('APP_LOCALE');
+        $langs = config('translatable.locales');
+
+        $stories = Story::latest()
+            ->with(['translations', 'program', 'project'])
+            ->whereTranslationLike('title', "%{$search}%", $currentLang)
+            ->paginate(15)->withQueryString();
+        return view('admin.stories.index', compact('stories', 'currentLang', 'langs', 'search'));
+    }
 }
