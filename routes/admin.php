@@ -40,6 +40,10 @@ Route::group([
     Route::get('documents/search', 'DocumentController@search')->name('documents.search');
     Route::resource('documents', DocumentController::class);
 
+    // Gallery routes
+    Route::get('galleries/search', 'GalleryController@search')->name('galleries.search');
+    Route::resource('galleries', GalleryController::class);
+
     // User routes
     Route::resource('users', UserController::class);
 
