@@ -12,6 +12,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class StoryController extends Controller implements HasMiddleware
 {
@@ -68,10 +69,10 @@ class StoryController extends Controller implements HasMiddleware
             'title' => 'required',
             'slug' => ['required', 'string', 'unique:stories,slug'],
             'image' => ['nullable', 'image', 'max:2000'],
-            'gallery' => ['nullable', 'string'],
+            'gallery_input' => ['nullable', 'string'],
             'video_link' => ['nullable', 'url'],
             'excerpt' => ['nullable', 'string'],
-            'body' => ['required', 'string'],
+            'body' => ['nullable', 'string'],
         ]);
 
         $lang = $request->lang ?? env('APP_LOCALE');
@@ -147,9 +148,65 @@ class StoryController extends Controller implements HasMiddleware
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Story $story)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'slug' => ['required', 'string', Rule::unique('stories')->ignore($story->id)],
+            'image' => ['nullable', 'image', 'max:2000'],
+            'gallery_input' => ['nullable', 'string'],
+            'video_link' => ['nullable', 'url'],
+            'excerpt' => ['nullable', 'string'],
+            'body' => ['nullable', 'string'],
+        ]);
+
+        $lang = $request->lang ?? env('APP_LOCALE');
+        $slug = $validated['slug'] ? Str::slug($validated['slug'], '-') : $story->slug;
+        $imagePath = $story->image;
+        $newImagePath = null;
+        $galleryItems = $request->gallery_input;
+
+        DB::beginTransaction();
+
+        try {
+            if ($request->hasFile('image')) {
+                $newImagePath = AdminHelpers::storeModelImage($request, 'image', self::Model_Directory);
+            }
+
+            $story->update([
+                'slug' => $slug,
+                'status' => $request->has('status') ? true : false,
+                'featured' => $request->has('featured') ? true : false,
+                'image' => $newImagePath ?? $imagePath,
+                'gallery' => !is_null($galleryItems) ? explode(',', $galleryItems) : [],
+                'type' => $request->type,
+                'video_link' => $request->video_link,
+                'program_id' =>  $request->has('program_id') ? $request->program_id : null,
+                'project_id' =>  $request->has('project_id') ? $request->project_id : null,
+                $lang => [
+                    'title' => $validated['title'],
+                    'excerpt' => $validated['excerpt'],
+                    'body' => $validated['body'],
+                ]
+            ]);
+
+            if (!is_null($newImagePath) && !is_null($imagePath)) {
+                // Make sure to delete old images before commiting and after saving new images if there are no errors
+                AdminHelpers::removeModelImage($imagePath);
+            }
+
+            DB::commit();
+
+            return redirect()->route('admin.stories.index', ['lang' => $lang])->with('success', 'تم التعديل بنجاح');
+        } catch (\Throwable $th) {
+            if (!is_null($newImagePath)) {
+                AdminHelpers::removeModelImage($newImagePath);
+            }
+
+            DB::rollBack();
+
+            return back()->with('error', 'حدث خطأ غير متوقع! حاول مرة اخرى.');
+        }
     }
 
     /**
