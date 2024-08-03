@@ -14,7 +14,7 @@ class Statistic extends Model implements TranslatableContract
     use HasFactory, Translatable;
 
     public $translatedAttributes = ['name'];
-    protected $fillable = ['number', 'icon', 'status'];
+    protected $fillable = ['number', 'icon', 'order', 'status'];
 
     public function scopeActive(Builder $q) {
         $q->where('status', 1);

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\AdminHelpers;
 use App\Http\Controllers\Controller;
 use App\Models\Statistic;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\DB;
 
 class StatisticsController extends Controller implements HasMiddleware
 {
@@ -46,7 +48,10 @@ class StatisticsController extends Controller implements HasMiddleware
      */
     public function create()
     {
-        //
+        $langs = config('translatable.locales');
+        $currentLang = env('APP_LOCALE');
+
+        return view('admin.statistics.create', compact('langs', 'currentLang'));
     }
 
     /**
@@ -54,7 +59,45 @@ class StatisticsController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'image' => ['nullable', 'image', 'max:2000'],
+            'order' => ['nullable', 'numeric', 'integer'],
+            'number' => ['required', 'numeric'],
+        ]);
+
+        $lang = $request->lang ?? env('APP_LOCALE');
+        $imagePath = null;
+
+        DB::beginTransaction();
+
+        try {
+            if ($request->has('image')) {
+                $imagePath = $request->file('image')->store(self::Model_Directory);
+            }
+
+            Statistic::create([
+                'icon' => $imagePath,
+                'order' => $validated['order'] ?? 0,
+                'number' => $validated['number'],
+                'status' => $request->has('status') ? true : false,
+                $lang => [
+                    'name' => $validated['name'],
+                ],
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('admin.statistics.index', ['lang' => $lang])->with('success', 'تمت الاضافة بنجاح');
+        } catch (\Throwable $th) {
+            if (!is_null($imagePath)) {
+                AdminHelpers::removeModelImage($imagePath);
+            }
+
+            DB::rollBack();
+
+            return back()->with('error', 'حدث خطأ غير متوقع! حاول مرة اخرى.');
+        }
     }
 
     /**
