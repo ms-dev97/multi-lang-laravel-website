@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('slider_id')->constrained()->onDelete('cascade');
             $table->string('locale');
-            $table->string('text');
+            $table->string('title');
             
             $table->unique(['slider_id','locale']);
         });
