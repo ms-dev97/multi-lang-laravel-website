@@ -103,9 +103,15 @@ class StatisticsController extends Controller implements HasMiddleware
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Statistic $statistic)
     {
-        //
+        $langs = config('translatable.locales');
+        $currentLang = request()->lang ?? env('APP_LOCALE');
+        $statisticTrans = $statistic->translate($currentLang);
+
+        if ($statisticTrans == null) abort(404);
+
+        return view('admin.statistics.show', compact('statistic', 'statisticTrans', 'langs', 'currentLang'));
     }
 
     /**
