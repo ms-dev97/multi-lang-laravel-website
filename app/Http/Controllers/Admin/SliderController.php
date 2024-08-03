@@ -46,7 +46,10 @@ class SliderController extends Controller implements HasMiddleware
      */
     public function create()
     {
-        //
+        $langs = config('translatable.locales');
+        $currentLang = env('APP_LOCALE');
+
+        return view('admin.sliders.create', compact('langs', 'currentLang'));
     }
 
     /**
