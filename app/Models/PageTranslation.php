@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PageTranslation extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['title', 'excerpt', 'body'];
+    public $timestamps = false;
 }
