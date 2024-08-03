@@ -117,9 +117,12 @@ class StatisticsController extends Controller implements HasMiddleware
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Statistic $statistic)
     {
-        //
+        $langs = config('translatable.locales');
+        $currentLang = request()->lang ?? env('APP_LOCALE');
+
+        return view('admin.statistics.edit', compact('langs', 'currentLang', 'statistic'));
     }
 
     /**
