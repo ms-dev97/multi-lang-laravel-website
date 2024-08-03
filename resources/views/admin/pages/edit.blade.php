@@ -92,7 +92,7 @@
                     'name' => 'excerpt',
                     'label' => 'الوصف المختصر',
                     'required' => false,
-                    'value' => old('excerpt'),
+                    'value' => old('excerpt') ?? $page->translate($currentLang)->excerpt ?? '',
                     'placeholder' => 'ادخل الوصف المختصر'
                 ])
 
@@ -101,7 +101,7 @@
                     'name' => 'body',
                     'label' => 'المحتوى',
                     'required' => false,
-                    'value' => old('body'),
+                    'value' => old('body') ?? $page->translate($currentLang)->body ?? '',
                     'placeholder' => 'اضف المحتوى'
                 ])
 
