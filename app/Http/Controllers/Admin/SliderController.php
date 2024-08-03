@@ -109,9 +109,15 @@ class SliderController extends Controller implements HasMiddleware
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Slider $slider)
     {
-        //
+        $langs = config('translatable.locales');
+        $currentLang = request()->lang ?? env('APP_LOCALE');
+        $sliderTrans = $slider->translate($currentLang);
+
+        if ($sliderTrans == null) abort(404);
+
+        return view('admin.sliders.show', compact('slider', 'sliderTrans', 'langs', 'currentLang'));
     }
 
     /**
