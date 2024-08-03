@@ -46,7 +46,10 @@ class PartnerController extends Controller implements HasMiddleware
      */
     public function create()
     {
-        //
+        $langs = config('translatable.locales');
+        $currentLang = env('APP_LOCALE');
+
+        return view('admin.partners.create', compact('langs', 'currentLang'));
     }
 
     /**
