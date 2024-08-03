@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique();
             $table->string('image')->nullable();
-            $table->boolean('custom_view')->default(false);
+            $table->boolean('has_custom_view')->default(false);
             $table->string('view_name')->nullable();
             $table->boolean('status')->default(true);
-            $table->boolean('featured')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
