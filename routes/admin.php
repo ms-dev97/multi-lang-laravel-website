@@ -51,6 +51,9 @@ Route::group([
     // Slider routes
     Route::resource('sliders', SliderController::class);
 
+    // Partner routes
+    Route::resource('partners', PartnerController::class);
+
     // User routes
     Route::resource('users', UserController::class);
 
