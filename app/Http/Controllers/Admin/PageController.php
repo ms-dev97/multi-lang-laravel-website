@@ -107,7 +107,7 @@ class PageController extends Controller implements HasMiddleware
             }
 
             DB::rollBack();
-dd($th);
+
             return back()->with('error', 'حدث خطأ غير متوقع! حاول مرة اخرى.');
         }
     }
@@ -115,9 +115,15 @@ dd($th);
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Page $page)
     {
-        //
+        $langs = config('translatable.locales');
+        $currentLang = request()->lang ?? env('APP_LOCALE');
+        $pageTrans = $page->translate($currentLang);
+
+        if ($pageTrans == null) abort(404);
+
+        return view('admin.pages.show', compact('page', 'pageTrans', 'langs', 'currentLang'));
     }
 
     /**
