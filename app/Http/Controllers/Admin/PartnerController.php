@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\AdminHelpers;
 use App\Http\Controllers\Controller;
 use App\Models\Partner;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\DB;
 
 class PartnerController extends Controller implements HasMiddleware
 {
@@ -57,7 +59,45 @@ class PartnerController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'image' => ['required', 'image', 'max:2000'],
+            'link' => ['nullable', 'url'],
+            'order' => ['nullable', 'numeric', 'integer'],
+        ]);
+
+        $lang = $request->lang ?? env('APP_LOCALE');
+        $imagePath = null;
+
+        DB::beginTransaction();
+
+        try {
+            if ($request->has('image')) {
+                $imagePath = $request->file('image')->store(self::Model_Directory);
+            }
+
+            Partner::create([
+                'image' => $imagePath,
+                'order' => $validated['order'] ?? 0,
+                'link' => $validated['link'],
+                'status' => $request->has('status') ? true : false,
+                $lang => [
+                    'name' => $validated['name']
+                ],
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('admin.partners.index', ['lang' => $lang])->with('success', 'تمت الاضافة بنجاح');
+        } catch (\Throwable $th) {
+            if (!is_null($imagePath)) {
+                AdminHelpers::removeModelImage($imagePath);
+            }
+
+            DB::rollBack();
+
+            return back()->with('error', 'حدث خطأ غير متوقع! حاول مرة اخرى.');
+        }
     }
 
     /**
