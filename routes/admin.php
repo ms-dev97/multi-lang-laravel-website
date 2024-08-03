@@ -48,6 +48,9 @@ Route::group([
     Route::get('stories/search', 'StoryController@search')->name('stories.search');
     Route::resource('stories', StoryController::class);
 
+    // Slider routes
+    Route::resource('sliders', SliderController::class);
+
     // User routes
     Route::resource('users', UserController::class);
 
