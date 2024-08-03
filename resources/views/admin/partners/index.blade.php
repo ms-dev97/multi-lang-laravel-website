@@ -91,7 +91,7 @@
                                             <dialog class="delete-confirm dialog" id="delete-confirm-{{ $item->id }}">
                                                 <div class="dialog-header">تأكيد الحذف</div>
                                                 <div class="dialog-body">
-                                                    هل أنت متأكد من أنك تريد حذف  "{{ $item->translate($currentLang)->title }}"؟
+                                                    هل أنت متأكد من أنك تريد حذف  "{{ $item->translate($currentLang)->name }}"؟
                                                 </div>
                                                 <div class="dialog-footer">
                                                     <form action="{{ route('admin.partners.destroy', $item) }}" method="post">
