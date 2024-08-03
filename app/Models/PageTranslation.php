@@ -9,6 +9,6 @@ class PageTranslation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'excerpt', 'body'];
+    protected $fillable = ['name', 'excerpt', 'body'];
     public $timestamps = false;
 }
