@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => 'إضافة سلايد | لوحة التحكم'
+    'title' => 'إضافة صفحة | لوحة التحكم'
 ])
 
 @section('main')
@@ -29,10 +29,10 @@
     <div class="card">
         <div class="card-header">
             <div class="flex justify-content-between align-items-center g-1rem">
-                <div class="card-title">إضافة سلايد</div>
-                <a href="{{ route('admin.sliders.index') }}" class="ms-auto">عودة</a>
+                <div class="card-title">إضافة صفحة</div>
+                <a href="{{ route('admin.pages.index') }}" class="ms-auto">عودة</a>
                 <button type="submit" class="btn btn-fill btn-primary" form="create">
-                    حفظ السلايد
+                    حفظ الصفحة
                 </button>
             </div>
         </div>
@@ -46,7 +46,7 @@
         @endif
 
         <div class="card-body">
-            <form action="{{ route('admin.sliders.store') }}" method="POST" id="create" class="main-form" enctype="multipart/form-data">
+            <form action="{{ route('admin.pages.store') }}" method="POST" id="create" class="main-form" enctype="multipart/form-data">
                 @csrf
                 <select class="lang-select form-control" name="lang" id="lang">
                     @foreach ($langs as $lang)
@@ -59,18 +59,23 @@
                 <div class="input-half">
                     @include('admin.partials.text-input', [
                         'type' => 'text',
-                        'name' => 'title',
-                        'id' => 'title',
-                        'label' => 'العنوان',
-                        'placeholder' => 'العنوان',
+                        'name' => 'name',
+                        'id' => 'name',
+                        'label' => 'الاسم',
+                        'placeholder' => 'الاسم',
                         'required' => true,
-                        'value' => old('title')
+                        'value' => old('name')
                     ])
 
-                    <div class="form-group">
-                        <label for="order">الترتيب</label>
-                        <input type="number" name="order" id="order" class="form-control" min="0" value="0" placeholder="الترتيب">
-                    </div>
+                    @include('admin.partials.text-input', [
+                        'type' => 'text',
+                        'name' => 'slug',
+                        'id' => 'slug',
+                        'label' => 'اسم الرابط',
+                        'placeholder' => 'اسم الرابط',
+                        'required' => true,
+                        'value' => old('slug')
+                    ])
                 </div>
 
                 @include('admin.partials.image-input', [
@@ -80,12 +85,46 @@
                     'required' => false,
                 ])
 
-                <div class="form-group">
-                    <label for="slider_location">موقع السلايدر</label>
-                    <select name="slider_location" id="slider_location" class="form-control">
-                        <option value="1">الصفحة الرئيسية</option>
-                    </select>
-                </div>
+                @include('admin.partials.textarea', [
+                    'id' => 'excerpt',
+                    'name' => 'excerpt',
+                    'label' => 'الوصف المختصر',
+                    'required' => false,
+                    'value' => old('excerpt'),
+                    'placeholder' => 'ادخل الوصف المختصر'
+                ])
+
+                @include('admin.partials.rich-textarea', [
+                    'id' => 'page-body',
+                    'name' => 'body',
+                    'label' => 'المحتوى',
+                    'required' => false,
+                    'value' => old('body'),
+                    'placeholder' => 'اضف المحتوى'
+                ])
+
+                @role('super-admin')
+                    <div class="input-half">
+                        <div class="form-group">
+                            @include('admin.partials.toggle', [
+                                'name' => 'has_custom_view',
+                                'id' => 'has_custom_view',
+                                'label' => 'فيو مخصص',
+                                'checked' => true
+                            ])
+                        </div>
+
+                        @include('admin.partials.text-input', [
+                            'type' => 'text',
+                            'name' => 'view_name',
+                            'id' => 'view_name',
+                            'label' => 'اسم الفيو',
+                            'placeholder' => 'اسم الفيو',
+                            'required' => true,
+                            'value' => old('view_name')
+                        ])
+                    </div>
+                @endrole
 
                 <div class="form-group">
                     @include('admin.partials.toggle', [
@@ -97,9 +136,13 @@
                 </div>
 
                 <button type="submit" class="btn btn-fill btn-primary">
-                    حفظ السلايد
+                    حفظ الصفحة
                 </button>
             </form>
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    @include('admin.partials.scripts.rich-editor', ['direction' => 'rtl'])
+@endpush
