@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->tinyInteger('slider_location')->default(1);
             $table->string('image');
-            $table->smallInteger('order', false, true);
+            $table->smallInteger('order', false, true)->default(0);
             $table->boolean('status')->default(true);
             $table->timestamps();
             $table->softDeletes();
