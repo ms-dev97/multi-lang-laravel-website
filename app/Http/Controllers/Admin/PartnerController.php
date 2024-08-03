@@ -103,9 +103,15 @@ class PartnerController extends Controller implements HasMiddleware
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Partner $partner)
     {
-        //
+        $langs = config('translatable.locales');
+        $currentLang = request()->lang ?? env('APP_LOCALE');
+        $partnerTrans = $partner->translate($currentLang);
+
+        if ($partnerTrans == null) abort(404);
+
+        return view('admin.partners.show', compact('partner', 'partnerTrans', 'langs', 'currentLang'));
     }
 
     /**
