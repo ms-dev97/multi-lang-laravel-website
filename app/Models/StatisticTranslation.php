@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class StatisticTranslation extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name'];
+    public $timestamps = false;
 }
