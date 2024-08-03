@@ -129,9 +129,12 @@ class PageController extends Controller implements HasMiddleware
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Page $page)
     {
-        //
+        $langs = config('translatable.locales');
+        $currentLang = request()->lang ?? env('APP_LOCALE');
+
+        return view('admin.pages.edit', compact('langs', 'currentLang', 'page'));
     }
 
     /**
