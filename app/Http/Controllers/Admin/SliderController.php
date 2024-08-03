@@ -84,7 +84,7 @@ class SliderController extends Controller implements HasMiddleware
 
             Slider::create([
                 'image' => $imagePath,
-                'order' => $validated['order'],
+                'order' => $validated['order'] ?? 0,
                 'slider_location' => $validated['slider_location'] ?? 1,
                 'status' => $request->has('status') ? true : false,
                 $lang => [
@@ -134,9 +134,55 @@ class SliderController extends Controller implements HasMiddleware
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Slider $slider)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'image' => ['nullable', 'image', 'max:2000'],
+            'order' => ['nullable', 'numeric', 'integer'],
+            'slider_location' => ['nullable', 'integer'],
+        ]);
+
+        $lang = $request->lang ?? env('APP_LOCALE');
+        $imagePath = $slider->image;
+        $newImagePath = null;
+
+        DB::beginTransaction();
+
+        try {
+            if ($request->hasFile('image')) {
+                $newImagePath = self::Model_Directory . '/' . Str::random(20) . '.' . $request->file('image')->getClientOriginalExtension();
+                $optimizedImg = Image::read($request->file('image'))->encode(new AutoEncoder(quality: 90));
+                Storage::disk('public')->put($newImagePath, $optimizedImg);
+            }
+
+            $slider->update([
+                'image' => $newImagePath ?? $imagePath,
+                'order' => $validated['order'] ?? 0,
+                'slider_location' => $validated['slider_location'] ?? 1,
+                'status' => $request->has('status') ? true : false,
+                $lang => [
+                    'title' => $validated['title'],
+                ],
+            ]);
+
+            if (!is_null($newImagePath) && !is_null($imagePath)) {
+                // Make sure to delete old images before commiting and after saving new images if there are no errors
+                AdminHelpers::removeModelImage($imagePath);
+            }
+
+            DB::commit();
+
+            return redirect()->route('admin.sliders.index', ['lang' => $lang])->with('success', 'تم التعديل بنجاح');
+        } catch (\Throwable $th) {
+            if (!is_null($newImagePath)) {
+                AdminHelpers::removeModelImage($newImagePath);
+            }
+
+            DB::rollBack();
+
+            return back()->with('error', 'حدث خطأ غير متوقع! حاول مرة اخرى.');
+        }
     }
 
     /**
