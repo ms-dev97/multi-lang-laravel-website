@@ -65,7 +65,7 @@
                                 <td>{{ $item->translate($currentLang)->name }}</td>
 
                                 <td>
-                                    <img class="table-preview" src="{{ asset('storage/' . $item->image) }}" alt="">
+                                    <img class="table-preview" src="{{ asset('storage/' . $item->icon) }}" alt="">
                                 </td>
 
                                 <td>{{ $item->order }}</td>
