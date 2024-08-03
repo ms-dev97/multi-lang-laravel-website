@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('image');
             $table->string('link');
+            $table->smallInteger('order', false, true)->default(0);
             $table->boolean('status')->default(true);
-            $table->boolean('featured')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });
