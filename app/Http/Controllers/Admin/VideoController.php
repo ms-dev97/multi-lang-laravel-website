@@ -64,6 +64,7 @@ class VideoController extends Controller implements HasMiddleware
             'title' => 'required|string',
             'slug' => ['required', 'string', 'unique:videos,slug'],
             'link' => ['required', 'url'],
+            'image' => ['nullable', 'image', 'max:2000'],
             'excerpt' => ['nullable', 'string'],
             'body' => ['nullable', 'string'],
         ]);
@@ -134,9 +135,59 @@ class VideoController extends Controller implements HasMiddleware
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Video $video)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string',
+            'slug' => ['required', 'string', 'unique:videos,slug'],
+            'link' => ['required', 'url'],
+            'image' => ['nullable', 'image', 'max:2000'],
+            'excerpt' => ['nullable', 'string'],
+            'body' => ['nullable', 'string'],
+        ]);
+
+        $lang = $request->lang ?? env('APP_LOCALE');
+        $slug = $validated['slug'] ? $validated['slug'] : $video->slug;
+        $imagePath = $video->image;
+        $newImagePath = null;
+
+        DB::beginTransaction();
+
+        try {
+            if ($request->hasFile('image')) {
+                $newImagePath = AdminHelpers::storeModelImage($request, 'image', self::Model_Directory);
+            }
+
+            $video->update([
+                'slug' => $slug,
+                'link' => $validated['link'],
+                'image' => $newImagePath ?? $imagePath,
+                'status' => $request->has('status') ? true : false,
+                'featured' => $request->has('featured') ? true : false,
+                $lang => [
+                    'title' => $validated['title'],
+                    'excerpt' => $validated['excerpt'],
+                    'body' => $validated['body'],
+                ],
+            ]);
+
+            if (!is_null($newImagePath) && !is_null($imagePath)) {
+                // Make sure to delete old images before commiting and after saving new images if there are no errors
+                AdminHelpers::removeModelImage($imagePath);
+            }
+
+            DB::commit();
+
+            return redirect()->route('admin.videos.index', ['lang' => $lang])->with('success', 'تم التعديل بنجاح');
+        } catch (\Throwable $th) {
+            if (!is_null($newImagePath)) {
+                AdminHelpers::removeModelImage($newImagePath);
+            }
+
+            DB::rollBack();
+
+            return back()->with('error', 'حدث خطأ غير متوقع! حاول مرة اخرى.');
+        }
     }
 
     /**
