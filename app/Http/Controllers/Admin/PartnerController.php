@@ -117,9 +117,12 @@ class PartnerController extends Controller implements HasMiddleware
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Partner $partner)
     {
-        //
+        $langs = config('translatable.locales');
+        $currentLang = request()->lang ?? env('APP_LOCALE');
+
+        return view('admin.partners.edit', compact('langs', 'currentLang', 'partner'));
     }
 
     /**
