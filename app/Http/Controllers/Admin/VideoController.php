@@ -198,4 +198,16 @@ class VideoController extends Controller implements HasMiddleware
         $video->delete();
         return back()->with('success', 'تم الحذف بنجاح');
     }
+
+    /**
+     * Search for the search term
+     */
+    public function search(Request $request) {
+        $search = $request->search;
+        $currentLang = $request->lang ?? env('APP_LOCALE');
+        $langs = config('translatable.locales');
+
+        $videos = Video::latest()->whereTranslationLike('title', "%{$search}%", $currentLang)->paginate(15)->withQueryString();
+        return view('admin.videos.index', compact('videos', 'currentLang', 'langs', 'search'));
+    }
 }
