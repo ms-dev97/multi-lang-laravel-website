@@ -58,6 +58,9 @@ Route::group([
     Route::get('videos/search', 'VideoController@search')->name('videos.search');
     Route::resource('videos', VideoController::class);
 
+    // Statistics routes
+    Route::resource('statistics', StatisticsController::class);
+
     // User routes
     Route::resource('users', UserController::class);
 
