@@ -109,9 +109,15 @@ class VideoController extends Controller implements HasMiddleware
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Video $video)
     {
-        //
+        $langs = config('translatable.locales');
+        $currentLang = request()->lang ?? env('APP_LOCALE');
+        $videoTrans = $video->translate($currentLang);
+
+        if ($videoTrans == null) abort(404);
+
+        return view('admin.videos.show', compact('video', 'videoTrans', 'langs', 'currentLang'));
     }
 
     /**
