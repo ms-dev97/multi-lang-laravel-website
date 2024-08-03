@@ -110,7 +110,7 @@
                                 'name' => 'has_custom_view',
                                 'id' => 'has_custom_view',
                                 'label' => 'فيو مخصص',
-                                'checked' => true
+                                'checked' => false
                             ])
                         </div>
 
@@ -120,7 +120,7 @@
                             'id' => 'view_name',
                             'label' => 'اسم الفيو',
                             'placeholder' => 'اسم الفيو',
-                            'required' => true,
+                            'required' => false,
                             'value' => old('view_name')
                         ])
                     </div>
