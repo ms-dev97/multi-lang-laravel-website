@@ -41,7 +41,7 @@
             </div>
 
             <div class="card-navigation flex justify-content-between align-items-center">
-                <form action="{{ route('admin.programs.search') }}" class="search-form">
+                <form action="{{ route('admin.pages.search') }}" class="search-form">
                     <input type="hidden" name="lang" value="{{ $currentLang }}">
                     <input type="search" name="search" value="{{ $search ?? '' }}" class="form-control" placeholder="بحث">
                 </form>

@@ -206,4 +206,16 @@ class PageController extends Controller implements HasMiddleware
         $page->delete();
         return back()->with('success', 'تم الحذف بنجاح');
     }
+
+    /**
+     * Search for the search term
+     */
+    public function search(Request $request) {
+        $search = $request->search;
+        $currentLang = $request->lang ?? env('APP_LOCALE');
+        $langs = config('translatable.locales');
+
+        $pages = Page::latest()->whereTranslationLike('name', "%{$search}%", $currentLang)->paginate(15)->withQueryString();
+        return view('admin.pages.index', compact('pages', 'currentLang', 'langs', 'search'));
+    }
 }
