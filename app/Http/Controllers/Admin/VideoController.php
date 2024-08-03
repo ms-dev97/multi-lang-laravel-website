@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\AdminHelpers;
 use App\Http\Controllers\Controller;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class VideoController extends Controller implements HasMiddleware
 {
@@ -57,7 +60,50 @@ class VideoController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string',
+            'slug' => ['required', 'string', 'unique:videos,slug'],
+            'link' => ['required', 'url'],
+            'excerpt' => ['nullable', 'string'],
+            'body' => ['nullable', 'string'],
+        ]);
+
+        $lang = $request->lang ?? env('APP_LOCALE');
+        $slug = $validated['slug'] ? Str::slug($validated['slug'], '-') : Str::slug($validated['title'], '-');
+        $imagePath = null;
+
+        DB::beginTransaction();
+
+        try {
+            if ($request->hasFile('image')) {
+                $imagePath = AdminHelpers::storeModelImage($request, 'image', self::Model_Directory);
+            }
+
+            Video::create([
+                'slug' => $slug,
+                'link' => $validated['link'],
+                'image' => $imagePath,
+                'status' => $request->has('status') ? true : false,
+                'featured' => $request->has('featured') ? true : false,
+                $lang => [
+                    'title' => $validated['title'],
+                    'excerpt' => $validated['excerpt'],
+                    'body' => $validated['body'],
+                ],
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('admin.videos.index', ['lang' => $lang])->with('success', 'تمت الاضافة بنجاح');
+        } catch (\Throwable $th) {
+            if (!is_null($imagePath)) {
+                AdminHelpers::removeModelImage($imagePath);
+            }
+
+            DB::rollBack();
+
+            return back()->with('error', 'حدث خطأ غير متوقع! حاول مرة اخرى.');
+        }
     }
 
     /**
