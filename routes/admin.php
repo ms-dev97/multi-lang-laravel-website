@@ -61,6 +61,10 @@ Route::group([
     // Statistics routes
     Route::resource('statistics', StatisticsController::class);
 
+    // Page routes
+    Route::get('pages/search', 'PageController@search')->name('pages.search');
+    Route::resource('pages', PageController::class);
+
     // User routes
     Route::resource('users', UserController::class);
 
