@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
+            $table->string('slug')->unique();
             $table->string('image')->nullable();
             $table->string('link');
-            $table->foreignId('category_id')->constrained()->nullable();
+            $table->foreignId('category_id')->nullable()->constrained();
             $table->boolean('status')->default(true);
             $table->boolean('featured')->default(false);
             $table->timestamps();
