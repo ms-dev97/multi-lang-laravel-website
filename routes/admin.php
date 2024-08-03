@@ -54,6 +54,10 @@ Route::group([
     // Partner routes
     Route::resource('partners', PartnerController::class);
 
+    // Video routes
+    Route::get('videos/search', 'VideoController@search')->name('videos.search');
+    Route::resource('videos', VideoController::class);
+
     // User routes
     Route::resource('users', UserController::class);
 
