@@ -17,7 +17,7 @@ class AdminHelpers
      * @return string
      */
     public static function storeModelImage($req, $imageFieldName, $dirName) {
-        $randomStr = Str::random();
+        $randomStr = Str::random(20);
         $ext = $req->file($imageFieldName)->getClientOriginalExtension();
         $path = $dirName . '/' . $randomStr . '.' . $ext;
         $pathSmall = $dirName . '/' . $randomStr . '-sm.' . $ext;
