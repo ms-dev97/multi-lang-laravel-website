@@ -128,9 +128,53 @@ class PartnerController extends Controller implements HasMiddleware
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Partner $partner)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'image' => ['nullable', 'image', 'max:2000'],
+            'link' => ['nullable', 'url'],
+            'order' => ['nullable', 'numeric', 'integer'],
+        ]);
+
+        $lang = $request->lang ?? env('APP_LOCALE');
+        $imagePath = $partner->image;
+        $newImagePath = null;
+
+        DB::beginTransaction();
+
+        try {
+            if ($request->hasFile('image')) {
+                $newImagePath = $request->file('image')->store(self::Model_Directory);
+            }
+
+            $partner->update([
+                'image' => $newImagePath ?? $imagePath,
+                'order' => $validated['order'] ?? 0,
+                'link' => $validated['link'],
+                'status' => $request->has('status') ? true : false,
+                $lang => [
+                    'name' => $validated['name']
+                ],
+            ]);
+
+            if (!is_null($newImagePath) && !is_null($imagePath)) {
+                // Make sure to delete old images before commiting and after saving new images if there are no errors
+                AdminHelpers::removeModelImage($imagePath);
+            }
+
+            DB::commit();
+
+            return redirect()->route('admin.partners.index', ['lang' => $lang])->with('success', 'تم التعديل بنجاح');
+        } catch (\Throwable $th) {
+            if (!is_null($newImagePath)) {
+                AdminHelpers::removeModelImage($newImagePath);
+            }
+
+            DB::rollBack();
+
+            return back()->with('error', 'حدث خطأ غير متوقع! حاول مرة اخرى.');
+        }
     }
 
     /**
