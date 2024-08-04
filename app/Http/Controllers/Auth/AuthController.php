@@ -14,14 +14,14 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $request->has('rememberme'))) {
             $request->session()->regenerate();
  
-            return redirect()->intended('admin.dashboard');
+            return redirect()->intended();
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'البيانات المدخلة لا تتوافق مع البيانات المسجلة لدينا',
         ])->onlyInput('email');
     }
 
