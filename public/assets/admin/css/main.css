@@ -117,7 +117,7 @@ tbody tr:hover {
     background-color: var(--body-bg);
 }
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Beiruti', sans-serif;
     background-color: var(--body-bg);
     color: var(--text-primary);
     padding: 0;
@@ -505,6 +505,7 @@ dialog::backdrop {
     width: 200px;
     padding: 1.25rem 0;
     background-color: var(--card-bg);
+    overflow: auto;
 }
 .sidebar-item {
     display: flex;
@@ -527,6 +528,9 @@ dialog::backdrop {
 .sidebar-item .icon > svg {
     display: block;
 }
+.sidebar .dropdown {
+    cursor: pointer;
+}
 .sidebar .dropdown-arrow {
     margin-inline-start: auto;
     width: 16px;
@@ -535,6 +539,12 @@ dialog::backdrop {
 }
 .sidebar .dropdown[open] .dropdown-arrow {
     transform: rotate(0);
+}
+.sidebar .dropdown-menu {
+    background-color: var(--body-bg);
+}
+.sidebar .dropdown-menu .sidebar-item {
+    padding-inline-start: calc(1.25rem + 10px);
 }
 /*----------- End Sidebar -----------*/
 
