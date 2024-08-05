@@ -37,7 +37,11 @@ class AnnouncementController extends Controller implements HasMiddleware
     {
         $currentLang = request()->lang ?? env('APP_LOCALE');
         $langs = config('translatable.locales');
-        $announcements = Announcement::latest()->with(['translations', 'category'])->translatedIn($currentLang)->paginate(10)->withQueryString();
+        $announcements = Announcement::latest()
+            ->with(['translations', 'category'])
+            ->translatedIn($currentLang)
+            ->paginate(15)
+            ->withQueryString();
 
         return view('admin.announcements.index', compact('announcements', 'currentLang', 'langs'));
     }
@@ -60,7 +64,7 @@ class AnnouncementController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required',
+            'title' => 'required|string',
             'image' => ['nullable', 'image', 'max:2000'],
             'file' => ['file', 'max:2000'],
             'apply_link' => ['nullable', 'url'],
@@ -173,8 +177,8 @@ class AnnouncementController extends Controller implements HasMiddleware
             $announcement->update([
                 'status' => $request->has('status') ? true : false,
                 'featured' => $request->has('featured') ? true : false,
-                'image' => $newImagePath,
-                'file' => $newFilePath,
+                'image' => $newImagePath ?? $imagePath,
+                'file' => $newFilePath ?? $filePath,
                 'apply_link' => $request->apply_link,
                 'ad_category_id' =>  $request->has('ad_category_id') ? $request->ad_category_id : null,
                 $lang => [

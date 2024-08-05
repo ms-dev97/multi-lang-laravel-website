@@ -32,7 +32,11 @@ class AnnouncementCategoryController extends Controller implements HasMiddleware
     public function index()
     {
         $lang = request()->lang ?? env('APP_LOCALE');
-        $categories = AnnouncementCategory::latest()->with('translations')->translatedIn($lang)->paginate(15)->withQueryString();
+        $categories = AnnouncementCategory::latest()
+            ->with('translations')
+            ->translatedIn($lang)
+            ->paginate(15)
+            ->withQueryString();
 
         return view('admin.announcements_cats.index', compact('categories', 'lang'));
     }
@@ -52,8 +56,8 @@ class AnnouncementCategoryController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required',
-            'slug' => ['nullable', 'string', 'unique:ad_categories,slug'],
+            'title' => 'required|string',
+            'slug' => ['required', 'string', 'unique:ad_categories,slug'],
         ]);
         
         $lang = $request->lang ?? env('APP_LOCALE');
@@ -89,7 +93,7 @@ class AnnouncementCategoryController extends Controller implements HasMiddleware
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, AnnouncementCategory $announcementCategory)
+    public function edit(AnnouncementCategory $announcementCategory)
     {
         $category = $announcementCategory;
         $langs = config('translatable.locales');
@@ -104,12 +108,12 @@ class AnnouncementCategoryController extends Controller implements HasMiddleware
     public function update(Request $request, AnnouncementCategory $announcementCategory)
     {
         $validated = $request->validate([
-            'title' => 'required',
-            'slug' => ['nullable', 'string', Rule::unique('ad_categories')->ignore($announcementCategory->id)],
+            'title' => 'required|string',
+            'slug' => ['required', 'string', Rule::unique('ad_categories')->ignore($announcementCategory->id)],
         ]);
         
         $lang = $request->lang ?? env('APP_LOCALE');
-        $slug = $validated['slug'] ? $validated['slug'] : $announcementCategory->slug;
+        $slug = $validated['slug'] ? Str::slug($validated['slug'], '-') : $announcementCategory->slug;
 
         $announcementCategory->update([
             'slug' => $slug,
