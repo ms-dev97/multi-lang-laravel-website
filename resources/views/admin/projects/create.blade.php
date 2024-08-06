@@ -108,7 +108,7 @@
                     <label for="program_id">البرنامج</label>
                     <select name="program_id" id="program_id" class="form-control" multiple>
                         @foreach ($programs as $program)
-                            <option value="{{ $programs->id }}">{{ $program->translate($currentLang)?->title }}</option>
+                            <option value="{{ $program->id }}">{{ $program->translate($currentLang)?->title }}</option>
                         @endforeach
                     </select>
                 </div>
