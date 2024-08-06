@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->string('slug')->unique();
-            $table->string('path');
+            $table->string('path')->nullable();
             $table->string('link')->nullable();
             $table->boolean('get_from_link')->default(false);
             $table->string('image')->nullable();
