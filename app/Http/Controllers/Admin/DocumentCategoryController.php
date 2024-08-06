@@ -32,7 +32,11 @@ class DocumentCategoryController extends Controller implements HasMiddleware
     public function index()
     {
         $lang = request()->lang ?? env('APP_LOCALE');
-        $categories = DocumentCategory::latest()->with('translations')->translatedIn($lang)->paginate(15)->withQueryString();
+        $categories = DocumentCategory::latest()
+            ->with('translations')
+            ->translatedIn($lang)
+            ->paginate(15)
+            ->withQueryString();
 
         return view('admin.document_cats.index', compact('categories', 'lang'));
     }
@@ -52,8 +56,8 @@ class DocumentCategoryController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required',
-            'slug' => ['nullable', 'string', 'unique:document_categories,slug'],
+            'title' => 'required|string',
+            'slug' => ['required', 'string', 'unique:document_categories,slug'],
         ]);
         
         $lang = $request->lang ?? env('APP_LOCALE');
@@ -104,12 +108,12 @@ class DocumentCategoryController extends Controller implements HasMiddleware
     public function update(Request $request, DocumentCategory $documentCategory)
     {
         $validated = $request->validate([
-            'title' => 'required',
-            'slug' => ['nullable', 'string', Rule::unique('ad_categories')->ignore($documentCategory->id)],
+            'title' => 'required|string',
+            'slug' => ['required', 'string', Rule::unique('document_categories')->ignore($documentCategory->id)],
         ]);
         
         $lang = $request->lang ?? env('APP_LOCALE');
-        $slug = $validated['slug'] ? $validated['slug'] : $documentCategory->slug;
+        $slug = $validated['slug'] ? Str::slug($validated['slug'], '-') : $documentCategory->slug;
 
         $documentCategory->update([
             'slug' => $slug,

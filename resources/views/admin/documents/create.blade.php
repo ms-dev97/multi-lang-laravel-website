@@ -87,14 +87,23 @@
                     ])
                 </div>
 
-                <div class="form-group file-upload">
-                    <label for="file">رفع ملف</label>
-                    <input type="file" name="file" id="file" class="form-control @error('file') is-invalid @enderror" accept="application/pdf">
-                    @error('file')
-                        <div class="input-invalid">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                <div class="file-upload">
+                    <div class="form-group">
+                        <label for="file">رفع ملف</label>
+                        <input type="file" name="file" id="file" class="form-control @error('file') is-invalid @enderror" accept="application/pdf">
+                        @error('file')
+                            <div class="input-invalid">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                    @include('admin.partials.toggle', [
+                        'name' => 'img_from_pdf',
+                        'id' => 'img_from_pdf',
+                        'label' =>  'جلب الصورة من الـ PDF',
+                        'checked' => true
+                    ])
                 </div>
 
                 <div class="external-link">
@@ -108,6 +117,13 @@
                         'value' => old('link')
                     ])
                 </div>
+
+                @include('admin.partials.image-input', [
+                    'id' => 'image',
+                    'name' => 'image',
+                    'label' => 'اختر صورة',
+                    'required' => false  
+                ])
 
                 @include('admin.partials.textarea', [
                     'id' => 'excerpt',
@@ -167,6 +183,15 @@
         .external-link {
             display: none;
         }
+        .file-upload {
+            margin-bottom: 10px;
+        }
+        label[for="get_from_link"] {
+            margin-bottom: 0;
+        }
+        .form-group:has(label[for="get_from_link"]) {
+            margin-bottom: 10px;
+        }
     </style>
     <link href="{{ asset('assets/admin/css/select2.min.css') }}" rel="stylesheet" />
 @endpush
@@ -187,6 +212,8 @@
         const linkFileToggle = document.getElementById('get_from_link');
         const fileUpload = document.querySelector('.file-upload');
         const externalLink = document.querySelector('.external-link');
+        const getImgFromPDF = document.getElementById('img_from_pdf');
+        const PDFImage = document.getElementById('image');
 
         function toggleFileLink() {
             if (linkFileToggle.checked) {
@@ -194,15 +221,31 @@
                 fileUpload.style.display = 'none';
                 externalLink.querySelector('input[name="link"]').required =  true;
                 fileUpload.querySelector('input[name="file"]').required =  false;
+
+                getImgFromPDF.checked = false;
+                PDFImage.removeAttribute('disabled');
             } else {
                 externalLink.style.display = 'none';
                 fileUpload.style.display = 'block';
                 externalLink.querySelector('input[name="link"]').required =  false;
                 fileUpload.querySelector('input[name="file"]').required =  true;
+
+                // Get image from PDF or not
+                getImgFromPDF.checked = true;
+                PDFImage.setAttribute('disabled', true);
             }
         }
 
         document.addEventListener('DOMContentLoaded', toggleFileLink);
         linkFileToggle.addEventListener('change', toggleFileLink);
+
+        // Get image from PDF or not
+        getImgFromPDF.addEventListener('change', function() {
+            if (this.checked) {
+                PDFImage.setAttribute('disabled', true);
+            } else {
+                PDFImage.removeAttribute('disabled');
+            }
+        });
     </script>
 @endpush
