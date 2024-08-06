@@ -176,7 +176,7 @@ class DocumentController extends Controller implements HasMiddleware
 
         $lang = $request->lang ?? env('APP_LOCALE');
         $slug = $validated['slug'] ? Str::slug($validated['slug'], '-') : $document->slug;
-        $filePath = $document->file;
+        $filePath = $document->path;
         $imagePath = $document->image;
         $newFilePath = null;
         $newImagePath = null;
@@ -186,8 +186,21 @@ class DocumentController extends Controller implements HasMiddleware
         try {
             if (!$request->has('get_from_link') && $request->has('file')) {
                 $newFilePath = $request->file('file')->store(self::Model_Directory);
+            }
 
+            // Get image from new PDF
+            if ($request->has('img_from_pdf') && !is_null($newFilePath)) {
                 $newImagePath = AdminHelpers::convertPDFtoJPG(self::Model_Directory, $newFilePath);
+            }
+
+            // Get image from old PDF
+            if ($request->has('img_from_pdf') && is_null($newFilePath) && !is_null($filePath)) {
+                $newImagePath = AdminHelpers::convertPDFtoJPG(self::Model_Directory, $filePath);
+            }
+
+            // Get image from input
+            if (!$request->has('img_from_pdf') && $request->has('image')) {
+                $newImagePath = AdminHelpers::storeModelImage($request, 'image', self::Model_Directory);
             }
 
             $document->update([
@@ -197,7 +210,7 @@ class DocumentController extends Controller implements HasMiddleware
                 'get_from_link' => $request->has('get_from_link') ? true : false,
                 'image' => $newImagePath ?? $imagePath,
                 'path' => $newFilePath ?? $filePath,
-                'link' => $validated['link'],
+                'link' => $request->link,
                 'document_category_id' => $request->category_id,
                 $lang => [
                     'title' => $validated['title'],

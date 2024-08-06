@@ -86,14 +86,27 @@
                     ])
                 </div>
 
-                <div class="form-group file-upload">
-                    <label for="file">رفع ملف</label>
-                    <input type="file" name="file" id="file" class="form-control @error('file') is-invalid @enderror" accept="application/pdf">
-                    @error('file')
-                        <div class="input-invalid">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                <div class="file-upload">
+                    <div class="form-group">
+                        <label for="file">رفع ملف</label>
+                        <input type="file" name="file" id="file" class="form-control @error('file') is-invalid @enderror" accept="application/pdf">
+                        @if ($document->path)
+                            <a class="uploaded-file-link" href="{{ asset('storage/'.$document->path) }}" target="_blank">الملف</a>
+                        @endif
+
+                        @error('file')
+                            <div class="input-invalid">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                    @include('admin.partials.toggle', [
+                        'name' => 'img_from_pdf',
+                        'id' => 'img_from_pdf',
+                        'label' =>  'جلب الصورة من الـ PDF',
+                        'checked' => false
+                    ])
                 </div>
 
                 <div class="external-link">
@@ -107,6 +120,14 @@
                         'value' => old('link') ?? $document->link
                     ])
                 </div>
+
+                @include('admin.partials.image-input', [
+                    'id' => 'image',
+                    'name' => 'image',
+                    'label' => 'اختر صورة',
+                    'required' => false,
+                    'src' => asset('storage/'.$document->image)
+                ])
 
                 @include('admin.partials.textarea', [
                     'id' => 'excerpt',
@@ -168,6 +189,21 @@
         .external-link {
             display: none;
         }
+        .file-upload {
+            margin-bottom: 10px;
+        }
+        label[for="get_from_link"] {
+            margin-bottom: 0;
+        }
+        .form-group:has(label[for="get_from_link"]) {
+            margin-bottom: 10px;
+        }
+        .uploaded-file-link {
+            font-size: 0.875rem;
+            text-decoration: underline;
+            color: blue;
+            margin-top: 3px;
+        }
     </style>
     <link href="{{ asset('assets/admin/css/select2.min.css') }}" rel="stylesheet" />
 @endpush
@@ -188,22 +224,34 @@
         const linkFileToggle = document.getElementById('get_from_link');
         const fileUpload = document.querySelector('.file-upload');
         const externalLink = document.querySelector('.external-link');
+        const getImgFromPDF = document.getElementById('img_from_pdf');
+        const PDFImage = document.getElementById('image');
 
         function toggleFileLink() {
             if (linkFileToggle.checked) {
                 externalLink.style.display = 'block';
                 fileUpload.style.display = 'none';
                 externalLink.querySelector('input[name="link"]').required =  true;
-                fileUpload.querySelector('input[name="file"]').required =  false;
+
+                getImgFromPDF.checked = false;
+                PDFImage.removeAttribute('disabled');
             } else {
                 externalLink.style.display = 'none';
                 fileUpload.style.display = 'block';
                 externalLink.querySelector('input[name="link"]').required =  false;
-                fileUpload.querySelector('input[name="file"]').required =  true;
             }
         }
 
         document.addEventListener('DOMContentLoaded', toggleFileLink);
         linkFileToggle.addEventListener('change', toggleFileLink);
+
+        // Get image from PDF or not
+        getImgFromPDF.addEventListener('change', function() {
+            if (this.checked) {
+                PDFImage.setAttribute('disabled', true);
+            } else {
+                PDFImage.removeAttribute('disabled');
+            }
+        });
     </script>
 @endpush

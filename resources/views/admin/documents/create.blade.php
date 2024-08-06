@@ -29,7 +29,7 @@
     <div class="card">
         <div class="card-header">
             <div class="flex justify-content-between align-items-center g-1rem">
-                <div class="card-title">إضافة وثيقة</div>
+                <div class="card-title">إضافة مستند</div>
                 <a href="{{ route('admin.documents.index') }}" class="ms-auto">عودة</a>
                 <button class="btn btn-fill btn-primary" form="create">
                     إضافة
