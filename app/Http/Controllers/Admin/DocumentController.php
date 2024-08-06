@@ -38,7 +38,11 @@ class DocumentController extends Controller implements HasMiddleware
     {
         $currentLang = request()->lang ?? env('APP_LOCALE');
         $langs = config('translatable.locales');
-        $documents = Document::latest()->with(['translations', 'category'])->translatedIn($currentLang)->paginate(10)->withQueryString();
+        $documents = Document::latest()
+            ->with(['translations', 'category'])
+            ->translatedIn($currentLang)
+            ->paginate(10)
+            ->withQueryString();
 
         return view('admin.documents.index', compact('documents', 'currentLang', 'langs'));
     }
@@ -61,10 +65,11 @@ class DocumentController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required',
-            'slug' => ['nullable', 'string', 'unique:documents,slug'],
+            'title' => 'required|string',
+            'slug' => ['required', 'string', 'unique:documents,slug'],
             'file' => ['exclude_with:get_from_link', 'required', 'file'],
             'link' => ['exclude_without:get_from_link', 'required', 'url'],
+            'image' => ['nullable', 'image', 'max:2000'],
             'excerpt' => ['nullable', 'string'],
             'body' => ['nullable', 'string'],
         ]);
@@ -80,8 +85,16 @@ class DocumentController extends Controller implements HasMiddleware
         try {
             if (!$request->has('get_from_link') && $request->has('file')) {
                 $filePath = $request->file('file')->store(self::Model_Directory);
+            }
 
+            // Get image from PDF
+            if ($request->has('img_from_pdf') && !is_null($filePath)) {
                 $imagePath = AdminHelpers::convertPDFtoJPG(self::Model_Directory, $filePath);
+            }
+
+            // Get image from input
+            if (!$request->has('img_from_pdf') && $request->has('image')) {
+                $imagePath = AdminHelpers::storeModelImage($request, 'image', self::Model_Directory);
             }
 
             $document = Document::create([
@@ -139,7 +152,10 @@ class DocumentController extends Controller implements HasMiddleware
     {
         $langs = config('translatable.locales');
         $currentLang = request()->lang ?? env('APP_LOCALE');
-        $categories = DocumentCategory::active()->translatedIn($currentLang)->with('translations')->latest()->get();
+        $categories = DocumentCategory::active()
+            ->with('translations')
+            ->latest()
+            ->get();
 
         return view('admin.documents.edit', compact('langs', 'currentLang', 'document', 'categories'));
     }
@@ -151,7 +167,7 @@ class DocumentController extends Controller implements HasMiddleware
     {
         $validated = $request->validate([
             'title' => 'required',
-            'slug' => ['nullable', 'string', Rule::unique('documents')->ignore($document->id)],
+            'slug' => ['required', 'string', Rule::unique('documents')->ignore($document->id)],
             'file' => ['exclude_with:get_from_link', 'nullable', 'file'],
             'link' => ['exclude_without:get_from_link', 'required', 'url'],
             'excerpt' => ['nullable', 'string'],
@@ -159,7 +175,7 @@ class DocumentController extends Controller implements HasMiddleware
         ]);
 
         $lang = $request->lang ?? env('APP_LOCALE');
-        $slug = $validated['slug'] ? $validated['slug'] : $document->slug;
+        $slug = $validated['slug'] ? Str::slug($validated['slug'], '-') : $document->slug;
         $filePath = $document->file;
         $imagePath = $document->image;
         $newFilePath = null;
@@ -181,8 +197,8 @@ class DocumentController extends Controller implements HasMiddleware
                 'get_from_link' => $request->has('get_from_link') ? true : false,
                 'image' => $newImagePath ?? $imagePath,
                 'path' => $newFilePath ?? $filePath,
-                'link' => $request->has('get_from_link') ? $validated['link'] : $document->link,
-                'document_category_id' => $request->category_id ?? $document->category_id,
+                'link' => $validated['link'],
+                'document_category_id' => $request->category_id,
                 $lang => [
                     'title' => $validated['title'],
                     'excerpt' => $validated['excerpt'],
@@ -235,7 +251,10 @@ class DocumentController extends Controller implements HasMiddleware
         $currentLang = $request->lang ?? env('APP_LOCALE');
         $langs = config('translatable.locales');
 
-        $documents = Document::latest()->whereTranslationLike('title', "%{$search}%", $currentLang)->paginate(15)->withQueryString();
+        $documents = Document::latest()
+            ->whereTranslationLike('title', "%{$search}%", $currentLang)
+            ->paginate(15)
+            ->withQueryString();
         return view('admin.documents.index', compact('documents', 'currentLang', 'langs', 'search'));
     }
 }
