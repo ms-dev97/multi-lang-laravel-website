@@ -72,6 +72,11 @@ input[type="file"] {
     max-width: 400px;
     padding-inline-start: 0;
     font-size: 0.875rem;
+    cursor: pointer;
+}
+input[type="file"]:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
 }
 input[type="file"]::file-selector-button {
     font: inherit;
