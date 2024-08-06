@@ -180,7 +180,7 @@ class AnnouncementController extends Controller implements HasMiddleware
                 'image' => $newImagePath ?? $imagePath,
                 'file' => $newFilePath ?? $filePath,
                 'apply_link' => $request->apply_link,
-                'ad_category_id' =>  $request->has('ad_category_id') ? $request->ad_category_id : null,
+                'ad_category_id' =>  $request->ad_category_id,
                 $lang => [
                     'title' => $validated['title'],
                     'excerpt' => $validated['excerpt'],

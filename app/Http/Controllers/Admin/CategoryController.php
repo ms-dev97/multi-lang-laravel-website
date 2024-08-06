@@ -31,7 +31,11 @@ class CategoryController extends Controller implements HasMiddleware
     public function index()
     {
         $lang = request()->lang ?? env('APP_LOCALE');
-        $categories = Category::latest()->with('translations')->translatedIn($lang)->paginate(15)->withQueryString();
+        $categories = Category::latest()
+            ->with('translations')
+            ->translatedIn($lang)
+            ->paginate(15)
+            ->withQueryString();
 
         return view('admin.categories.index', compact('categories', 'lang'));
     }
@@ -51,8 +55,8 @@ class CategoryController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required',
-            'slug' => ['nullable', 'string']
+            'title' => 'required|string',
+            'slug' => ['required', 'string']
         ]);
         
         $lang = $request->lang ?? env('APP_LOCALE');
@@ -67,7 +71,7 @@ class CategoryController extends Controller implements HasMiddleware
             ]
         ]);
 
-        return redirect()->route('admin.categories.show', [$category, 'lang' => $lang])->with('success', 'تمت الاضافة بنجاح');
+        return redirect()->route('admin.categories.index')->with('success', 'تمت الاضافة بنجاح');
     }
 
     /**
@@ -87,7 +91,7 @@ class CategoryController extends Controller implements HasMiddleware
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, Category $category)
+    public function edit(Category $category)
     {
         $langs = config('translatable.locales');
         $currentLang = request()->lang ?? env('APP_LOCALE');
@@ -101,12 +105,12 @@ class CategoryController extends Controller implements HasMiddleware
     public function update(Request $request, Category $category)
     {
         $validated = $request->validate([
-            'title' => 'required',
-            'slug' => ['nullable', 'string']
+            'title' => 'required|string',
+            'slug' => ['required', 'string']
         ]);
         
         $lang = $request->lang ?? env('APP_LOCALE');
-        $slug = $validated['slug'] ? $validated['slug'] : $category->slug;
+        $slug = $validated['slug'] ? Str::slug($validated['slug'], '-') : $category->slug;
 
         $category->update([
             'slug' => $slug,
@@ -117,7 +121,7 @@ class CategoryController extends Controller implements HasMiddleware
             ]
         ]);
 
-        return redirect()->route('admin.categories.show', [$category, 'lang' => $lang])->with('success', 'تمت الاضافة بنجاح');
+        return redirect()->route('admin.categories.index')->with('success', 'تمت الاضافة بنجاح');
     }
 
     /**
