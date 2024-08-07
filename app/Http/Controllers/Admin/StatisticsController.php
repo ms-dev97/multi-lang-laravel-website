@@ -37,7 +37,7 @@ class StatisticsController extends Controller implements HasMiddleware
         $langs = config('translatable.locales');
         $statistics = Statistic::latest()
             ->with('translations')
-            ->translatedIn($currentLang)->paginate(10)
+            ->translatedIn($currentLang)->paginate(15)
             ->withQueryString();
 
         return view('admin.statistics.index', compact('statistics', 'currentLang', 'langs'));

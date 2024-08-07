@@ -37,7 +37,7 @@ class PartnerController extends Controller implements HasMiddleware
         $langs = config('translatable.locales');
         $partners = Partner::latest()
             ->with('translations')
-            ->translatedIn($currentLang)->paginate(10)
+            ->translatedIn($currentLang)->paginate(15)
             ->withQueryString();
 
         return view('admin.partners.index', compact('partners', 'currentLang', 'langs'));

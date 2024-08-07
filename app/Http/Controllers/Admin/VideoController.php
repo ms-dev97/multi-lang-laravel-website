@@ -10,6 +10,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class VideoController extends Controller implements HasMiddleware
 {
@@ -38,7 +39,7 @@ class VideoController extends Controller implements HasMiddleware
         $langs = config('translatable.locales');
         $videos = Video::latest()
             ->with('translations')
-            ->translatedIn($currentLang)->paginate(10)
+            ->translatedIn($currentLang)->paginate(15)
             ->withQueryString();
 
         return view('admin.videos.index', compact('videos', 'currentLang', 'langs'));
@@ -139,7 +140,7 @@ class VideoController extends Controller implements HasMiddleware
     {
         $validated = $request->validate([
             'title' => 'required|string',
-            'slug' => ['required', 'string', 'unique:videos,slug'],
+            'slug' => ['required', 'string', Rule::unique('videos')->ignore($video->id)],
             'link' => ['required', 'url'],
             'image' => ['nullable', 'image', 'max:2000'],
             'excerpt' => ['nullable', 'string'],
@@ -147,7 +148,7 @@ class VideoController extends Controller implements HasMiddleware
         ]);
 
         $lang = $request->lang ?? env('APP_LOCALE');
-        $slug = $validated['slug'] ? $validated['slug'] : $video->slug;
+        $slug = $validated['slug'] ? Str::slug($validated['slug'], '-') : $video->slug;
         $imagePath = $video->image;
         $newImagePath = null;
 
@@ -207,7 +208,11 @@ class VideoController extends Controller implements HasMiddleware
         $currentLang = $request->lang ?? env('APP_LOCALE');
         $langs = config('translatable.locales');
 
-        $videos = Video::latest()->whereTranslationLike('title', "%{$search}%", $currentLang)->paginate(15)->withQueryString();
+        $videos = Video::latest()
+            ->whereTranslationLike('title', "%{$search}%", $currentLang)
+            ->paginate(15)
+            ->withQueryString();
+
         return view('admin.videos.index', compact('videos', 'currentLang', 'langs', 'search'));
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use \Intervention\Image\Encoders\AutoEncoder;
 use App\Exports\NewsExport;
 use App\Helpers\AdminHelpers;
 use App\Http\Controllers\Controller;
@@ -13,15 +12,13 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Intervention\Image\Laravel\Facades\Image;
 use Maatwebsite\Excel\Facades\Excel;
 
 class NewsController extends Controller implements HasMiddleware
 {
-    private $modelDirectory = 'news';
+    const Model_Directory = 'news';
 
     /**
      * Get the middleware that should be assigned to the controller.
@@ -30,11 +27,9 @@ class NewsController extends Controller implements HasMiddleware
     {
         return [
             new Middleware('can:browse-news', only: ['index']),
-            new Middleware('can:add-news', only: ['create']),
-            new Middleware('can:add-news', only: ['store']),
+            new Middleware('can:add-news', only: ['create', 'store']),
             new Middleware('can:read-news', only: ['show']),
-            new Middleware('can:edit-news', only: ['edit']),
-            new Middleware('can:edit-news', only: ['update']),
+            new Middleware('can:edit-news', only: ['edit', 'update']),
             new Middleware('can:delete-news', only: ['destroy']),
         ];
     }
@@ -45,7 +40,11 @@ class NewsController extends Controller implements HasMiddleware
     public function index() {
         $currentLang = request()->lang ?? env('APP_LOCALE');
         $langs = config('translatable.locales');
-        $news = News::latest()->with('translations')->translatedIn($currentLang)->paginate(10)->withQueryString();
+        $news = News::latest()
+            ->with('translations')
+            ->translatedIn($currentLang)
+            ->paginate(15)
+            ->withQueryString();
 
         return view('admin.news.index', compact('news', 'currentLang', 'langs'));
     }
@@ -67,8 +66,8 @@ class NewsController extends Controller implements HasMiddleware
      */
     public function store(Request $request) {
         $validated = $request->validate([
-            'title' => 'required',
-            'slug' => ['nullable', 'string', 'unique:news,slug'],
+            'title' => 'required|string',
+            'slug' => ['required', 'string', 'unique:news,slug'],
             'image' => ['nullable', 'image', 'max:2000'],
             'excerpt' => ['nullable', 'string'],
             'body' => ['required', 'string'],
@@ -83,7 +82,7 @@ class NewsController extends Controller implements HasMiddleware
 
         try {
             if ($request->hasFile('image')) {
-                $imagePath = AdminHelpers::storeModelImage($request, 'image', $this->modelDirectory);
+                $imagePath = AdminHelpers::storeModelImage($request, 'image', self::Model_Directory);
             }
 
             $news = News::create([
@@ -155,15 +154,15 @@ class NewsController extends Controller implements HasMiddleware
      */
     public function update(Request $request, News $news) {
         $validated = $request->validate([
-            'title' => 'required',
-            'slug' => ['nullable', 'string', Rule::unique('news')->ignore($news->id)],
+            'title' => 'required|string',
+            'slug' => ['required', 'string', Rule::unique('news')->ignore($news->id)],
             'image' => ['nullable', 'image'],
             'excerpt' => ['nullable', 'string'],
             'body' => ['required', 'string'],
         ]);
 
         $lang = $request->lang ?? env('APP_LOCALE');
-        $slug = $validated['slug'] ? $validated['slug'] : $news->slug;
+        $slug = $validated['slug'] ? Str::slug($validated['slug'], '-') : $news->slug;
         $imagePath = $news->image;
         $newImagePath = null;
         $galleryItems = $request->gallery_input;
@@ -172,7 +171,7 @@ class NewsController extends Controller implements HasMiddleware
 
         try {
             if ($request->hasFile('image')) {
-                $newImagePath = AdminHelpers::storeModelImage($request, 'image', $this->modelDirectory);
+                $newImagePath = AdminHelpers::storeModelImage($request, 'image', self::Model_Directory);
             }
 
             $news->update([
@@ -200,7 +199,7 @@ class NewsController extends Controller implements HasMiddleware
                 $news->programs()->detach();
             }
 
-            if ($request->hasFile('image') || !is_null($imagePath)) {
+            if (!is_null($newImagePath) && !is_null($imagePath)) {
                 // Make sure to delete old images before commiting and after saving new images if there are no errors
                 AdminHelpers::removeModelImage($imagePath);
             }
@@ -242,7 +241,11 @@ class NewsController extends Controller implements HasMiddleware
         $currentLang = $request->lang ?? env('APP_LOCALE');
         $langs = config('translatable.locales');
 
-        $news = News::latest()->whereTranslationLike('title', "%{$search}%", $currentLang)->paginate(15)->withQueryString();
+        $news = News::latest()
+            ->whereTranslationLike('title', "%{$search}%", $currentLang)
+            ->paginate(15)
+            ->withQueryString();
+
         return view('admin.news.index', compact('news', 'currentLang', 'langs', 'search'));
     }
 }

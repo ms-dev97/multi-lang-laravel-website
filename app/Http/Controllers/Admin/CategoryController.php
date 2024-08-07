@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller implements HasMiddleware
 {
@@ -56,7 +57,7 @@ class CategoryController extends Controller implements HasMiddleware
     {
         $validated = $request->validate([
             'title' => 'required|string',
-            'slug' => ['required', 'string']
+            'slug' => ['required', 'string', 'unique:categories,slug']
         ]);
         
         $lang = $request->lang ?? env('APP_LOCALE');
@@ -106,7 +107,7 @@ class CategoryController extends Controller implements HasMiddleware
     {
         $validated = $request->validate([
             'title' => 'required|string',
-            'slug' => ['required', 'string']
+            'slug' => ['required', 'string', Rule::unique('categories')->ignore($category->id)]
         ]);
         
         $lang = $request->lang ?? env('APP_LOCALE');

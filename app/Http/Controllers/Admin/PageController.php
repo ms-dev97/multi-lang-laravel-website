@@ -42,7 +42,7 @@ class PageController extends Controller implements HasMiddleware
         $langs = config('translatable.locales');
         $pages = Page::latest()
             ->with('translations')
-            ->translatedIn($currentLang)->paginate(10)
+            ->translatedIn($currentLang)->paginate(15)
             ->withQueryString();
 
         return view('admin.pages.index', compact('pages', 'currentLang', 'langs'));
@@ -215,7 +215,11 @@ class PageController extends Controller implements HasMiddleware
         $currentLang = $request->lang ?? env('APP_LOCALE');
         $langs = config('translatable.locales');
 
-        $pages = Page::latest()->whereTranslationLike('name', "%{$search}%", $currentLang)->paginate(15)->withQueryString();
+        $pages = Page::latest()
+            ->whereTranslationLike('name', "%{$search}%", $currentLang)
+            ->paginate(15)
+            ->withQueryString();
+
         return view('admin.pages.index', compact('pages', 'currentLang', 'langs', 'search'));
     }
 }

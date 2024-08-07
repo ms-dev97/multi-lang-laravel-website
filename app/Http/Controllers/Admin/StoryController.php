@@ -41,7 +41,7 @@ class StoryController extends Controller implements HasMiddleware
         $langs = config('translatable.locales');
         $stories = Story::latest()
             ->with(['translations', 'program', 'project'])
-            ->translatedIn($currentLang)->paginate(10)
+            ->translatedIn($currentLang)->paginate(15)
             ->withQueryString();
 
         return view('admin.stories.index', compact('stories', 'currentLang', 'langs'));
@@ -66,7 +66,7 @@ class StoryController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required',
+            'title' => 'required|string',
             'slug' => ['required', 'string', 'unique:stories,slug'],
             'image' => ['nullable', 'image', 'max:2000'],
             'gallery_input' => ['nullable', 'string'],
@@ -139,8 +139,8 @@ class StoryController extends Controller implements HasMiddleware
     {
         $langs = config('translatable.locales');
         $currentLang = request()->lang ?? env('APP_LOCALE');
-        $programs = Program::active()->translatedIn($currentLang)->with('translations')->latest()->get();
-        $projects = Project::active()->translatedIn($currentLang)->with('translations')->latest()->get();
+        $programs = Program::active()->with('translations')->latest()->get();
+        $projects = Project::active()->with('translations')->latest()->get();
 
         return view('admin.stories.edit', compact('langs', 'currentLang', 'projects', 'programs', 'story'));
     }
@@ -151,7 +151,7 @@ class StoryController extends Controller implements HasMiddleware
     public function update(Request $request, Story $story)
     {
         $validated = $request->validate([
-            'title' => 'required',
+            'title' => 'required|string',
             'slug' => ['required', 'string', Rule::unique('stories')->ignore($story->id)],
             'image' => ['nullable', 'image', 'max:2000'],
             'gallery_input' => ['nullable', 'string'],
@@ -230,6 +230,7 @@ class StoryController extends Controller implements HasMiddleware
             ->with(['translations', 'program', 'project'])
             ->whereTranslationLike('title', "%{$search}%", $currentLang)
             ->paginate(15)->withQueryString();
+
         return view('admin.stories.index', compact('stories', 'currentLang', 'langs', 'search'));
     }
 }

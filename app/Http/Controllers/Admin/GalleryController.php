@@ -32,7 +32,11 @@ class GalleryController extends Controller implements HasMiddleware
     {
         $currentLang = request()->lang ?? env('APP_LOCALE');
         $langs = config('translatable.locales');
-        $galleries = Gallery::latest()->with('translations')->translatedIn($currentLang)->paginate(10)->withQueryString();
+        $galleries = Gallery::latest()
+            ->with('translations')
+            ->translatedIn($currentLang)
+            ->paginate(15)
+            ->withQueryString();
 
         return view('admin.galleries.index', compact('galleries', 'currentLang', 'langs'));
     }
@@ -54,7 +58,7 @@ class GalleryController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required',
+            'title' => 'required|string',
             'slug' => ['required', 'string', 'unique:galleries,slug'],
             'gallery_input' => ['required', 'string'],
             'excerpt' => ['nullable', 'string'],
@@ -111,7 +115,7 @@ class GalleryController extends Controller implements HasMiddleware
     public function update(Request $request, Gallery $gallery)
     {
         $validated = $request->validate([
-            'title' => 'required',
+            'title' => 'required|string',
             'slug' => ['required', 'string', Rule::unique('galleries')->ignore($gallery->id)],
             'gallery_input' => ['required', 'string'],
             'excerpt' => ['nullable', 'string'],
@@ -154,7 +158,10 @@ class GalleryController extends Controller implements HasMiddleware
         $currentLang = $request->lang ?? env('APP_LOCALE');
         $langs = config('translatable.locales');
 
-        $galleries = Gallery::latest()->whereTranslationLike('title', "%{$search}%", $currentLang)->paginate(15)->withQueryString();
+        $galleries = Gallery::latest()
+            ->whereTranslationLike('title', "%{$search}%", $currentLang)
+            ->paginate(15)
+            ->withQueryString();
         return view('admin.galleries.index', compact('galleries', 'currentLang', 'langs', 'search'));
     }
 }

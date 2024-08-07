@@ -39,7 +39,11 @@ class ProjectController extends Controller implements HasMiddleware
     {
         $currentLang = request()->lang ?? env('APP_LOCALE');
         $langs = config('translatable.locales');
-        $projects = Project::latest()->with(['translations', 'program'])->translatedIn($currentLang)->paginate(10)->withQueryString();
+        $projects = Project::latest()
+            ->with(['translations', 'program'])
+            ->translatedIn($currentLang)
+            ->paginate(15)
+            ->withQueryString();
 
         return view('admin.projects.index', compact('projects', 'currentLang', 'langs'));
     }
@@ -62,13 +66,13 @@ class ProjectController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required',
-            'slug' => ['nullable', 'string', 'unique:programs,slug'],
+            'title' => 'required|string',
+            'slug' => ['required', 'string', 'unique:projects,slug'],
             'image' => ['nullable', 'image', 'max:2000'],
             'cover' => ['nullable', 'image', 'max:2000'],
             'gallery' => ['nullable', 'string'],
             'excerpt' => ['nullable', 'string'],
-            'body' => ['required', 'string'],
+            'body' => ['nullable', 'string'],
         ]);
 
         $lang = $request->lang ?? env('APP_LOCALE');
@@ -140,7 +144,7 @@ class ProjectController extends Controller implements HasMiddleware
     {
         $langs = config('translatable.locales');
         $currentLang = request()->lang ?? env('APP_LOCALE');
-        $programs = Program::active()->translatedIn($currentLang)->with('translations')->latest()->get();
+        $programs = Program::active()->with('translations')->latest()->get();
 
         return view('admin.projects.edit', compact('langs', 'currentLang', 'project', 'programs'));
     }
@@ -151,17 +155,17 @@ class ProjectController extends Controller implements HasMiddleware
     public function update(Request $request, Project $project)
     {
         $validated = $request->validate([
-            'title' => 'required',
-            'slug' => ['nullable', 'string', Rule::unique('projects')->ignore($project->id)],
+            'title' => 'required|string',
+            'slug' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
             'image' => ['nullable', 'image', 'max:2000'],
             'cover' => ['nullable', 'image', 'max:2000'],
             'gallery' => ['nullable', 'string'],
             'excerpt' => ['nullable', 'string'],
-            'body' => ['required', 'string'],
+            'body' => ['nullable', 'string'],
         ]);
 
         $lang = $request->lang ?? env('APP_LOCALE');
-        $slug = $validated['slug'] ? $validated['slug'] : $project->slug;
+        $slug = $validated['slug'] ? Str::slug($validated['slug'], '-') : $project->slug;
         $imagePath = $project->image;
         $coverPath = $project->cover;
         $newImagePath = null;
@@ -238,7 +242,11 @@ class ProjectController extends Controller implements HasMiddleware
         $currentLang = $request->lang ?? env('APP_LOCALE');
         $langs = config('translatable.locales');
 
-        $projects = Project::latest()->whereTranslationLike('title', "%{$search}%", $currentLang)->paginate(15)->withQueryString();
+        $projects = Project::latest()
+            ->whereTranslationLike('title', "%{$search}%", $currentLang)
+            ->paginate(15)
+            ->withQueryString();
+
         return view('admin.projects.index', compact('projects', 'currentLang', 'langs', 'search'));
     }
 }

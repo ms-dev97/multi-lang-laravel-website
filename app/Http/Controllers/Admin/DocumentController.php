@@ -41,7 +41,7 @@ class DocumentController extends Controller implements HasMiddleware
         $documents = Document::latest()
             ->with(['translations', 'category'])
             ->translatedIn($currentLang)
-            ->paginate(10)
+            ->paginate(15)
             ->withQueryString();
 
         return view('admin.documents.index', compact('documents', 'currentLang', 'langs'));

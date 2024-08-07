@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Maatwebsite\Excel\Facades\Excel;
 
 class ProgramController extends Controller implements HasMiddleware
 {
@@ -39,7 +38,10 @@ class ProgramController extends Controller implements HasMiddleware
     {
         $currentLang = request()->lang ?? env('APP_LOCALE');
         $langs = config('translatable.locales');
-        $programs = Program::latest()->with('translations')->translatedIn($currentLang)->paginate(10)->withQueryString();
+        $programs = Program::latest()
+            ->with('translations')
+            ->translatedIn($currentLang)->paginate(15)
+            ->withQueryString();
 
         return view('admin.programs.index', compact('programs', 'currentLang', 'langs'));
     }
@@ -60,14 +62,14 @@ class ProgramController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required',
-            'slug' => ['nullable', 'string', 'unique:programs,slug'],
+            'title' => 'required|string',
+            'slug' => ['required', 'string', 'unique:programs,slug'],
             'image' => ['nullable', 'image', 'max:2000'],
             'cover' => ['nullable', 'image', 'max:2000'],
             'icon' => ['nullable', 'image', 'max:2000'],
             'gallery' => ['nullable', 'string'],
             'excerpt' => ['nullable', 'string'],
-            'body' => ['required', 'string'],
+            'body' => ['nullable', 'string'],
         ]);
 
         $lang = $request->lang ?? env('APP_LOCALE');
@@ -156,17 +158,18 @@ class ProgramController extends Controller implements HasMiddleware
     public function update(Request $request, Program $program)
     {
         $validated = $request->validate([
-            'title' => 'required',
-            'slug' => ['nullable', 'string', Rule::unique('programs')->ignore($program->id)],
+            'title' => 'required|string',
+            'slug' => ['required', 'string', Rule::unique('programs')->ignore($program->id)],
             'image' => ['nullable', 'image', 'max:2000'],
             'cover' => ['nullable', 'image', 'max:2000'],
+            'icon' => ['nullable', 'image', 'max:2000'],
             'gallery' => ['nullable', 'string'],
             'excerpt' => ['nullable', 'string'],
-            'body' => ['required', 'string'],
+            'body' => ['nullable', 'string'],
         ]);
 
         $lang = $request->lang ?? env('APP_LOCALE');
-        $slug = $validated['slug'] ? $validated['slug'] : $program->slug;
+        $slug = $validated['slug'] ? Str::slug($validated['slug'], '-') : $program->slug;
         $imagePath = $program->image;
         $iconPath = $program->icon;
         $coverPath = $program->cover;
@@ -192,9 +195,9 @@ class ProgramController extends Controller implements HasMiddleware
                 'slug' => $slug,
                 'status' => $request->has('status') ? true : false,
                 'featured' => $request->has('featured') ? true : false,
-                'image' =>$newImagePath ?? $imagePath,
-                'icon' =>$newIconPath ?? $iconPath,
-                'cover' =>$newCoverPath ?? $coverPath,
+                'image' => $newImagePath ?? $imagePath,
+                'icon' => $newIconPath ?? $iconPath,
+                'cover' => $newCoverPath ?? $coverPath,
                 'gallery' => !is_null($galleryItems) ? explode(',', $galleryItems) : [],
                 $lang => [
                     'title' => $validated['title'],
@@ -257,7 +260,11 @@ class ProgramController extends Controller implements HasMiddleware
         $currentLang = $request->lang ?? env('APP_LOCALE');
         $langs = config('translatable.locales');
 
-        $programs = Program::latest()->whereTranslationLike('title', "%{$search}%", $currentLang)->paginate(15)->withQueryString();
+        $programs = Program::latest()
+            ->whereTranslationLike('title', "%{$search}%", $currentLang)
+            ->paginate(15)
+            ->withQueryString();
+
         return view('admin.programs.index', compact('programs', 'currentLang', 'langs', 'search'));
     }
 }
