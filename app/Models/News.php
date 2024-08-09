@@ -29,12 +29,17 @@ class News extends Model implements TranslatableContract
         return $this->belongsToMany(Program::class, 'news_program', 'news_id', 'program_id');
     }
 
+    public function projects(): BelongsToMany {
+        return $this->belongsToMany(Project::class, 'news_project', 'news_id', 'project_id');
+    }
+
     protected static function booted(): void {
         static::deleted(function (News $news) {
             AdminHelpers::removeModelImage($news->image);
 
             $news->categories()->detach();
             $news->programs()->detach();
+            $news->projects()->detach();
         });
     }
 }
