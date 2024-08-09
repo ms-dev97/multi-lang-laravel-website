@@ -12,7 +12,10 @@
         @endsession
 
         @session('warning')
-            <div class="alert warning">{{ session('warning') }}</div>
+            @include('admin.partials.notification', [
+                'text' => session('warning'),
+                'type' => 'warning'    
+            ])
         @endsession
 
         @session('error')
@@ -36,7 +39,7 @@
                     @include('admin.partials.lang-select')
 
                     @can('add-news')
-                        <a href="{{ route('admin.news.create') }}" class="btn btn-fill btn-primary">إضافة خبر</a>
+                        <a href="{{ route('admin.news.create') }}" class="btn btn-fill btn-primary">إضافة جديد</a>
                     @endcan
                 </div>
             </div>

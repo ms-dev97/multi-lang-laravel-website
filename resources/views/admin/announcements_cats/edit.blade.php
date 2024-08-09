@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $category->title . ' | تعديل'
+    'title' => $category->translate($currentLang, true)->title . ' | تعديل'
 ])
 
 @section('main')
@@ -37,6 +37,14 @@
             </div>
         </div>
 
+        @if ($errors->any())
+            <ul class="form-errors">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
+
         <div class="card-body">
             <form action="{{ route('admin.announcement-categories.update', $category) }}" method="POST" id="edit" class="main-form">
                 @csrf
@@ -63,7 +71,7 @@
                         'type' => 'text',
                         'name' => 'slug',
                         'id' => 'slug',
-                        'label' => 'slug',
+                        'label' => 'اسم الرابط',
                         'required' => false,
                         'value' => old('slug') ?? $category->slug
                     ])

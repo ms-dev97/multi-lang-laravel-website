@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $document->title . ' | تعديل'
+    'title' => $document->translate($currentLang, true)->title . ' | تعديل'
 ])
 
 @section('main')
@@ -63,6 +63,7 @@
                         'name' => 'title',
                         'id' => 'title',
                         'label' => 'الإسم',
+                        'placeholder' => 'الإسم',
                         'required' => true,
                         'value' => old('title') ?? $document->translate($currentLang)->title ?? ''
                     ])
@@ -71,7 +72,8 @@
                         'type' => 'text',
                         'name' => 'slug',
                         'id' => 'slug',
-                        'label' => 'slug',
+                        'label' => 'اسم الرابط',
+                        'placeholder' => 'اسم الرابط',
                         'required' => true,
                         'value' => old('slug') ?? $document->slug
                     ])
@@ -135,7 +137,7 @@
                     'label' => 'الوصف المختصر',
                     'required' => false,
                     'value' => old('excerpt') ?? $document->translate($currentLang)->excerpt ?? '',
-                    'placeholder' => 'الوصف المختصر للخبر'
+                    'placeholder' => 'ادخل الوصف المختصر'
                 ])
 
                 @include('admin.partials.rich-textarea', [

@@ -27,11 +27,18 @@
     </div>
 
     <div class="card">
-        <div class="card-header flex justify-content-between">
-            <h1 class="card-title">تصفح اقسام الاعلانات</h1>
-            @can('add-ad-category')
-                <a href="{{ route('admin.announcement-categories.create') }}" class="btn btn-fill btn-primary">إضافة قسم</a>
-            @endcan
+        <div class="card-header">
+            <div class="flex justify-content-between align-items-center">
+                <h1 class="card-title">تصفح اقسام الاعلانات</h1>
+
+                <div class="flex align-items-center g-0.5rem">
+
+                    @include('admin.partials.lang-select')
+                    @can('add-ad-category')
+                        <a href="{{ route('admin.announcement-categories.create') }}" class="btn btn-fill btn-primary">إضافة جديد</a>
+                    @endcan
+                </div>
+            </div>
         </div>
 
         <div class="card-body">
@@ -50,7 +57,7 @@
                     <tbody>
                         @forelse($categories as $cat)
                             <tr>
-                                <td>{{ $cat->translate($lang)->title }}</td>
+                                <td>{{ $cat->translate($currentLang)->title }}</td>
                                 <td>
                                     @include('admin.partials.bill', [
                                         'text' => $cat->status ? 'فعال' : 'متوقف',
@@ -80,7 +87,7 @@
                                             <dialog class="delete-confirm dialog" id="delete-confirm-{{ $cat->id }}">
                                                 <div class="dialog-header">تأكيد الحذف</div>
                                                 <div class="dialog-body">
-                                                    هل أنت متأكد من أنك تريد حذف هذا القسم "{{ $cat->translate($lang)->title }}"؟
+                                                    هل أنت متأكد من أنك تريد حذف هذا القسم "{{ $cat->translate($currentLang)->title }}"؟
                                                 </div>
                                                 <div class="dialog-footer">
                                                     <form action="{{ route('admin.announcement-categories.destroy', $cat) }}" method="post">

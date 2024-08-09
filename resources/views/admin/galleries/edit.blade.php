@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $gallery->title . ' | تعديل'
+    'title' => $gallery->translate($currentLang, true)->title . ' | تعديل'
 ])
 
 @section('main')
@@ -73,7 +73,7 @@
                         'name' => 'slug',
                         'id' => 'slug',
                         'label' => 'اسم الرابط',
-                        'placeholder' => 'example.com/galleries/gallery-name',
+                        'placeholder' => 'اسم الرابط',
                         'required' => true,
                         'value' => old('slug') ?? $gallery->slug
                     ])
@@ -99,7 +99,7 @@
 
                 @include('admin.partials.lfm-media-picker', [
                     'gallery_input' => old('gallery_input') ?? implode(',', $gallery->photos ?? []),
-                    'gallery_items' => old('gallery_input') ? explode(',', $gallery->photos) :  $gallery->photos,
+                    'gallery_items' => old('gallery_input') ? explode(',', old('gallery_input')) :  $gallery->photos,
                 ])
 
                 <div class="form-group">

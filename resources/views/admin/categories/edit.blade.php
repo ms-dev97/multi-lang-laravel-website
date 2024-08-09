@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $category->title . ' | تعديل'
+    'title' => $category->translate($currentLang, true)->title . ' | تعديل'
 ])
 
 @section('main')
@@ -12,7 +12,10 @@
         @endsession
 
         @session('warning')
-            <div class="alert warning">{{ session('warning') }}</div>
+            @include('admin.partials.notification', [
+                'text' => session('warning'),
+                'type' => 'warning'    
+            ])
         @endsession
 
         @session('error')
@@ -34,6 +37,14 @@
             </div>
         </div>
 
+        @if ($errors->any())
+            <ul class="form-errors">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
+
         <div class="card-body">
             <form action="{{ route('admin.categories.update', $category) }}" method="POST" id="edit" class="main-form">
                 @csrf
@@ -52,6 +63,7 @@
                         'name' => 'title',
                         'id' => 'title',
                         'label' => 'الإسم',
+                        'placeholder' => 'الإسم',
                         'required' => true,
                         'value' => old('title') ?? $category->translate($currentLang)->title ?? ''
                     ])
@@ -60,8 +72,9 @@
                         'type' => 'text',
                         'name' => 'slug',
                         'id' => 'slug',
-                        'label' => 'slug',
-                        'required' => false,
+                        'label' => 'اسم الرابط',
+                        'placeholder' => 'اسم الرابط',
+                        'required' => true,
                         'value' => old('slug') ?? $category->slug
                     ])
                 </div>

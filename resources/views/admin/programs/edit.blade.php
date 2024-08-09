@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $program->title . ' | تعديل'
+    'title' => $program->translate($currentLang, true)->title ?? '' . ' | تعديل'
 ])
 
 @section('main')
@@ -65,7 +65,7 @@
                         'name' => 'slug',
                         'id' => 'slug',
                         'label' => 'اسم الرابط',
-                        'placeholder' => 'example.com/programs/program-name',
+                        'placeholder' => 'اسم الرابط',
                         'required' => true,
                         'value' => old('slug') ?? $program->slug
                     ])
@@ -76,7 +76,6 @@
                     'name' => 'image',
                     'label' => 'اختر صورة',
                     'required' => false,
-                    'value' => old('image'),
                     'src' => asset('storage/'.$program->image),
                 ])
 
@@ -85,7 +84,6 @@
                     'name' => 'icon',
                     'label' => 'الايقونة',
                     'required' => false,
-                    'value' => old('icon`'),
                     'src' => asset('storage/'.$program->icon),
                 ])
 
@@ -94,7 +92,6 @@
                     'name' => 'cover',
                     'label' => 'صورة البانر',
                     'required' => false,
-                    'value' => old('cover'),
                     'src' => asset('storage/'.$program->cover),
                 ])
 
@@ -104,21 +101,21 @@
                     'label' => 'الوصف المختصر',
                     'required' => false,
                     'value' => old('excerpt') ?? $program->translate($currentLang)->excerpt ?? '',
-                    'placeholder' => 'ادخل الوصف المختصر للبرنامج'
+                    'placeholder' => 'ادخل الوصف المختصر'
                 ])
 
                 @include('admin.partials.rich-textarea', [
                     'id' => 'program-body',
                     'name' => 'body',
-                    'label' => 'محتوى البرنامج',
+                    'label' => 'المحتوى',
                     'required' => false,
                     'value' => old('body') ?? $program->translate($currentLang)->body ?? '',
-                    'placeholder' => 'اضف محتوى البرنامج'
+                    'placeholder' => 'اضف المحتوى'
                 ])
 
                 @include('admin.partials.lfm-media-picker', [
                     'gallery_input' => old('gallery-input') ?? implode(',', $program->gallery ?? []),
-                    'gallery_items' => $program->gallery,
+                    'gallery_items' => old('gallery-inout') ? explode(',', old('gallery-inout')) : $program->gallery,
                 ])
 
                 <div class="form-group">

@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => 'إضافة وثيقة | لوحة التحكم'
+    'title' => 'إضافة مستند | لوحة التحكم'
 ])
 
 @section('main')
@@ -71,8 +71,8 @@
                         'type' => 'text',
                         'name' => 'slug',
                         'id' => 'slug',
-                        'label' => 'slug',
-                        'placeholder' => 'slug',
+                        'label' => 'اسم الرابط',
+                        'placeholder' => 'اسم الرابط',
                         'required' => true,
                         'value' => old('slug')
                     ])
@@ -131,7 +131,7 @@
                     'label' => 'الوصف المختصر',
                     'required' => false,
                     'value' => old('excerpt'),
-                    'placeholder' => 'ادخل الوصف المختصر للخبر'
+                    'placeholder' => 'ادخل الوصف المختصر'
                 ])
 
                 @include('admin.partials.rich-textarea', [

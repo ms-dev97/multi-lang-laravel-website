@@ -32,7 +32,7 @@
                 <div class="card-title">إضافة مشروع</div>
                 <a href="{{ route('admin.projects.index') }}" class="ms-auto">عودة</a>
                 <button type="submit" class="btn btn-fill btn-primary" form="create">
-                    حفظ المشروع
+                    حفظ
                 </button>
             </div>
         </div>
@@ -64,7 +64,7 @@
                         'name' => 'slug',
                         'id' => 'slug',
                         'label' => 'اسم الرابط',
-                        'placeholder' => 'example.com/projects/project-name',
+                        'placeholder' => 'اسم الرابط',
                         'required' => true,
                         'value' => old('slug')
                     ])
@@ -75,7 +75,6 @@
                     'name' => 'image',
                     'label' => 'اختر صورة',
                     'required' => false,
-                    'value' => old('image')
                 ])
 
                 @include('admin.partials.image-input', [
@@ -83,7 +82,6 @@
                     'name' => 'cover',
                     'label' => 'صورة البانر',
                     'required' => false,
-                    'value' => old('cover')
                 ])
 
                 @include('admin.partials.textarea', [
@@ -92,23 +90,23 @@
                     'label' => 'الوصف المختصر',
                     'required' => false,
                     'value' => old('excerpt'),
-                    'placeholder' => 'ادخل الوصف المختصر للبرنامج'
+                    'placeholder' => 'ادخل الوصف المختصر'
                 ])
 
                 @include('admin.partials.rich-textarea', [
                     'id' => 'project-body',
                     'name' => 'body',
-                    'label' => 'محتوى المشروع',
+                    'label' => 'المحتوى',
                     'required' => false,
                     'value' => old('body'),
-                    'placeholder' => 'اضف محتوى المشروع'
+                    'placeholder' => 'اضف المحتوى'
                 ])
 
                 <div class="form-group">
                     <label for="program_id">البرنامج</label>
-                    <select name="program_id" id="program_id" class="form-control" multiple>
+                    <select name="program_id" id="program_id" class="form-control">
                         @foreach ($programs as $program)
-                            <option value="{{ $program->id }}">{{ $program->translate($currentLang)?->title }}</option>
+                            <option value="{{ $program->id }}">{{ $program->translate($currentLang, true)?->title }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -154,6 +152,6 @@
 
     @include('admin.partials.scripts.select2', [
         'selector' => '#program_id',
-        'placeholder' => 'اختر البرنامج',
+        'placeholder' => 'البرنامج',
     ])
 @endpush

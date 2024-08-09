@@ -37,6 +37,14 @@
             </div>
         </div>
 
+        @if ($errors->any())
+            <ul class="form-errors">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
+
         <div class="card-body">
             <form action="{{ route('admin.announcements.store') }}" method="POST" id="create" class="main-form" enctype="multipart/form-data">
                 @csrf
@@ -91,10 +99,10 @@
                 @include('admin.partials.rich-textarea', [
                     'id' => 'ad-body',
                     'name' => 'body',
-                    'label' => 'محتوى الاعلان',
+                    'label' => 'المحتوى',
                     'required' => false,
                     'value' => old('body'),
-                    'placeholder' => 'اضف محتوى الاعلان'
+                    'placeholder' => 'اضف المحتوى'
                 ])
 
                 <div class="input-half">

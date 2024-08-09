@@ -35,7 +35,7 @@
                     @include('admin.partials.lang-select')
 
                     @can('add-gallery')
-                        <a href="{{ route('admin.galleries.create') }}" class="btn btn-fill btn-primary">إضافة معرض</a>
+                        <a href="{{ route('admin.galleries.create') }}" class="btn btn-fill btn-primary">إضافة جديد</a>
                     @endcan
                 </div>
             </div>
@@ -113,7 +113,7 @@
                             </tr>
                         @empty
                             <tr class="no-data">
-                                <td colspan="6" class="text-center">لا توجد سجلات متاحة</td>
+                                <td colspan="5" class="text-center">لا توجد سجلات متاحة</td>
                             </tr>
                         @endforelse
                     </tbody>

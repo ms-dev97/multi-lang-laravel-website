@@ -82,7 +82,7 @@
 
             <div class="show-field">
                 <div class="show-field-name">البرنامج</div>
-                <div class="show-field-value">{{ $project->program->translate($currentLang, true)->title }}</div>
+                <div class="show-field-value">{{ $project->program->translate($currentLang, true)?->title }}</div>
             </div>
 
             <hr>
@@ -96,6 +96,20 @@
                         لا توجد صور
                     @endforelse
                 </div>
+            </div>
+
+            <hr>
+
+            <div class="show-field">
+                <div class="show-field-name">تاريخ الاضافة</div>
+                <div class="show-field-value">{{ Carbon\Carbon::parse($project->created_at)->locale($currentLang)->isoFormat('Do MMMM YYYY') }}</div>
+            </div>
+
+            <hr>
+
+            <div class="show-field">
+                <div class="show-field-name">تاريخ التعديل</div>
+                <div class="show-field-value">{{ Carbon\Carbon::parse($project->updated_at)->locale($currentLang)->isoFormat('Do MMMM YYYY') }}</div>
             </div>
 
             @can('edite-project')

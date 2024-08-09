@@ -35,7 +35,7 @@
                     @include('admin.partials.lang-select')
 
                     @can('add-partner')
-                        <a href="{{ route('admin.partners.create') }}" class="btn btn-fill btn-primary">إضافة شركاء</a>
+                        <a href="{{ route('admin.partners.create') }}" class="btn btn-fill btn-primary">إضافة جديد</a>
                     @endcan
                 </div>
             </div>

@@ -35,7 +35,7 @@
                     @include('admin.partials.lang-select')
 
                     @can('add-program')
-                        <a href="{{ route('admin.programs.create') }}" class="btn btn-fill btn-primary">إضافة برنامج</a>
+                        <a href="{{ route('admin.programs.create') }}" class="btn btn-fill btn-primary">إضافة جديد</a>
                     @endcan
                 </div>
             </div>

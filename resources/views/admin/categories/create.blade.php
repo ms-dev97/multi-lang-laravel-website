@@ -12,7 +12,10 @@
         @endsession
 
         @session('warning')
-            <div class="alert warning">{{ session('warning') }}</div>
+            @include('admin.partials.notification', [
+                'text' => session('warning'),
+                'type' => 'warning'    
+            ])
         @endsession
 
         @session('error')
@@ -34,12 +37,20 @@
             </div>
         </div>
 
+        @if ($errors->any())
+            <ul class="form-errors">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
+
         <div class="card-body">
             <form action="{{ route('admin.categories.store') }}" method="POST" id="create" class="main-form">
                 @csrf
                 <select class="lang-select form-control" name="lang" id="lang">
                     @foreach ($langs as $lang)
-                        <option value="{{ $lang }}"  data-url="{{ request()->fullUrlWithQuery(['lang' => $lang]) }}">
+                        <option value="{{ $lang }}">
                             {{ $lang }}
                         </option>
                     @endforeach
@@ -52,6 +63,7 @@
                         'id' => 'title',
                         'label' => 'الإسم',
                         'required' => true,
+                        'placeholder' => 'الاسم',
                         'value' => old('title')
                     ])
 
@@ -59,8 +71,9 @@
                         'type' => 'text',
                         'name' => 'slug',
                         'id' => 'slug',
-                        'label' => 'slug',
-                        'required' => false,
+                        'label' => 'اسم الرابط',
+                        'placeholder' => 'اسم الرابط',
+                        'required' => true,
                         'value' => old('slug')
                     ])
                 </div>

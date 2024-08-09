@@ -12,7 +12,10 @@
         @endsession
 
         @session('warning')
-            <div class="alert warning">{{ session('warning') }}</div>
+            @include('admin.partials.notification', [
+                'text' => session('warning'),
+                'type' => 'warning'    
+            ])
         @endsession
 
         @session('error')
@@ -29,17 +32,25 @@
                 <div class="card-title">إضافة خبر</div>
                 <a href="{{ route('admin.news.index') }}" class="ms-auto">عودة</a>
                 <button type="submit" class="btn btn-fill btn-primary" form="create">
-                    حفظ الخبر
+                    حفظ
                 </button>
             </div>
         </div>
+
+        @if ($errors->any())
+            <ul class="form-errors">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
 
         <div class="card-body">
             <form action="{{ route('admin.news.store') }}" method="POST" id="create" class="main-form" enctype="multipart/form-data">
                 @csrf
                 <select class="lang-select form-control" name="lang" id="lang">
                     @foreach ($langs as $lang)
-                        <option value="{{ $lang }}"  data-url="{{ request()->fullUrlWithQuery(['lang' => $lang]) }}">
+                        <option value="{{ $lang }}">
                             {{ $lang }}
                         </option>
                     @endforeach
@@ -62,7 +73,7 @@
                         'id' => 'slug',
                         'label' => 'اسم الرابط',
                         'placeholder' => 'اسم الرابط',
-                        'required' => false,
+                        'required' => true,
                         'value' => old('slug')
                     ])
                 </div>
@@ -72,7 +83,6 @@
                     'name' => 'image',
                     'label' => 'اختر صورة',
                     'required' => false,
-                    'value' => old('image')
                 ])
 
                 @include('admin.partials.textarea', [
@@ -81,16 +91,16 @@
                     'label' => 'الوصف المختصر',
                     'required' => false,
                     'value' => old('excerpt'),
-                    'placeholder' => 'ادخل الوصف المختصر للخبر'
+                    'placeholder' => 'ادخل الوصف المختصر'
                 ])
 
                 @include('admin.partials.rich-textarea', [
                     'id' => 'news-body',
                     'name' => 'body',
-                    'label' => 'محتوى الخبر',
+                    'label' => 'المحتوى',
                     'required' => false,
                     'value' => old('body'),
-                    'placeholder' => 'اضف محتوى الخبر'
+                    'placeholder' => 'اضف المحتوى'
                 ])
 
                 <div class="flex g-1rem flex-wrap">
@@ -98,7 +108,7 @@
                         <label for="categories">الأقسام</label>
                         <select name="categories[]" id="categories" class="form-control" multiple>
                             @foreach ($categories as $cat)
-                                <option value="{{ $cat->id }}">{{ $cat->translate($currentLang)?->title }}</option>
+                                <option value="{{ $cat->id }}">{{ $cat->translate($currentLang, true)?->title }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -106,8 +116,17 @@
                     <div class="form-group flex-1">
                         <label for="programs">البرامج</label>
                         <select name="programs[]" id="programs" class="form-control" multiple>
-                            @foreach ($programs as $programs)
-                                <option value="{{ $programs->id }}">{{ $programs->translate($currentLang)?->title }}</option>
+                            @foreach ($programs as $program)
+                                <option value="{{ $program->id }}">{{ $program->translate($currentLang, true)?->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group flex-1">
+                        <label for="projects">المشاريع</label>
+                        <select name="projects[]" id="projects" class="form-control" multiple>
+                            @foreach ($projects as $project)
+                                <option value="{{ $project->id }}">{{ $project->translate($currentLang, true)?->title }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -154,11 +173,16 @@
 
     @include('admin.partials.scripts.select2', [
         'selector' => '#categories',
-        'placeholder' => 'اختر قسم',
+        'placeholder' => 'الاقسام',
     ])
 
     @include('admin.partials.scripts.select2', [
         'selector' => '#programs',
-        'placeholder' => 'اختر البرامج',
+        'placeholder' => 'البرامج',
+    ])
+
+    @include('admin.partials.scripts.select2', [
+        'selector' => '#projects',
+        'placeholder' => 'المشاريع',
     ])
 @endpush

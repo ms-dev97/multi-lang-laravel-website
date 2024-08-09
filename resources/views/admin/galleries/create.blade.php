@@ -32,7 +32,7 @@
                 <div class="card-title">إضافة معرض صور</div>
                 <a href="{{ route('admin.galleries.index') }}" class="ms-auto">عودة</a>
                 <button type="submit" class="btn btn-fill btn-primary" form="create">
-                    حفظ معرض صور
+                    حفظ
                 </button>
             </div>
         </div>
@@ -72,7 +72,7 @@
                         'name' => 'slug',
                         'id' => 'slug',
                         'label' => 'اسم الرابط',
-                        'placeholder' => 'example.com/galleries/gallery-name',
+                        'placeholder' => 'اسم الرابط',
                         'required' => true,
                         'value' => old('slug')
                     ])
@@ -118,7 +118,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-fill btn-primary">
-                    حفظ المعرض
+                    حفظ
                 </button>
             </form>
         </div>

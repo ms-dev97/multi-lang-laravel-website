@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $announcement->title . ' | تعديل'
+    'title' => $announcement->translate($currentLang, true)->title . ' | تعديل'
 ])
 
 @section('main')
@@ -36,6 +36,14 @@
                 </button>
             </div>
         </div>
+
+        @if ($errors->any())
+            <ul class="form-errors">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
 
         <div class="card-body">
             <form action="{{ route('admin.announcements.update', $announcement) }}" method="POST" id="edit" class="main-form" enctype="multipart/form-data">
@@ -92,10 +100,10 @@
                 @include('admin.partials.rich-textarea', [
                     'id' => 'ad-body',
                     'name' => 'body',
-                    'label' => 'محتوى الاعلان',
+                    'label' => 'المحتوى',
                     'required' => false,
                     'value' => old('body') ?? $announcement->translate($currentLang)->body ?? '',
-                    'placeholder' => 'اضف محتوى الاعلان'
+                    'placeholder' => 'اضف المحتوى'
                 ])
 
                 <div class="input-half">

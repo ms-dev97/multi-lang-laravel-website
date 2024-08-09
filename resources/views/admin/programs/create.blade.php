@@ -32,7 +32,7 @@
                 <div class="card-title">إضافة برنامج</div>
                 <a href="{{ route('admin.programs.index') }}" class="ms-auto">عودة</a>
                 <button type="submit" class="btn btn-fill btn-primary" form="create">
-                    حفظ البرنامج
+                    حفظ
                 </button>
             </div>
         </div>
@@ -64,7 +64,7 @@
                         'name' => 'slug',
                         'id' => 'slug',
                         'label' => 'اسم الرابط',
-                        'placeholder' => 'example.com/programs/program-name',
+                        'placeholder' => 'اسم الرابط',
                         'required' => true,
                         'value' => old('slug')
                     ])
@@ -75,7 +75,6 @@
                     'name' => 'image',
                     'label' => 'اختر صورة',
                     'required' => false,
-                    'value' => old('image')
                 ])
 
                 @include('admin.partials.image-input', [
@@ -83,7 +82,6 @@
                     'name' => 'icon',
                     'label' => 'الايقونة',
                     'required' => false,
-                    'value' => old('icon')
                 ])
 
                 @include('admin.partials.image-input', [
@@ -91,7 +89,6 @@
                     'name' => 'cover',
                     'label' => 'صورة البانر',
                     'required' => false,
-                    'value' => old('cover')
                 ])
 
                 @include('admin.partials.textarea', [
@@ -100,16 +97,16 @@
                     'label' => 'الوصف المختصر',
                     'required' => false,
                     'value' => old('excerpt'),
-                    'placeholder' => 'ادخل الوصف المختصر للبرنامج'
+                    'placeholder' => 'ادخل الوصف المختصر'
                 ])
 
                 @include('admin.partials.rich-textarea', [
                     'id' => 'program-body',
                     'name' => 'body',
-                    'label' => 'محتوى البرنامج',
+                    'label' => 'المحتوى',
                     'required' => false,
                     'value' => old('body'),
-                    'placeholder' => 'اضف محتوى البرنامج'
+                    'placeholder' => 'اضف المحتوى'
                 ])
 
                 {{-- Media picker --}}
@@ -134,7 +131,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-fill btn-primary">
-                    حفظ البرنامج
+                    حفظ
                 </button>
             </form>
         </div>

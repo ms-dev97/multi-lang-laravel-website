@@ -104,6 +104,20 @@
                 </div>
             </div>
 
+            <hr>
+
+            <div class="show-field">
+                <div class="show-field-name">تاريخ الاضافة</div>
+                <div class="show-field-value">{{ Carbon\Carbon::parse($program->created_at)->locale($currentLang)->isoFormat('Do MMMM YYYY') }}</div>
+            </div>
+
+            <hr>
+
+            <div class="show-field">
+                <div class="show-field-name">تاريخ التعديل</div>
+                <div class="show-field-value">{{ Carbon\Carbon::parse($program->updated_at)->locale($currentLang)->isoFormat('Do MMMM YYYY') }}</div>
+            </div>
+
             @can('edite-program')
                 <a href="{{ route('admin.programs.edit', [$program, 'lang' => $currentLang]) }}" class="btn btn-primary btn-fill">
                     تعديل

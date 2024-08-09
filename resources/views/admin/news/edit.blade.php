@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $news->title . ' | تعديل'
+    'title' => $news->translate($currentLang, true)->title . ' | تعديل'
 ])
 
 @section('main')
@@ -12,7 +12,10 @@
         @endsession
 
         @session('warning')
-            <div class="alert warning">{{ session('warning') }}</div>
+            @include('admin.partials.notification', [
+                'text' => session('warning'),
+                'type' => 'warning'    
+            ])
         @endsession
 
         @session('error')
@@ -33,6 +36,14 @@
                 </button>
             </div>
         </div>
+
+        @if ($errors->any())
+            <ul class="form-errors">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
 
         <div class="card-body">
             <form action="{{ route('admin.news.update', $news) }}" method="POST" id="edit" class="main-form" enctype="multipart/form-data">
@@ -61,9 +72,9 @@
                         'type' => 'text',
                         'name' => 'slug',
                         'id' => 'slug',
-                        'label' => 'slug',
-                        'placeholder' => 'slug',
-                        'required' => false,
+                        'label' => 'اسم الرابط',
+                        'placeholder' => 'اسم الرابط',
+                        'required' => true,
                         'value' => old('slug') ?? $news->slug
                     ])
                 </div>
@@ -73,7 +84,6 @@
                     'name' => 'image',
                     'label' => 'اختر صورة',
                     'required' => false,
-                    'value' => old('image'),
                     'src' => asset('storage/'.$news->image),
                 ])
 
@@ -83,16 +93,16 @@
                     'label' => 'الوصف المختصر',
                     'required' => false,
                     'value' => old('excerpt') ?? $news->translate($currentLang)->excerpt ?? '',
-                    'placeholder' => 'ادخل الوصف المختصر للخبر'
+                    'placeholder' => 'ادخل الوصف المختصر'
                 ])
 
                 @include('admin.partials.rich-textarea', [
                     'id' => 'news-body',
                     'name' => 'body',
-                    'label' => 'محتوى الخبر',
+                    'label' => 'المحتوى',
                     'required' => false,
                     'value' => old('body') ?? $news->translate($currentLang)->body ?? '',
-                    'placeholder' => 'اضف محتوى الخبر'
+                    'placeholder' => 'اضف المحتوى'
                 ])
 
                 <div class="flex g-1rem flex-wrap">
@@ -101,7 +111,7 @@
                         <select name="categories[]" id="categories" class="form-control" multiple>
                             @foreach ($categories as $cat)
                                 <option value="{{ $cat->id }}" @selected(in_array($cat->id, $newsCats))>
-                                    {{ $cat->translate($currentLang)?->title }}
+                                    {{ $cat->translate($currentLang, true)?->title }}
                                 </option>
                             @endforeach
                         </select>
@@ -112,7 +122,18 @@
                         <select name="programs[]" id="programs" class="form-control" multiple>
                             @foreach ($programs as $program)
                                 <option value="{{ $program->id }}" @selected(in_array($program->id, $newsPrograms))>
-                                    {{ $program->translate($currentLang)?->title }}
+                                    {{ $program->translate($currentLang, true)?->title }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group flex-1">
+                        <label for="projects">المشاريع</label>
+                        <select name="projects[]" id="projects" class="form-control" multiple>
+                            @foreach ($projects as $project)
+                                <option value="{{ $project->id }}" @selected(in_array($project->id, $newsProjects))>
+                                    {{ $project->translate($currentLang, true)?->title }}
                                 </option>
                             @endforeach
                         </select>
@@ -121,8 +142,7 @@
 
                 @include('admin.partials.lfm-media-picker', [
                     'gallery_input' => old('gallery-input') ?? implode(',', $news->gallery ?? []),
-                    'gallery_items' => $news->gallery,
-                    'gallery' => $news->gallery
+                    'gallery_items' => old('gallery-input') ? explode(',', old('gallery-input')) : $news->gallery,
                 ])
 
                 <div class="form-group">
@@ -163,11 +183,16 @@
 
     @include('admin.partials.scripts.select2', [
         'selector' => '#categories',
-        'placeholder' => 'اختر قسم',
+        'placeholder' => 'الاقسام',
     ])
 
     @include('admin.partials.scripts.select2', [
         'selector' => '#programs',
-        'placeholder' => 'اختر برنامج',
+        'placeholder' => 'البرامج',
+    ])
+
+    @include('admin.partials.scripts.select2', [
+        'selector' => '#projects',
+        'placeholder' => 'المشاريع',
     ])
 @endpush

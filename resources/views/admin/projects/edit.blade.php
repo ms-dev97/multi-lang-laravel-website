@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $project->title . ' | تعديل'
+    'title' => $project->translate($currentLang, true)->title ?? '' . ' | تعديل'
 ])
 
 @section('main')
@@ -65,7 +65,7 @@
                         'name' => 'slug',
                         'id' => 'slug',
                         'label' => 'اسم الرابط',
-                        'placeholder' => 'example.com/projects/project-name',
+                        'placeholder' => 'اسم الرابط',
                         'required' => true,
                         'value' => old('slug') ?? $project->slug
                     ])
@@ -76,7 +76,6 @@
                     'name' => 'image',
                     'label' => 'اختر صورة',
                     'required' => false,
-                    'value' => old('image'),
                     'src' => asset('storage/'.$project->image),
                 ])
 
@@ -85,7 +84,6 @@
                     'name' => 'cover',
                     'label' => 'صورة البانر',
                     'required' => false,
-                    'value' => old('cover'),
                     'src' => asset('storage/'.$project->cover),
                 ])
 
@@ -95,7 +93,7 @@
                     'label' => 'الوصف المختصر',
                     'required' => false,
                     'value' => old('excerpt') ?? $project->translate($currentLang)->excerpt ?? '',
-                    'placeholder' => 'ادخل الوصف المختصر للمشروع'
+                    'placeholder' => 'ادخل الوصف المختصر'
                 ])
 
                 @include('admin.partials.rich-textarea', [
@@ -104,15 +102,15 @@
                     'label' => 'محتوى المشروع',
                     'required' => false,
                     'value' => old('body') ?? $project->translate($currentLang)->body ?? '',
-                    'placeholder' => 'محتوى المشروع'
+                    'placeholder' => 'اضف محتوى المشروع'
                 ])
 
                 <div class="form-group">
-                    <label for="program_id">المشروع</label>
-                    <select name="program_id" id="program_id" class="form-control" multiple>
+                    <label for="program_id">البرنامج</label>
+                    <select name="program_id" id="program_id" class="form-control">
                         @foreach ($programs as $program)
                             <option value="{{ $program->id }}" @selected($program->id == $project->program_id)>
-                                {{ $program->translate($currentLang)?->title }}
+                                {{ $program->translate($currentLang, true)?->title }}
                             </option>
                         @endforeach
                     </select>
@@ -120,7 +118,7 @@
 
                 @include('admin.partials.lfm-media-picker', [
                     'gallery_input' => old('gallery-input') ?? implode(',', $project->gallery ?? []),
-                    'gallery_items' => $project->gallery,
+                    'gallery_items' => old('gallery-input') ? explode(',', old('gallery-input')) : $project->gallery,
                 ])
 
                 <div class="form-group">
@@ -161,6 +159,6 @@
 
     @include('admin.partials.scripts.select2', [
         'selector' => '#program_id',
-        'placeholder' => 'اختر البرنامج',
+        'placeholder' => 'البرنامج',
     ])
 @endpush

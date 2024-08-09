@@ -32,7 +32,7 @@
                 <div class="card-title">إضافة صفحة</div>
                 <a href="{{ route('admin.pages.index') }}" class="ms-auto">عودة</a>
                 <button type="submit" class="btn btn-fill btn-primary" form="create">
-                    حفظ الصفحة
+                    حفظ
                 </button>
             </div>
         </div>
@@ -136,7 +136,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-fill btn-primary">
-                    حفظ الصفحة
+                    حفظ
                 </button>
             </form>
         </div>

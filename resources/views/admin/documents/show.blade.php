@@ -63,22 +63,24 @@
 
             @if ($document->get_from_link)
                 <div class="show-field">
-                    <div class="show-field-name">رابط الملف</div>
+                    <div class="show-field-name">رابط المستند</div>
                     <div class="show-field-value">{{ $document->link ?? '-' }}</div>
                 </div>
 
                 <hr>
             @else
-                <div class="show-field-name">الملف</div>
+                <div class="show-field">
+                    <div class="show-field-name">المستند</div>
                     <div class="show-field-value">
-                        <a href="{{ asset('storage/' . $document->file) }}">الملف</a>
+                        <a href="{{ asset('storage/' . $document->file) }}">معاينة</a>
                     </div>
                 </div>
 
                 <hr>
             @endif
 
-            <div class="show-field-name">القسم</div>
+            <div class="show-field">
+                <div class="show-field-name">القسم</div>
                 <div class="show-field-value">{{ $document->category->translate($currentLang, true) ?? '-' }}</div>
             </div>
 
@@ -96,7 +98,7 @@
                 <div class="show-field-value">{{ Carbon\Carbon::parse($document->updated_at)->locale($currentLang)->isoFormat('Do MMMM YYYY') }}</div>
             </div>
 
-            @can('edit-doc-cat')
+            @can('edit-document')
                 <a href="{{ route('admin.documents.edit', [$document, 'lang' => $currentLang]) }}" class="btn btn-primary btn-fill">
                     تعديل
                 </a>

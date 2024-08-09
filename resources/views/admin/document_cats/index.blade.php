@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => 'اقسام الوثائق | لوحة التحكم'
+    'title' => 'اقسام المستندات | لوحة التحكم'
 ])
 
 @section('main')
@@ -27,11 +27,18 @@
     </div>
 
     <div class="card">
-        <div class="card-header flex justify-content-between">
-            <h1 class="card-title">تصفح اقسام الوثائق</h1>
-            @can('add-doc-cat')
-                <a href="{{ route('admin.document-categories.create') }}" class="btn btn-fill btn-primary">إضافة قسم</a>
-            @endcan
+        <div class="card-header">
+            <div class="flex justify-content-between align-items-center">
+                <h1 class="card-title">تصفح اقسام المستندات</h1>
+
+                <div class="flex align-items-center g-0.5rem">
+                    @include('admin.partials.lang-select')
+
+                    @can('add-doc-cat')
+                        <a href="{{ route('admin.document-categories.create') }}" class="btn btn-fill btn-primary">إضافة جديد</a>
+                    @endcan
+                </div>
+            </div>
         </div>
 
         <div class="card-body">
@@ -50,7 +57,7 @@
                     <tbody>
                         @forelse($categories as $cat)
                             <tr>
-                                <td>{{ $cat->translate($lang, true)->title }}</td>
+                                <td>{{ $cat->translate($currentLang)->title }}</td>
                                 <td>
                                     @include('admin.partials.bill', [
                                         'text' => $cat->status ? 'فعال' : 'متوقف',
@@ -80,7 +87,7 @@
                                             <dialog class="delete-confirm dialog" id="delete-confirm-{{ $cat->id }}">
                                                 <div class="dialog-header">تأكيد الحذف</div>
                                                 <div class="dialog-body">
-                                                    هل أنت متأكد من أنك تريد حذف هذا القسم "{{ $cat->translate($lang)->title }}"؟
+                                                    هل أنت متأكد من أنك تريد حذف هذا القسم "{{ $cat->translate($currentLang)->title }}"؟
                                                 </div>
                                                 <div class="dialog-footer">
                                                     <form action="{{ route('admin.document-categories.destroy', $cat) }}" method="post">

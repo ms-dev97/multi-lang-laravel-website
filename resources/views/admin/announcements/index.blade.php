@@ -35,7 +35,7 @@
                     @include('admin.partials.lang-select')
 
                     @can('add-ad')
-                        <a href="{{ route('admin.announcements.create') }}" class="btn btn-fill btn-primary">إضافة اعلان</a>
+                        <a href="{{ route('admin.announcements.create') }}" class="btn btn-fill btn-primary">إضافة جديد</a>
                     @endcan
                 </div>
             </div>

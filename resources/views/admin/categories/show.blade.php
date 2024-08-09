@@ -45,6 +45,20 @@
                 <div class="show-field-value">{{ $categoryTrans->title }}</div>
             </div>
 
+            <hr>
+
+            <div class="show-field">
+                <div class="show-field-name">تاريخ الاضافة</div>
+                <div class="show-field-value">{{ Carbon\Carbon::parse($category->created_at)->locale('ar')->isoFormat('Do MMMM YYYY') }}</div>
+            </div>
+
+            <hr>
+
+            <div class="show-field">
+                <div class="show-field-name">تاريخ التعديل</div>
+                <div class="show-field-value">{{ Carbon\Carbon::parse($category->updated_at)->locale('ar')->isoFormat('Do MMMM YYYY') }}</div>
+            </div>
+
             @can('edit-category')
                 <a href="{{ route('admin.categories.edit', [$category, 'lang' => $currentLang]) }}" class="btn btn-primary btn-fill">
                     تعديل

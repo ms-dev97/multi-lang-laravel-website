@@ -74,7 +74,7 @@
                                     <img class="table-preview" src="{{ asset('storage/' . $item->image) }}" alt="">
                                 </td>
 
-                                <td>{{ $item->program->translate($currentLang)->title }}</td>
+                                <td>{{ $item->program->translate($currentLang, true)?->title }}</td>
 
                                 <td>
                                     @include('admin.partials.bill', [

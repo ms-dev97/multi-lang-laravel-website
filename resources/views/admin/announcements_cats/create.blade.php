@@ -29,7 +29,7 @@
     <div class="card">
         <div class="card-header">
             <div class="flex justify-content-between align-items-center g-1rem">
-                <div class="card-title">إضافة قسم</div>
+                <div class="card-title">حفظ</div>
                 <a href="{{ route('admin.announcement-categories.index') }}" class="ms-auto">عودة</a>
                 <button class="btn btn-fill btn-primary" form="create">
                     إضافة
@@ -37,12 +37,20 @@
             </div>
         </div>
 
+        @if ($errors->any())
+            <ul class="form-errors">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
+
         <div class="card-body">
             <form action="{{ route('admin.announcement-categories.store') }}" method="POST" id="create" class="main-form">
                 @csrf
                 <select class="lang-select form-control" name="lang" id="lang">
                     @foreach ($langs as $lang)
-                        <option value="{{ $lang }}"  data-url="{{ request()->fullUrlWithQuery(['lang' => $lang]) }}">
+                        <option value="{{ $lang }}">
                             {{ $lang }}
                         </option>
                     @endforeach
@@ -63,8 +71,8 @@
                         'type' => 'text',
                         'name' => 'slug',
                         'id' => 'slug',
-                        'label' => 'slug',
-                        'placeholder' => 'slug',
+                        'label' => 'اسم الرابط',
+                        'placeholder' => 'اسم الرابط',
                         'required' => true,
                         'value' => old('slug')
                     ])
