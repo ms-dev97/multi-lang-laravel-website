@@ -31,14 +31,15 @@ class DocumentCategoryController extends Controller implements HasMiddleware
      */
     public function index()
     {
-        $lang = request()->lang ?? env('APP_LOCALE');
+        $currentLang = request()->lang ?? env('APP_LOCALE');
+        $langs = config('translatable.locales');
         $categories = DocumentCategory::latest()
             ->with('translations')
-            ->translatedIn($lang)
+            ->translatedIn($currentLang)
             ->paginate(15)
             ->withQueryString();
 
-        return view('admin.document_cats.index', compact('categories', 'lang'));
+        return view('admin.document_cats.index', compact('categories', 'langs', 'currentLang'));
     }
 
     /**
