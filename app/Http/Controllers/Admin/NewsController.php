@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\News;
 use App\Models\Program;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -57,8 +58,9 @@ class NewsController extends Controller implements HasMiddleware
         $currentLang = env('APP_LOCALE');
         $categories = Category::active()->with('translations')->latest()->get();
         $programs = Program::active()->with('translations')->latest()->get();
+        $projects = Project::active()->with('translations')->latest()->get();
 
-        return view('admin.news.create', compact('langs', 'currentLang', 'categories', 'programs'));
+        return view('admin.news.create', compact('langs', 'currentLang', 'categories', 'programs', 'projects'));
     }
 
     /**
@@ -143,10 +145,12 @@ class NewsController extends Controller implements HasMiddleware
         $currentLang = request()->lang ?? env('APP_LOCALE');
         $categories = Category::active()->with('translations')->latest()->get();
         $programs = Program::active()->with('translations')->latest()->get();
+        $projects = Project::active()->with('translations')->latest()->get();
         $newsPrograms = $news->programs->pluck('id')->toArray();
+        $newsProjects = $news->projects->pluck('id')->toArray();
         $newsCats = $news->categories->pluck('id')->toArray();
 
-        return view('admin.news.edit', compact('langs', 'currentLang', 'news', 'categories', 'programs', 'newsPrograms', 'newsCats'));
+        return view('admin.news.edit', compact('langs', 'currentLang', 'news', 'categories', 'programs', 'newsPrograms', 'newsCats', 'projects', 'newsProjects'));
     }
 
     /**
