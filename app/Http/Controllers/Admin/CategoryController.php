@@ -123,7 +123,7 @@ class CategoryController extends Controller implements HasMiddleware
             ]
         ]);
 
-        return redirect()->route('admin.categories.index')->with('success', 'تمت الاضافة بنجاح');
+        return redirect()->route('admin.categories.index')->with('success', 'تم التعديل بنجاح');
     }
 
     /**
