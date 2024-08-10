@@ -76,14 +76,14 @@
 
             <div class="show-field">
                 <div class="show-field-name">البرنامج</div>
-                <div class="show-field-value">{{ $story->program->translate($currentLang, true)->title }}</div>
+                <div class="show-field-value">{{ $story->program->translate($currentLang, true)?->title }}</div>
             </div>
 
             <hr>
 
             <div class="show-field">
                 <div class="show-field-name">المشروع</div>
-                <div class="show-field-value">{{ $story->project->translate($currentLang, true)->title }}</div>
+                <div class="show-field-value">{{ $story->project->translate($currentLang, true)?->title }}</div>
             </div>
 
             <hr>

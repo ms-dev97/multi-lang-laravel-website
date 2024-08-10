@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $story->translate($currentLang, true)->title . ' | تعديل'
+    'title' => $story->translate($currentLang, true)->title ?? '' . ' | تعديل'
 ])
 
 @section('main')
@@ -73,7 +73,7 @@
                         'name' => 'slug',
                         'id' => 'slug',
                         'label' => 'اسم الرابط',
-                        'placeholder' => 'example.com/stories/story-name',
+                        'placeholder' => 'اسم الرابط',
                         'required' => true,
                         'value' => old('slug') ?? $story->slug
                     ])
@@ -84,7 +84,6 @@
                     'name' => 'image',
                     'label' => 'اختر صورة',
                     'required' => false,
-                    'value' => old('image'),
                     'src' => asset('storage/'.$story->image),
                 ])
 
@@ -152,7 +151,7 @@
 
                 @include('admin.partials.lfm-media-picker', [
                     'gallery_input' => old('gallery_input') ?? implode(',', $story->gallery ?? []),
-                    'gallery_items' => old('gallery_input') ? explode(',', $story->gallery) : $story->gallery,
+                    'gallery_items' => old('gallery_input') ? explode(',', old('gallery_input')) : $story->gallery,
                 ])
 
                 <div class="form-group">

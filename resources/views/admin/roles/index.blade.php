@@ -30,7 +30,7 @@
         <div class="card-header flex justify-content-between">
             <h1 class="card-title">تصفح الأدوار</h1>
             @can('add-role')
-                <a href="{{ route('admin.roles.create') }}" class="btn btn-fill btn-primary">إضافة دور جديد</a>
+                <a href="{{ route('admin.roles.create') }}" class="btn btn-fill btn-primary">إضافة جديد</a>
             @endcan
         </div>
 

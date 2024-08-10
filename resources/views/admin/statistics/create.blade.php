@@ -69,7 +69,7 @@
 
                     <div class="form-group">
                         <label for="order">الترتيب</label>
-                        <input type="number" name="order" id="order" class="form-control" min="0" step="1" value="{{ old('order') ?? 0 }}" placeholder="الترتيب">
+                        <input type="number" name="order" id="order" class="form-control" min="0" step="1" value="{{ old('order', 0) }}" placeholder="الترتيب">
                     </div>
                 </div>
 

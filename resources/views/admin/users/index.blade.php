@@ -30,7 +30,7 @@
         <div class="card-header flex justify-content-between">
             <h1 class="card-title">تصفح المستخدمين</h1>
             @can('add-user')
-                <a href="{{ route('admin.users.create') }}" class="btn btn-fill btn-primary">إضافة مستخدم جديد</a>
+                <a href="{{ route('admin.users.create') }}" class="btn btn-fill btn-primary">إضافة جديد</a>
             @endcan
         </div>
 

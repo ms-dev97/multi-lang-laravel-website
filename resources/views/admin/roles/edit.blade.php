@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $role->name . ' | تعديل | لوحة التحكم'
+    'title' => $role->name . ' | تعديل'
 ])
 
 @section('main')

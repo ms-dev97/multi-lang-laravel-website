@@ -32,7 +32,7 @@
                 <div class="card-title">إضافة سلايد</div>
                 <a href="{{ route('admin.sliders.index') }}" class="ms-auto">عودة</a>
                 <button type="submit" class="btn btn-fill btn-primary" form="create">
-                    حفظ السلايد
+                    حفظ
                 </button>
             </div>
         </div>
@@ -69,7 +69,7 @@
 
                     <div class="form-group">
                         <label for="order">الترتيب</label>
-                        <input type="number" name="order" id="order" class="form-control" min="0" value="0" placeholder="الترتيب">
+                        <input type="number" name="order" id="order" class="form-control" min="0" value="{{ old('order', 0) }}" placeholder="الترتيب">
                     </div>
                 </div>
 
@@ -77,7 +77,7 @@
                     'id' => 'image',
                     'name' => 'image',
                     'label' => 'اختر صورة',
-                    'required' => false,
+                    'required' => true,
                 ])
 
                 <div class="form-group">
@@ -97,7 +97,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-fill btn-primary">
-                    حفظ السلايد
+                    حفظ
                 </button>
             </form>
         </div>

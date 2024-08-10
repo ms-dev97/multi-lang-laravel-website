@@ -32,7 +32,7 @@
                 <div class="card-title">إضافة قصة نجاح</div>
                 <a href="{{ route('admin.stories.index') }}" class="ms-auto">عودة</a>
                 <button type="submit" class="btn btn-fill btn-primary" form="create">
-                    حفظ قصة النجاح
+                    حفظ
                 </button>
             </div>
         </div>
@@ -72,7 +72,7 @@
                         'name' => 'slug',
                         'id' => 'slug',
                         'label' => 'اسم الرابط',
-                        'placeholder' => 'example.com/stories/story-name',
+                        'placeholder' => 'اسم الرابط',
                         'required' => true,
                         'value' => old('slug')
                     ])
@@ -166,7 +166,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-fill btn-primary">
-                    حفظ قصة النجاح
+                    حفظ
                 </button>
             </form>
         </div>

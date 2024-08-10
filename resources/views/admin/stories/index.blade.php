@@ -35,7 +35,7 @@
                     @include('admin.partials.lang-select')
 
                     @can('add-story')
-                        <a href="{{ route('admin.stories.create') }}" class="btn btn-fill btn-primary">إضافة قصة نجاح</a>
+                        <a href="{{ route('admin.stories.create') }}" class="btn btn-fill btn-primary">إضافة جديد</a>
                     @endcan
                 </div>
             </div>
@@ -75,9 +75,9 @@
                                     <img class="table-preview" src="{{ asset('storage/' . $item->image) }}" alt="">
                                 </td>
 
-                                <td>{{ $item->program->translate($currentLang)->title ?? 'لا يوجد' }}</td>
+                                <td>{{ $item->program->translate($currentLang, true)?->title ?? 'لا يوجد' }}</td>
 
-                                <td>{{ $item->project->translate($currentLang)->title ?? 'لا يوجد' }}</td>
+                                <td>{{ $item->project->translate($currentLang, true)?->title ?? 'لا يوجد' }}</td>
 
                                 <td>
                                     @include('admin.partials.bill', [

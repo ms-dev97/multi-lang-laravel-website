@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $slider->translate($currentLang, true)->title . ' | تعديل'
+    'title' => $slider->translate($currentLang, true)->title ?? '' . ' | تعديل'
 ])
 
 @section('main')
@@ -78,7 +78,7 @@
                     'id' => 'image',
                     'name' => 'image',
                     'label' => 'اختر صورة',
-                    'required' => false,
+                    'required' => true,
                     'src' => asset('storage/'.$slider->image),
                 ])
 

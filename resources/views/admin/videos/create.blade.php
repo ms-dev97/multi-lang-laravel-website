@@ -72,7 +72,7 @@
                         'name' => 'slug',
                         'id' => 'slug',
                         'label' => 'اسم الرابط',
-                        'placeholder' => 'example.com/videos/video-name',
+                        'placeholder' => 'اسم الرابط',
                         'required' => true,
                         'value' => old('slug')
                     ])
