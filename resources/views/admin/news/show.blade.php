@@ -30,7 +30,7 @@
         <div class="card-header">
             <div class="flex justify-content-between align-items-center">
                 <div class="header-title">معلومات الخبر</div>
-                <a href="{{ route('admin.categories.index') }}">عودة</a>
+                <a href="{{ route('admin.news.index') }}">عودة</a>
             </div>
         </div>
 
@@ -50,7 +50,11 @@
             <div class="show-field">
                 <div class="show-field-name">الصورة</div>
                 <div class="show-field-value">
-                    <img src="{{ asset('storage/'.$news->image) }}" alt="">
+                    @if (!is_null($news->image))
+                        <img src="{{ asset('storage/'.$news->image) }}" alt="">
+                    @else
+                        لا يوجد
+                    @endif
                 </div>
             </div>
 

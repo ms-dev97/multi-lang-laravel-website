@@ -62,28 +62,28 @@
 
             <div class="show-field">
                 <div class="show-field-name">الوصف المختصر</div>
-                <div class="show-field-value">{{ $storyTrans->excerpt }}</div>
+                <div class="show-field-value">{{ $storyTrans->excerpt ?? 'لا يوجد' }}</div>
             </div>
 
             <hr>
 
             <div class="show-field">
                 <div class="show-field-name">المحتوى</div>
-                <div class="show-field-value">{!! $storyTrans->body !!}</div>
+                <div class="show-field-value">{!! $storyTrans->body ?? 'لا يوجد' !!}</div>
             </div>
 
             <hr>
 
             <div class="show-field">
                 <div class="show-field-name">البرنامج</div>
-                <div class="show-field-value">{{ $story->program->translate($currentLang, true)?->title }}</div>
+                <div class="show-field-value">{{ $story->program?->translate($currentLang, true)?->title ?? 'لا يوجد' }}</div>
             </div>
 
             <hr>
 
             <div class="show-field">
                 <div class="show-field-name">المشروع</div>
-                <div class="show-field-value">{{ $story->project->translate($currentLang, true)?->title }}</div>
+                <div class="show-field-value">{{ $story->project?->translate($currentLang, true)?->title ?? 'لا يوجد' }}</div>
             </div>
 
             <hr>

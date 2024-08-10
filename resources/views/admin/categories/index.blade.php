@@ -74,12 +74,14 @@
                                 <td>
                                     <div class="flex table-actions">
                                         @can('read-category')
-                                            @include('admin.partials.show-action', ['route' => route('admin.categories.show', $cat)])
+                                            @include('admin.partials.show-action', [
+                                                'route' => route('admin.categories.show', [$cat, 'lang' => $currentLang])
+                                            ])
                                         @endcan
 
                                         @can('edit-category')
                                             @include('admin.partials.edit-action', [
-                                                'route' => route('admin.categories.edit', $cat)
+                                                'route' => route('admin.categories.edit', [$cat, 'lang' => $currentLang])
                                             ])
                                         @endcan
 
