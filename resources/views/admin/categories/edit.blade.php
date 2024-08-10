@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $category->translate($currentLang, true)->title . ' | تعديل'
+    'title' => $category->translate($currentLang, true)?->title ?? '' . ' | تعديل'
 ])
 
 @section('main')
