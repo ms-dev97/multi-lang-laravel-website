@@ -69,7 +69,7 @@
 
             <div class="show-field">
                 <div class="show-field-name">الرابط</div>
-                <div class="show-field-value">{{ $partner->link }}</div>
+                <div class="show-field-value">{{ $partner->link ?? 'لا يوجد' }}</div>
             </div>
 
             <hr>
