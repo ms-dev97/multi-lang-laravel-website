@@ -29,7 +29,7 @@
     <div class="card">
         <div class="card-header">
             <div class="flex justify-content-between align-items-center">
-                <div class="header-title">معلومات الاعلان</div>
+                <div class="card-title">معلومات الاعلان</div>
                 <a href="{{ route('admin.announcements.index') }}">عودة</a>
             </div>
         </div>

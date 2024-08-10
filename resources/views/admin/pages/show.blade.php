@@ -29,7 +29,7 @@
     <div class="card">
         <div class="card-header">
             <div class="flex justify-content-between align-items-center">
-                <div class="header-title">تفاصيل الصفحة</div>
+                <div class="card-title">تفاصيل الصفحة</div>
                 <a href="{{ route('admin.pages.index') }}">عودة</a>
             </div>
         </div>

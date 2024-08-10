@@ -29,7 +29,7 @@
     <div class="card">
         <div class="card-header">
             <div class="flex justify-content-between align-items-center">
-                <div class="header-title">تفاصيل قصة النجاح</div>
+                <div class="card-title">تفاصيل قصة النجاح</div>
                 <a href="{{ route('admin.stories.index') }}">عودة</a>
             </div>
         </div>

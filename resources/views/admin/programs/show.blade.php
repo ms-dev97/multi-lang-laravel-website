@@ -29,7 +29,7 @@
     <div class="card">
         <div class="card-header">
             <div class="flex justify-content-between align-items-center">
-                <div class="header-title">تفاصيل البرنامج</div>
+                <div class="card-title">تفاصيل البرنامج</div>
                 <a href="{{ route('admin.programs.index') }}">عودة</a>
             </div>
         </div>

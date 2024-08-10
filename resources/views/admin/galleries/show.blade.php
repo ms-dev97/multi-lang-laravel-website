@@ -29,7 +29,7 @@
     <div class="card">
         <div class="card-header">
             <div class="flex justify-content-between align-items-center">
-                <div class="header-title">تفاصيل معرض الصور</div>
+                <div class="card-title">تفاصيل معرض الصور</div>
                 <a href="{{ route('admin.galleries.index') }}">عودة</a>
             </div>
         </div>

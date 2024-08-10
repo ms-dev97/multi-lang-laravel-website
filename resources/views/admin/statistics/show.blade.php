@@ -29,7 +29,7 @@
     <div class="card">
         <div class="card-header">
             <div class="flex justify-content-between align-items-center">
-                <div class="header-title">تفاصيل الاحصائيات</div>
+                <div class="card-title">تفاصيل الاحصائيات</div>
                 <a href="{{ route('admin.statistics.index') }}">عودة</a>
             </div>
         </div>
