@@ -95,11 +95,15 @@
                                 <td>
                                     <div class="flex table-actions">
                                         @can('read-project')
-                                            @include('admin.partials.show-action', ['route' => route('admin.projects.show', $item)])
+                                            @include('admin.partials.show-action', [
+                                                'route' => route('admin.projects.show', [$item, 'lang' => $currentLang])
+                                            ])
                                         @endcan
 
                                         @can('edite-project')
-                                            @include('admin.partials.edit-action', ['route' => route('admin.projects.edit', $item)])
+                                            @include('admin.partials.edit-action', [
+                                                'route' => route('admin.projects.edit', [$item, 'lang' => $currentLang])
+                                            ])
                                         @endcan
 
                                         @can('delete-project')

@@ -88,11 +88,15 @@
                                 <td>
                                     <div class="flex table-actions">
                                         @can('read-slider')
-                                            @include('admin.partials.show-action', ['route' => route('admin.sliders.show', $item)])
+                                            @include('admin.partials.show-action', [
+                                                'route' => route('admin.sliders.show', [$item, 'lang' => $currentLang])
+                                            ])
                                         @endcan
 
                                         @can('edite-slider')
-                                            @include('admin.partials.edit-action', ['route' => route('admin.sliders.edit', $item)])
+                                            @include('admin.partials.edit-action', [
+                                                'route' => route('admin.sliders.edit', [$item, 'lang' => $currentLang])
+                                            ])
                                         @endcan
 
                                         @can('delete-slider')

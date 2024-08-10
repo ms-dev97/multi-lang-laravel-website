@@ -54,12 +54,14 @@
                                 <td>
                                     <div class="flex table-actions">
                                         @can('read-role')
-                                            @include('admin.partials.show-action', ['route' => route('admin.roles.show', $role)])
+                                            @include('admin.partials.show-action', [
+                                                'route' => route('admin.roles.show', [$role, 'lang' => $currentLang])
+                                            ])
                                         @endcan
 
                                         @can('edit-role')
                                             @include('admin.partials.edit-action', [
-                                                'route' => route('admin.roles.edit', $role)
+                                                'route' => route('admin.roles.edit', [$role, 'lang' => $currentLang])
                                             ])
                                         @endcan
 

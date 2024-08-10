@@ -89,11 +89,15 @@
                                 <td>
                                     <div class="flex table-actions">
                                         @can('read-video')
-                                            @include('admin.partials.show-action', ['route' => route('admin.videos.show', $item)])
+                                            @include('admin.partials.show-action', [
+                                                'route' => route('admin.videos.show', [$item, 'lang' => $currentLang])
+                                            ])
                                         @endcan
 
                                         @can('edite-video')
-                                            @include('admin.partials.edit-action', ['route' => route('admin.videos.edit', $item)])
+                                            @include('admin.partials.edit-action', [
+                                                'route' => route('admin.videos.edit', [$item, 'lang' => $currentLang])
+                                            ])
                                         @endcan
 
                                         @can('delete-video')

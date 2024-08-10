@@ -87,11 +87,15 @@
                                 <td>
                                     <div class="flex table-actions">
                                         @can('read-gallery')
-                                            @include('admin.partials.show-action', ['route' => route('admin.galleries.show', $item)])
+                                            @include('admin.partials.show-action', [
+                                                'route' => route('admin.galleries.show', [$item, 'lang' => $currentLang])
+                                            ])
                                         @endcan
 
                                         @can('edite-gallery')
-                                            @include('admin.partials.edit-action', ['route' => route('admin.galleries.edit', $item)])
+                                            @include('admin.partials.edit-action', [
+                                                'route' => route('admin.galleries.edit', [$item, 'lang' => $currentLang])
+                                            ])
                                         @endcan
 
                                         @can('delete-gallery')

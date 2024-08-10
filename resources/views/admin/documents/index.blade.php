@@ -101,12 +101,14 @@
                                 <td>
                                     <div class="flex table-actions">
                                         @can('read-document')
-                                            @include('admin.partials.show-action', ['route' => route('admin.documents.show', $document)])
+                                            @include('admin.partials.show-action', [
+                                                'route' => route('admin.documents.show', [$document, 'lang' => $currentLang])
+                                            ])
                                         @endcan
 
                                         @can('edit-document')
                                             @include('admin.partials.edit-action', [
-                                                'route' => route('admin.documents.edit', $document)
+                                                'route' => route('admin.documents.edit', [$document, 'lang' => $currentLang])
                                             ])
                                         @endcan
 
