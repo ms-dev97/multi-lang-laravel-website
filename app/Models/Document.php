@@ -19,7 +19,7 @@ class Document extends Model implements TranslatableContract
     protected $fillable = ['slug', 'path', 'link', 'get_from_link', 'image', 'document_category_id', 'status', 'featured'];
 
     public function category(): BelongsTo {
-        return $this->belongsTo(DocumentCategory::class);
+        return $this->belongsTo(DocumentCategory::class, 'document_category_id');
     }
 
     public function scopeActive(Builder $q) {

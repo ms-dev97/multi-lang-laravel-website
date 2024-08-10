@@ -81,7 +81,7 @@
 
             <div class="show-field">
                 <div class="show-field-name">القسم</div>
-                <div class="show-field-value">{{ $document->category->translate($currentLang, true) ?? '-' }}</div>
+                <div class="show-field-value">{{ $document->category?->translate($currentLang, true)->title ?? '-' }}</div>
             </div>
 
             <hr>
