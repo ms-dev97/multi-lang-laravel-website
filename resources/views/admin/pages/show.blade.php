@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $pageTrans->title
+    'title' => $pageTrans->name
 ])
 
 @section('main')
