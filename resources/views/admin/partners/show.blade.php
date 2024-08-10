@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $partnerTrans->title
+    'title' => $partnerTrans->name
 ])
 
 @section('main')

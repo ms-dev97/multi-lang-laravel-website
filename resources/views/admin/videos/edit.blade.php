@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $video->translate($currentLang, true)->name ?? '' . ' | تعديل'
+    'title' => $video->translate($currentLang, true)->title . ' | تعديل'
 ])
 
 @section('main')

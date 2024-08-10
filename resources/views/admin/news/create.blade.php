@@ -154,7 +154,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-fill btn-primary">
-                    حفظ الخبر
+                    حفظ
                 </button>
             </form>
         </div>

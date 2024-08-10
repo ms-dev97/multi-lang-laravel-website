@@ -1,5 +1,5 @@
 @extends('admin.layout.app', [
-    'title' => $partner->translate($currentLang, true)->name ?? '' . ' | تعديل'
+    'title' => $partner->translate($currentLang, true)->name . ' | تعديل'
 ])
 
 @section('main')

@@ -133,7 +133,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-fill btn-primary">
-                    حفظ البرنامج
+                    حفظ
                 </button>
             </form>
         </div>
