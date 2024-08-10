@@ -66,13 +66,15 @@
             <div class="show-field">
                 <div class="show-field-name">الأقسام</div>
                 <div class="show-field-value">
-                    <ul>
-                        @forelse ($categories as $cat)
-                            <li>{{ $cat->translate($currentLang, true)->title }}</li>
-                        @empty
-                            لا يوجد
-                        @endforelse
-                    </ul>
+                    @if ($categories->count() > 0)
+                        <ul>
+                            @foreach ($categories as $cat)
+                                <li>{{ $cat->translate($currentLang, true)?->title }}</li>
+                            @endforeach
+                        </ul>
+                    @else
+                        لا يوجد
+                    @endif
                 </div>
             </div>
 
@@ -88,6 +90,8 @@
                     @endforelse
                 </div>
             </div>
+
+            <hr>
 
             <div class="show-field">
                 <div class="show-field-name">تاريخ الاضافة</div>
