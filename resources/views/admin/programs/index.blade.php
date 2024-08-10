@@ -91,7 +91,7 @@
 
                                 <td>
                                     <div class="flex table-actions">
-                                        @can('edite-program')
+                                        @can('read-program')
                                             @include('admin.partials.show-action', ['route' => route('admin.programs.show', $item)])
                                         @endcan
 

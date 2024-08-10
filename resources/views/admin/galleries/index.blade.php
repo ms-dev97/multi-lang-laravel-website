@@ -86,6 +86,10 @@
 
                                 <td>
                                     <div class="flex table-actions">
+                                        @can('read-gallery')
+                                            @include('admin.partials.show-action', ['route' => route('admin.galleries.show', $item)])
+                                        @endcan
+
                                         @can('edite-gallery')
                                             @include('admin.partials.edit-action', ['route' => route('admin.galleries.edit', $item)])
                                         @endcan

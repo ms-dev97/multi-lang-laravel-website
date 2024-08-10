@@ -86,6 +86,10 @@
                                 <td>{{ Carbon\Carbon::parse($announcement->created_at)->locale('ar')->isoFormat('Do MMMM YYYY') }}</td>
                                 <td>
                                     <div class="flex table-actions">
+                                        @can('read-ad')
+                                            @include('admin.partials.show-action', ['route' => route('admin.announcements.show', $announcement)])
+                                        @endcan
+
                                         @can('edit-ad')
                                             @include('admin.partials.edit-action', [
                                                 'route' => route('admin.announcements.edit', $announcement)

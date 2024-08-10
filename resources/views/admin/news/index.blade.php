@@ -95,6 +95,10 @@
 
                                 <td>
                                     <div class="flex table-actions">
+                                        @can('read-news')
+                                            @include('admin.partials.show-action', ['route' => route('admin.news.show', $item)])
+                                        @endcan
+
                                         @can('edite-news')
                                             @include('admin.partials.edit-action', ['route' => route('admin.news.edit', $item)])
                                         @endcan

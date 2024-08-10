@@ -61,6 +61,10 @@
 
                                 <td>
                                     <div class="flex table-actions">
+                                        @can('read-user')
+                                            @include('admin.partials.show-action', ['route' => route('admin.users.show', $user)])
+                                        @endcan
+
                                         @can('edit-user')
                                             @include('admin.partials.edit-action', [
                                                 'route' => route('admin.users.edit', $user)

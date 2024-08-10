@@ -100,6 +100,10 @@
                                 <td>{{ Carbon\Carbon::parse($document->created_at)->locale('ar')->isoFormat('Do MMMM YYYY') }}</td>
                                 <td>
                                     <div class="flex table-actions">
+                                        @can('read-document')
+                                            @include('admin.partials.show-action', ['route' => route('admin.documents.show', $document)])
+                                        @endcan
+
                                         @can('edit-document')
                                             @include('admin.partials.edit-action', [
                                                 'route' => route('admin.documents.edit', $document)

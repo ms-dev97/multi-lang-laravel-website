@@ -81,6 +81,10 @@
 
                                 <td>
                                     <div class="flex table-actions">
+                                        @can('read-statistic')
+                                            @include('admin.partials.show-action', ['route' => route('admin.statistics.show', $item)])
+                                        @endcan
+
                                         @can('edite-statistic')
                                             @include('admin.partials.edit-action', ['route' => route('admin.statistics.edit', $item)])
                                         @endcan

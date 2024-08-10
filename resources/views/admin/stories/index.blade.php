@@ -97,6 +97,10 @@
 
                                 <td>
                                     <div class="flex table-actions">
+                                        @can('read-story')
+                                            @include('admin.partials.show-action', ['route' => route('admin.stories.show', $item)])
+                                        @endcan
+
                                         @can('edite-story')
                                             @include('admin.partials.edit-action', ['route' => route('admin.stories.edit', $item)])
                                         @endcan

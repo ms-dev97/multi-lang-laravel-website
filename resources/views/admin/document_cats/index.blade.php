@@ -73,6 +73,10 @@
                                 <td>{{ Carbon\Carbon::parse($cat->created_at)->locale('ar')->isoFormat('Do MMMM YYYY') }}</td>
                                 <td>
                                     <div class="flex table-actions">
+                                        @can('read-doc-cat')
+                                            @include('admin.partials.show-action', ['route' => route('admin.document-categories.show', $cat)])
+                                        @endcan
+
                                         @can('edit-doc-cat')
                                             @include('admin.partials.edit-action', [
                                                 'route' => route('admin.document-categories.edit', $cat)
