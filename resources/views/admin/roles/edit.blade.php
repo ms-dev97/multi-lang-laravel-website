@@ -30,7 +30,7 @@
         <div class="card-header">
             <div class="flex justify-content-between align-items-center g-1rem">
                 <div class="card-title">تعديل الدور</div>
-                <a href="{{ url()->previous() }}" class="ms-auto">عودة</a>
+                <a href="{{ route('admin.roles.index') }}" class="ms-auto">عودة</a>
                 <button class="btn btn-fill btn-primary" form="edit">
                     حفظ
                 </button>
