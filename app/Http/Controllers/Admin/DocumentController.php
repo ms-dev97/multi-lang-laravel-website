@@ -231,7 +231,7 @@ class DocumentController extends Controller implements HasMiddleware
 
             DB::commit();
 
-            return redirect()->route('admin.documents.index', ['lang' => $lang])->with('success', 'تمت التعديل بنجاح');
+            return redirect()->route('admin.documents.index', ['lang' => $lang])->with('success', 'تم التعديل بنجاح');
         } catch (\Throwable $th) {
             if (!is_null($newFilePath)) {
                 Storage::disk('public')->delete($newFilePath);
