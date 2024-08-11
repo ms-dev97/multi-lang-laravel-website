@@ -61,8 +61,15 @@
             <hr>
 
             <div class="show-field">
+                <div class="show-field-name">الوصف المختصر</div>
+                <div class="show-field-value">{{ $newsTrans->excerpt ?? 'لا يوجد' }}</div>
+            </div>
+
+            <hr>
+
+            <div class="show-field">
                 <div class="show-field-name">المحتوى</div>
-                <div class="show-field-value">{!! $newsTrans->body !!}</div>
+                <div class="show-field-value">{!! $newsTrans->body ?? 'لا يوجد' !!}</div>
             </div>
 
             <hr>

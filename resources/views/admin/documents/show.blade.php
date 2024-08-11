@@ -49,14 +49,14 @@
 
             <div class="show-field">
                 <div class="show-field-name">الوصف المختصر</div>
-                <div class="show-field-value">{{ $documentTrans->excerpt ?? '-' }}</div>
+                <div class="show-field-value">{{ $documentTrans->excerpt ?? 'لا يوجد' }}</div>
             </div>
 
             <hr>
 
             <div class="show-field">
                 <div class="show-field-name">المحتوى</div>
-                <div class="show-field-value">{{ $documentTrans->body ?? '-' }}</div>
+                <div class="show-field-value">{{ $documentTrans->body ?? 'لا يوجد' }}</div>
             </div>
 
             <hr>
@@ -64,7 +64,7 @@
             @if ($document->get_from_link)
                 <div class="show-field">
                     <div class="show-field-name">رابط المستند</div>
-                    <div class="show-field-value">{{ $document->link ?? '-' }}</div>
+                    <div class="show-field-value">{{ $document->link ?? 'لا يوجد' }}</div>
                 </div>
 
                 <hr>
@@ -81,7 +81,7 @@
 
             <div class="show-field">
                 <div class="show-field-name">القسم</div>
-                <div class="show-field-value">{{ $document->category?->translate($currentLang, true)->title ?? '-' }}</div>
+                <div class="show-field-value">{{ $document->category?->translate($currentLang, true)->title ?? 'لا يوجد' }}</div>
             </div>
 
             <hr>

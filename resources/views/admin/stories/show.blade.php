@@ -110,6 +110,8 @@
                 <div class="show-field-value">{{ $story->link ?? 'لا يوجد' }}</div>
             </div>
 
+            <hr>
+
             <div class="show-field">
                 <div class="show-field-name">معرض الصور</div>
                 <div class="flex g-0.5rem show-gallery">

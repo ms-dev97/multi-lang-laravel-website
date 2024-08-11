@@ -87,8 +87,15 @@
             <hr>
 
             <div class="show-field">
+                <div class="show-field-name">الوصف المختصر</div>
+                <div class="show-field-value">{{ $programTrans->excerpt ?? 'لا يوجد' }}</div>
+            </div>
+
+            <hr>
+
+            <div class="show-field">
                 <div class="show-field-name">المحتوى</div>
-                <div class="show-field-value">{!! $programTrans->body !!}</div>
+                <div class="show-field-value">{!! $programTrans->body ?? 'لا يوجد' !!}</div>
             </div>
 
             <hr>
