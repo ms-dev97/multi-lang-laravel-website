@@ -17,7 +17,7 @@ class PermissionController extends Controller implements HasMiddleware
     public static function middleware()
     {
         return [
-            // new Middleware('role:super-admin'),
+            new Middleware(\Spatie\Permission\Middleware\RoleMiddleware::using('super-admin')),
         ];
     }
 
