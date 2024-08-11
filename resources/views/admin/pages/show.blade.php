@@ -68,15 +68,15 @@
             <hr>
 
             <div class="show-field">
-                <div class="show-field-name">excerpt</div>
-                <div class="show-field-value">{{ $pageTrans->excerpt }}</div>
+                <div class="show-field-name">الوصف المختصر</div>
+                <div class="show-field-value">{{ $pageTrans->excerpt ?? 'لا يوجد' }}</div>
             </div>
 
             <hr>
 
             <div class="show-field">
                 <div class="show-field-name">المحتوى</div>
-                <div class="show-field-value">{!! $pageTrans->body !!}</div>
+                <div class="show-field-value">{!! $pageTrans->body ?? 'لا يوجد' !!}</div>
             </div>
 
             <hr>
