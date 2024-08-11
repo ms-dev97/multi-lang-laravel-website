@@ -71,6 +71,10 @@ Route::group([
     // Role routes
     Route::resource('roles', RoleController::class);
 
+    // Permission routes
+    Route::get('permissions/search', 'PermissionController@search')->name('permissions.search');
+    Route::resource('permissions', PermissionController::class)->except('show');
+
     // Setting routes
     Route::get('settings', 'SettingController@index')->name('settings.index');
     Route::post('settings', 'SettingController@store')->name('settings.store');
