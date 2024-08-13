@@ -7,6 +7,7 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller implements HasMiddleware
@@ -53,6 +54,9 @@ class SettingController extends Controller implements HasMiddleware
 
         Setting::create($validated);
 
+        // delete the cache
+        Cache::forget('settings');
+
         return redirect()->route('admin.settings.index')->with('success', 'تم اضافة الإعداد');
     }
 
@@ -83,6 +87,9 @@ class SettingController extends Controller implements HasMiddleware
             $setting->value = $value;
             $setting->save();
         }
+
+        // delete the cache
+        Cache::forget('settings');
 
         return redirect()->route('admin.settings.index')->with('success', 'تم تعديل الاعدادات');
     }
