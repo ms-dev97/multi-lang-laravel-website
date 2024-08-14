@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('locale');
             $table->string('title');
             $table->string('excerpt')->nullable();
-            $table->text('body');
+            $table->text('body')->nullable();
             
             $table->unique(['news_id','locale']);
         });
