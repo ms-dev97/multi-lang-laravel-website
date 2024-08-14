@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('cover')->nullable();
             $table->json('gallery')->nullable();
-            $table->foreignId('program_id')->nullable()->constrained();
+            $table->foreignId('program_id')->nullable()->constrained()->nullOnDelete();
             $table->boolean('status')->default(true);
             $table->boolean('featured')->default(false);
             $table->timestamps();

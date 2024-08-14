@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->json('gallery')->nullable();
             $table->string('video_link')->nullable();
-            $table->foreignId('program_id')->nullable()->constrained();
-            $table->foreignId('project_id')->nullable()->constrained();
+            $table->foreignId('program_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('project_id')->nullable()->constrained()->nullOnDelete();
             $table->boolean('status')->default(true);
             $table->boolean('featured')->default(false);
             $table->timestamps();
