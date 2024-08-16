@@ -19,4 +19,20 @@ class MailController extends Controller
         }
         return view('admin.mails.show', compact('mail'));
     }
+
+    public function destroy(Mail $mail) {
+        $mail->delete();
+        return back()->with('success', 'تم الحذف بنجاح');
+    }
+
+    public function search(Request $request) {
+        $search = $request->search;
+
+        $mails = Mail::latest()
+            ->where('subject', 'like', "%{$search}%")
+            ->paginate(15)
+            ->withQueryString();
+
+        return view('admin.mails.index', compact('mails', 'search'));
+    }
 }
