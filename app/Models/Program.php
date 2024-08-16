@@ -30,6 +30,10 @@ class Program extends Model implements TranslatableContract
         return $this->hasMany(Project::class);
     }
 
+    public function stories(): HasMany {
+        return $this->hasMany(Story::class);
+    }
+
     public function scopeActive(Builder $q) {
         $q->where('status', 1);
     }
