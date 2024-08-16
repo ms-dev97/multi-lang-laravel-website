@@ -61,11 +61,10 @@
                                 <td>{{ $item->subject }}</td>
                                 <td>{{ $item->phone_number }}</td>
                                 <td>
-                                    @if ($item->is_read)
-                                        مقروء
-                                    @else
-                                        غير مقروء
-                                    @endif
+                                    @include('admin.partials.bill', [
+                                        'text' => $item->is_read ? 'مقروء' : 'غير مقروء',
+                                        'color' => $item->is_read ? 'success' : 'danger'    
+                                    ])
                                 </td>
                                 <td>{{ $item->status }}</td>
                                 <td>{{ Carbon\Carbon::parse($item->created_at)->locale('ar')->isoFormat('Do MMMM YYYY') }}</td>
@@ -100,7 +99,7 @@
                             </tr>
                         @empty
                             <tr class="no-data">
-                                <td colspan="6" class="text-center">لا توجد سجلات متاحة</td>
+                                <td colspan="7" class="text-center">لا توجد سجلات متاحة</td>
                             </tr>
                         @endforelse
                     </tbody>
