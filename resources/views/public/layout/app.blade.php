@@ -35,7 +35,9 @@
     @endforeach
 
     {{-- Styles --}}
-    <link >
+    @vite(['resources/sass/app.scss'])
+
+    {{-- Push css styles --}}
     @stack('styles')
 
     {{-- favicons --}}
