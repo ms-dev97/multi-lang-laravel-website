@@ -29,14 +29,14 @@
     <div class="card">
         <div class="card-header">
             <h1 class="card-title">تصفح الرسائل</h1>
-        </div>
 
-        <div class="card-navigation flex justify-content-between align-items-center">
-            <form action="{{ route('admin.mails.search') }}" class="search-form">
-                <input type="search" name="search" value="{{ $search ?? '' }}" class="form-control" placeholder="بحث">
-            </form>
+            <div class="card-navigation flex justify-content-between align-items-center">
+                <form action="{{ route('admin.mails.search') }}" class="search-form">
+                    <input type="search" name="search" value="{{ $search ?? '' }}" class="form-control" placeholder="بحث">
+                </form>
 
-            {{ $mails->links('pagination::default') }}
+                {{ $mails->links('pagination::default') }}
+            </div>
         </div>
 
         <div class="card-body">
