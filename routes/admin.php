@@ -65,6 +65,10 @@ Route::group([
     Route::get('pages/search', 'PageController@search')->name('pages.search');
     Route::resource('pages', PageController::class);
 
+    // Mail routes
+    Route::get('mails/search', 'MailController@search')->name('mails.search');
+    Route::resource('mails', MailController::class);
+
     // User routes
     Route::resource('users', UserController::class);
 
