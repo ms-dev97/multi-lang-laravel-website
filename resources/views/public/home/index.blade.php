@@ -74,6 +74,29 @@
             </div>
         </section>
     @endif
+
+    {{-- Statistics --}}
+    @if ($statistics->count() > 0)
+        <section class="section statistics my-5">
+            <div class="container">
+                <h2 class="section-title mb-3">{{ __('pages.org_in_numbers') }}</h2>
+
+                <div class="row row-gap-5">
+                    @foreach ($statistics as $stat)
+                        <div class="col-md-4">
+                            <div class="statistic text-center">
+                                <div class="number counter-up fw-bold fs-2" data-count="{{ $stat->number }}">
+                                    {{ $stat->number }}
+                                </div>
+
+                                <div class="name fw-medium">{{ $stat->translate()->name }}</div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
 @endsection
 
 {{-- import styles --}}
