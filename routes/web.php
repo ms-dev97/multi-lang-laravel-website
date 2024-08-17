@@ -23,4 +23,8 @@ Route::group([
     // Programs
     Route::get('programs', 'ProgramController@index')->name('programs.index');
     Route::get('programs/{program:slug}', 'ProgramController@show')->name('programs.show');
+
+    // Projects
+    Route::get('projects', 'ProjectController@index')->name('projects.index');
+    Route::get('projects/{project:slug}', 'ProjectController@show')->name('projects.show');
 });
