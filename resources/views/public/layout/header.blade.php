@@ -1,3 +1,3 @@
 <header class="main-header">
-    @include('public.components.navbar')
+    @include('public.includes.navbar')
 </header>
