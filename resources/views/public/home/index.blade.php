@@ -97,6 +97,27 @@
             </div>
         </section>
     @endif
+
+    {{-- Partners --}}
+    @if ($partners->count() > 0)
+        <section class="section partners my-5">
+            <div class="container">
+                <h2 class="section-title mb-3">{{ __('pages.our_partners') }}</h2>
+
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        @foreach ($partners as $partner)
+                            <div class="swiper-slide partners-swiper-slide">
+                                <div class="partner-box">
+                                    <img src="{{ getImgFromPath($partner->image) }}" title="{{$partner->translate()->name}}" alt="" class="partner-logo">
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
 @endsection
 
 {{-- import styles --}}
@@ -115,6 +136,35 @@
                 delay: 3000,
                 disableOnInteraction: false,
             },
+        });
+
+        const partnersSwiper = new Swiper(".partners .swiper", {
+            spaceBetween: 50,
+            centeredSlides: true,
+            slidesPerView: 2,
+            breakpoints: {
+                500: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                },
+                750: {
+                    slidesPerView: 4,
+                    spaceBetween: 30
+                },
+                990: {
+                    slidesPerView: 7,
+                    spaceBetween: 50
+                }
+            },
+            loop: true,
+            autoplay: {
+                delay: 1,
+                disableOnInteraction: false,
+            },
+            speed: 3000,
+            freeMode: true,
+            slidesPerView: "auto",
+            centeredSlides: true,
         });
     </script>
 @endpush
