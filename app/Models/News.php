@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class News extends Model implements TranslatableContract
@@ -31,6 +32,10 @@ class News extends Model implements TranslatableContract
 
     public function projects(): BelongsToMany {
         return $this->belongsToMany(Project::class, 'news_project', 'news_id', 'project_id');
+    }
+
+    public function scopeActive(Builder $q) {
+        return $q->where('status', 1);
     }
 
     protected static function booted(): void {
