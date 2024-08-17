@@ -45,6 +45,7 @@
                                 :text="Str::limit($newsText, 300)"
                                 :img="getImgFromPath($item->image)"
                                 :link="route('news.show', $item)"
+                                :date="$item->created_at"
                             />
                         </div>
                     @endforeach
