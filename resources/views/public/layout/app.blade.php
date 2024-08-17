@@ -90,6 +90,7 @@
     @include('public.layout.footer')
 
     {{-- Scripts --}}
+    @vite(['resources/js/app.js'])
     @stack('scripts')
 </body>
 </html>
