@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Program;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -30,5 +31,16 @@ if (!function_exists('getImgThumbnail')) {
         $ext = pathinfo($path, PATHINFO_EXTENSION);
         $path = Str::replaceLast('.'.$ext, '', $path) . '-sm.' . $ext;
         return asset('storage/' . $path);
+    }
+}
+
+// Cache and get programs
+if (!function_exists('getPrograms')) {
+    function getPrograms() {
+        $programs = Cache::remember('programs', 3600, function() {
+            return Program::active()->latest()->withTranslation()->translatedIn(app()->getLocale())->take(5)->get();
+        });
+
+        return $programs;
     }
 }
