@@ -1,0 +1,28 @@
+.main-footer {
+    background-color: #111;
+    color: #fff;
+    padding-block: 4rem;
+
+    .footer-logo {
+        width: 170px;
+        margin-bottom: 10px;
+    }
+
+    .social-icons {
+        .icon {
+            height: 25px;
+            img {
+                height: 100%;
+            }
+        }
+    }
+
+    .footer-title {
+        font-size: 1.25rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .footer-link {
+        margin-bottom: 10px;
+    }
+}
