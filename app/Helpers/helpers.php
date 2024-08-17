@@ -17,15 +17,15 @@ if (!function_exists('setting')) {
 }
 
 // Get model image
-if (!function_exists('model_image')) {
-    function model_image($path) {
+if (!function_exists('getImgFromPath')) {
+    function getImgFromPath($path) {
         return asset('storage/' . $path);
     }
 }
 
 // Get model thumbnail
-if (!function_exists('model_thumbnail')) {
-    function model_thumbnail($path) {
+if (!function_exists('getImgThumbnail')) {
+    function getImgThumbnail($path) {
         if (is_null($path)) return null;
         $ext = pathinfo($path, PATHINFO_EXTENSION);
         $path = Str::replaceLast('.'.$ext, '', $path) . '-sm.' . $ext;
