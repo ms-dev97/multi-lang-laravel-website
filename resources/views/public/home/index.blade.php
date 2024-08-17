@@ -28,6 +28,28 @@
             </div>
         </div>
     @endif
+
+    {{-- News --}}
+    @if ($news->count() > 0)
+        <section class="section news">
+            <div class="container">
+                <h2 class="section-title">{{ __('pages.news') }}</h2>
+                <div class="row row-gap-4">
+                    @foreach ($news as $item)
+                        @php
+                            $newsText = $item->translate()->excerpt ?? strip_tags($item->translate()->body)
+                        @endphp
+                        <x-cards.basic-card
+                            :title="$item->translate()->title"
+                            :text="Str::limit($newsText, 300)"
+                            :img="getImgFromPath($item->image)"
+                            :link="route('news.show', $item->slug)"
+                        />
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
 @endsection
 
 {{-- import styles --}}
