@@ -19,4 +19,8 @@ Route::group([
     // News
     Route::get('news', 'NewsController@index')->name('news.index');
     Route::get('news/{news:slug}', 'NewsController@show')->name('news.show');
+
+    // Programs
+    Route::get('programs', 'ProgramController@index')->name('programs.index');
+    Route::get('programs/{program:slug}', 'ProgramController@show')->name('programs.show');
 });
