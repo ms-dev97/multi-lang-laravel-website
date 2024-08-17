@@ -78,7 +78,7 @@
                     'id' => 'image',
                     'name' => 'image',
                     'label' => 'اختر صورة',
-                    'required' => true,
+                    'required' => false,
                     'src' => asset('storage/'.$slider->image),
                 ])
 
