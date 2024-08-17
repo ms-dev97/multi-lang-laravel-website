@@ -2,4 +2,5 @@
 
 return [
     'news' => 'News',
+    'programs' => 'Programs',
 ];
