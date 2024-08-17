@@ -31,10 +31,10 @@
 
     {{-- News --}}
     @if ($news->count() > 0)
-        <section class="section news">
+        <section class="section news my-5">
             <div class="container">
                 <h2 class="section-title">{{ __('pages.news') }}</h2>
-                <div class="row row-gap-4">
+                <div class="row row-gap-5">
                     @foreach ($news as $item)
                         @php
                             $newsText = $item->translate()->excerpt ?? strip_tags($item->translate()->body)
@@ -43,8 +43,29 @@
                             :title="$item->translate()->title"
                             :text="Str::limit($newsText, 300)"
                             :img="getImgFromPath($item->image)"
-                            :link="route('news.show', $item->slug)"
+                            :link="route('news.show', $item)"
                         />
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+
+    {{-- Programs --}}
+    @if ($programs->count() > 0)
+        <section class="section programs my-5">
+            <div class="container">
+                <h2 class="section-title">{{ __('pages.programs') }}</h2>
+                <div class="row row-gap-5">
+                    @foreach ($programs as $program)
+                        <div class="col-md-4">
+                            <x-cards.cover-card
+                                :title="$program->translate()->title"
+                                :cover="getImgFromPath($program->cover)"
+                                :icon="getImgFromPath($program->icon)"
+                                :link="route('programs.show', $program)"
+                            />
+                        </div>
                     @endforeach
                 </div>
             </div>

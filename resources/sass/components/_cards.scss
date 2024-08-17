@@ -1,0 +1,12 @@
+.cover-card {
+    .card-front {
+        background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
+        .icon {
+            height: 40px;
+            margin-bottom: 0.625rem;
+        }
+        .card-title {
+            font-size: 1.125rem;
+        }
+    }
+}
