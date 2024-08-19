@@ -1,5 +1,7 @@
 <div class="card basic-card">
-    <img src="{{ $img }}" alt="{{ $title }}" class="card-img-top">
+    <a href="{{ $link }}">
+        <img src="{{ $img }}" alt="{{ $title }}" class="card-img-top">
+    </a>
     <div class="card-body">
 
         @if (isset($date))
