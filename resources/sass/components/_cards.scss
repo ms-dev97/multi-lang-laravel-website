@@ -1,11 +1,10 @@
-.card {
-    .date {
-        font-size: 0.875rem;
-        margin-top: 5px;
+.basic-card {
+    .card-body {
+        border-top: 1px solid var(--bs-card-border-color);
     }
 }
 
-.cover-card {
+.overlay-card {
     .card-front {
         background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
         .icon {
