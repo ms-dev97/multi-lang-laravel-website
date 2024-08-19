@@ -3,11 +3,7 @@
     <div class="card-body">
 
         @if (isset($date))
-            <div class="date">
-                <time datetime="{{ $date }}">
-                    {{ Carbon\Carbon::parse($date)->isoFormat('Do MMMM YYYY') }}
-                </time>
-            </div>
+            <x-date :date="$date" />
         @endif
 
         <h4 class="card-title">{{ $title }}</h4>
