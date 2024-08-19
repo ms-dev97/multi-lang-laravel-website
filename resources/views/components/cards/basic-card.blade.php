@@ -1,5 +1,5 @@
 <div class="card basic-card">
-    <img src="{{ $img }}" alt="{{ $title }}">
+    <img src="{{ $img }}" alt="{{ $title }}" class="card-img-top">
     <div class="card-body">
 
         @if (isset($date))
