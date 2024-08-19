@@ -19,7 +19,7 @@
                 @foreach ($news as $item)
                     <article class="col-md-4">
                         @php
-                            $newsText = $item->translate()->excerpt ?? Str::limit(strip_tags($item->translate()->body), 300)
+                            $newsText = $item->translate()->excerpt ?? Str::limit(html_entity_decode(strip_tags($item->translate()->body)), 300)
                         @endphp
 
                         <x-cards.basic-card
