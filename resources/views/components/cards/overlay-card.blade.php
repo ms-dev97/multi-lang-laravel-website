@@ -1,4 +1,4 @@
-<a href="{{ $link }}" class="card cover-card position-relative">
+<a href="{{ $link }}" class="card overlay-card position-relative">
     <div class="cover">
         <img src="{{ $cover }}" alt="{{ $title }}">
     </div>
