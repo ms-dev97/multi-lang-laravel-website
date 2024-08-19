@@ -2,6 +2,7 @@
 
 return [
     'news' => 'الأخبار',
+    'news_description' => 'تصفح اخر اخبار موقعنا',
     'programs' => 'البرامج',
     'org_in_numbers' => 'المؤسسة في أرقام',
     'partners' => 'الشركاء',
