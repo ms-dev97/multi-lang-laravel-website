@@ -22,7 +22,7 @@
                 {{-- Date --}}
                 <x-date :date="$item->created_at" />
                 {{-- Featured image --}}
-                <div class="featured-img">
+                <div class="featured-img mt-3 mb-4">
                     <img src="{{ $image }}" alt="{{ $title }}">
                 </div>
                 {{-- Body content --}}
