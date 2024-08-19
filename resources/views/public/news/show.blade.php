@@ -34,22 +34,25 @@
 
         {{-- Related items --}}
         @if ($related->count() > 0)
-            <section class="related-items">
-                <div class="row row-gap-5">
-                    @foreach ($related as $item)
-                        <article class="col-md-4">
-                            @php
-                                $newsText = $item->translate()->excerpt ?? Str::limit(strip_tags($item->translate()->body), 300)
-                            @endphp
-                            <x-cards.basic-card
-                                :title="$item->translate()->title"
-                                :text="Str::limit($newsText, 300)"
-                                :img="getImgFromPath($item->image)"
-                                :link="route('news.show', $item)"
-                                :date="$item->created_at"
-                            />
-                        </article>
-                    @endforeach
+            <section class="related-items my-5">
+                <div class="container">
+                    <h3 class="related-items">{{ __('pages.more_news') }}</h3>
+                    <div class="row row-gap-5">
+                        @foreach ($related as $item)
+                            <article class="col-md-4">
+                                @php
+                                    $newsText = $item->translate()->excerpt ?? Str::limit(html_entity_decode(strip_tags($item->translate()->body)), 300)
+                                @endphp
+                                <x-cards.basic-card
+                                    :title="$item->translate()->title"
+                                    :text="Str::limit($newsText, 300)"
+                                    :img="getImgFromPath($item->image)"
+                                    :link="route('news.show', $item)"
+                                    :date="$item->created_at"
+                                />
+                            </article>
+                        @endforeach
+                    </div>
                 </div>
             </section>
         @endif
