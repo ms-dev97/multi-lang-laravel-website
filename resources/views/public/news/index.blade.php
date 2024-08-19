@@ -32,6 +32,8 @@
                     </article>
                 @endforeach
             </section>
+
+            {{ $news->withQueryString()->links('pagination::default') }}
         </div>
     </main>
 @endsection
