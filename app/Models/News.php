@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\AdminHelpers;
+use App\Traits\StatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class News extends Model implements TranslatableContract
 {
-    use HasFactory, Translatable;
+    use HasFactory, Translatable, StatusTrait;
 
     public $translatedAttributes = ['title', 'excerpt', 'body'];
     protected $fillable = ['slug', 'image', 'gallery', 'featured', 'status'];
