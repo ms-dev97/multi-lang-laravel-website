@@ -28,7 +28,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="/" class="nav-link">الاخبار</a>
+                        <a href="{{ route('news.index') }}" class="nav-link">الاخبار</a>
                     </li>
 
                     <li class="nav-item">
