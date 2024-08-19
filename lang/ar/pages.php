@@ -3,6 +3,7 @@
 return [
     'news' => 'الأخبار',
     'news_description' => 'تصفح اخر اخبار موقعنا',
+    'more_news' => 'المزيد من الأخبار',
     'programs' => 'البرامج',
     'org_in_numbers' => 'المؤسسة في أرقام',
     'partners' => 'الشركاء',

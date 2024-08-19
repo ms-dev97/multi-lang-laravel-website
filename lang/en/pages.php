@@ -3,6 +3,7 @@
 return [
     'news' => 'News',
     'news_description' => 'Check out our latest news',
+    'more_news' => 'More news',
     'programs' => 'Programs',
     'org_in_numbers' => 'Organization in numbers',
     'partners' => 'Partners',
