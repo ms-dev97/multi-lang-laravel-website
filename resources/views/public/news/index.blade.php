@@ -15,7 +15,7 @@
         <div class="container">
             <h1 class="page-title">{{ $title }}</h1>
 
-            <section class="row row-gap-5">
+            <section class="row row-gap-5 mb-5">
                 @foreach ($news as $item)
                     <article class="col-md-4">
                         @php
