@@ -1,4 +1,20 @@
 {
+  "resources/images/icons/facebook.svg": {
+    "file": "assets/facebook-Bdj4J2os.svg",
+    "src": "resources/images/icons/facebook.svg"
+  },
+  "resources/images/icons/instagram.svg": {
+    "file": "assets/instagram-K36rSTXu.svg",
+    "src": "resources/images/icons/instagram.svg"
+  },
+  "resources/images/icons/linkedin.svg": {
+    "file": "assets/linkedin-DCz64Zy-.svg",
+    "src": "resources/images/icons/linkedin.svg"
+  },
+  "resources/images/icons/twitter.svg": {
+    "file": "assets/twitter-CTgdl8Zh.svg",
+    "src": "resources/images/icons/twitter.svg"
+  },
   "resources/js/app.js": {
     "file": "assets/app-Cyejuk49.js",
     "name": "app",
