@@ -57,6 +57,7 @@
                         <tr>
                             <th>الاسم</th>
                             <th>الصورة</th>
+                            <th>القسم</th>
                             <th>الملف</th>
                             <th>الحالة</th>
                             <th>مميز</th>
@@ -74,6 +75,7 @@
                                     <img class="table-preview" src="{{ asset('storage/' . $document->image) }}" alt="">
                                 </td>
 
+                                <td>{{ $document->category?->translate($currentLang, true)->title ?? 'لا يوجد' }}</td>
                                 <th>
                                     @php
                                         $docLink = $document->get_from_link ? $document->link : asset('storage/'.$document->path);
