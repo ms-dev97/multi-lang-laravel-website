@@ -27,3 +27,7 @@ Run php artisan db:seed --class=SuperadminSeeder
 ## Step 8 
 Create admin with the role admin:
 Run php artisan db:seed --class=AdminSeeder
+
+## Step 8
+Seed the website setting to the database
+Run php artisan db:seed --class=SettingSeeder
