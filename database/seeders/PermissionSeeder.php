@@ -15,7 +15,7 @@ class PermissionSeeder extends Seeder
     {
         $generalPermissions = [['browse-admin', 'تصفح لوحة التحكم'], ['browse-media', 'تصفح الوسائط'], ['edit-settings', 'تعديل الأعدادات']];
         $tasks = [['browse', 'تصفح'], ['add', 'اضافة'], ['read', 'قراءة'], ['edit', 'تعديل'], ['delete', 'حذف']];
-        $modals = [
+        $models = [
             ['ad', 'الاعلانات'], ['ad-category', 'اقسام الاعلانات'], ['category', 'الاقسام'], ['document', 'الوثائق'], ['doc-cat', 'اقسام الوثائق'], ['gallery', 'معرض الصور'], ['news', 'الاخبار'], ['page', 'الصفحات'], ['partner', 'الشركاء'], ['program', 'البرامج'], ['project', 'المشاريع'],
             ['slider', 'السلايدر'], ['statistic', 'الاحصاءات'], ['story', 'قصص النجاح'], ['user', 'المستخدمين'], ['video', 'الفيديوهات'], ['role', 'الأدوار']
         ];
@@ -27,13 +27,14 @@ class PermissionSeeder extends Seeder
             ]);
         }
 
-        foreach ($modals as $modal) {
+        foreach ($models as $model) {
             foreach($tasks as $task) {
-                $name = $task[0] . '-' . $modal[0];
-                $displayName = $task[1] . ' ' . $modal[1];
+                $name = $task[0] . '-' . $model[0];
+                $displayName = $task[1] . ' ' . $model[1];
                 Permission::create([
                     'name' => $name,
-                    'display_name' => $displayName
+                    'display_name' => $displayName,
+                    'table_name' => $model[0],
                 ]);
             }
         }
