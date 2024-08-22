@@ -65,18 +65,28 @@
                 <h2>الصلاحيات</h2>
 
                 <div class="permissions">
-                    @foreach ($permissions as $permission)
-                        <div class="permission flex align-items-center g-0.5rem">
-                            <input
-                                type="checkbox"
-                                name="permissions[]"
-                                id="permission-{{ $permission->id }}"
-                                value="{{ $permission->id }}"
-                                @checked(in_array($permission->id, $rolePermissionsIds))
-                            >
-                            <label for="permission-{{ $permission->id }}">
-                                {{ $permission->display_name }}
-                            </label>
+                    @foreach ($permissions as $table => $permission)
+                        <div class="permission-group">
+
+                        
+                            @if ($table)
+                                <div class="table-name">{{ $table }}</div>
+                            @endif
+                            
+                            @foreach ($permission as $perm)
+                                <div class="permission flex align-items-center g-0.5rem">
+                                    <input
+                                        type="checkbox"
+                                        name="permissions[]"
+                                        id="permission-{{ $perm->id }}"
+                                        value="{{ $perm->id }}"
+                                        @checked(in_array($perm->id, $rolePermissionsIds))
+                                    >
+                                    <label for="permission-{{ $perm->id }}">
+                                        {{ $perm->display_name }}
+                                    </label>
+                                </div>
+                            @endforeach
                         </div>
                     @endforeach
                 </div>
@@ -91,6 +101,14 @@
 
 @push('styles')
     <style>
+        .permission-group {
+            margin-bottom: 1rem;
+        }
+        .permission-group .table-name {
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
         .permissions {
             margin-bottom: 1rem;
         }

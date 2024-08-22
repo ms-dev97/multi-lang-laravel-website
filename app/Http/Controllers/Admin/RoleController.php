@@ -92,7 +92,7 @@ class RoleController extends Controller implements HasMiddleware
      */
     public function edit(Request $request, Role $role)
     {
-        $permissions = Permission::get();
+        $permissions = Permission::get()->groupBy('table_name');
         $rolePermissions = $role->permissions;
         $rolePermissionsIds = $rolePermissions->pluck('id')->toArray();
 
