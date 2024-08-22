@@ -34,7 +34,7 @@ class PermissionSeeder extends Seeder
                 Permission::create([
                     'name' => $name,
                     'display_name' => $displayName,
-                    'table_name' => $model[0],
+                    'table_name' => $model[1],
                 ]);
             }
         }
