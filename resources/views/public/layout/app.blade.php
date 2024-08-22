@@ -17,7 +17,7 @@
     <meta property="og:type" content="{{ $ogtype ?? 'website' }}" />
     <meta property="og:site_name" content="{{ __('general.website_name') }}">
     <meta property="og:description" content="{{ $description ?? __('general.description') }}" />
-    <meta property="og:image" content="{{ $metaImage ?? setting('header_logo') }}" />
+    <meta property="og:image" content="{{ $metaImage ?? getImgFromPath(setting('header_logo')) }}" />
     <meta property="fb:app_id" content="{{ setting('facebook_id') ?? '' }}" />
 
     {{-- twitter summary card --}}
@@ -25,7 +25,7 @@
     <meta name="twitter:site" content="{{ setting('twitter_id') ?? '' }}" />
     <meta name="twitter:title" content="{{ $title }}" />
     <meta name="twitter:description" content="{{ $description ?? __('general.description') }}" />
-    <meta name="twitter:image" content="{{ $metaImage ?? setting('header_logo') }}" />
+    <meta name="twitter:image" content="{{ $metaImage ?? getImgFromPath(setting('header_logo')) }}" />
 
     {{-- canonical and alternative --}}
     <link rel="canonical" href="{{ $url }}">
