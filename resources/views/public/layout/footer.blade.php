@@ -43,7 +43,7 @@
                 @foreach (getPrograms() as $program)
                     <div class="footer-link">
                         <a href="{{ route('programs.show', $program) }}">
-                            {{ $program->translate()->title }}
+                            {{ $program?->translate()?->title }}
                         </a>
                     </div>
                 @endforeach
