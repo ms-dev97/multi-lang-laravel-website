@@ -23,7 +23,7 @@ class Project extends Model implements TranslatableContract
     ];
 
     public function news(): BelongsToMany {
-        return $this->belongsToMany(News::class, 'news_program', 'project_id', 'news_id');
+        return $this->belongsToMany(News::class, 'news_project', 'project_id', 'news_id');
     }
 
     public function program(): BelongsTo {
