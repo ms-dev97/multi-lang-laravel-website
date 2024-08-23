@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->boolean('get_from_link')->default(false);
             $table->string('image')->nullable();
-            $table->foreignId('document_category_id')->nullable()->constrained();
+            $table->foreignId('document_category_id')->nullable()->constrained()->nullOnDelete();
             $table->boolean('status')->default(true);
             $table->boolean('featured')->default(false);
             $table->timestamps();
