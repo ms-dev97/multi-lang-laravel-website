@@ -38,7 +38,7 @@ if (!function_exists('getImgThumbnail')) {
 if (!function_exists('getPrograms')) {
     function getPrograms() {
         $programs = Cache::remember('programs', 3600, function() {
-            return Program::active()->latest()->withTranslation()->translatedIn(app()->getLocale())->take(5)->get();
+            return Program::active()->latest()->with('translations')->take(5)->get();
         });
 
         return $programs;
