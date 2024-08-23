@@ -115,7 +115,7 @@
                                                     هل أنت متأكد من أنك تريد حذف هذا المشروع "{{ $item->translate($currentLang)->title }}"؟
                                                 </div>
                                                 <div class="dialog-footer">
-                                                    <form action="{{ route('admin.programs.destroy', $item) }}" method="post">
+                                                    <form action="{{ route('admin.projects.destroy', $item) }}" method="post">
                                                         @csrf
                                                         @method('delete')
                                                         <button class="btn btn-danger btn-fill" type="submit">حذف</button>
@@ -129,7 +129,7 @@
                             </tr>
                         @empty
                             <tr class="no-data">
-                                <td colspan="6" class="text-center">لا توجد سجلات متاحة</td>
+                                <td colspan="7" class="text-center">لا توجد سجلات متاحة</td>
                             </tr>
                         @endforelse
                     </tbody>
