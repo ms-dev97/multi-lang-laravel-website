@@ -108,6 +108,10 @@ class NewsController extends Controller implements HasMiddleware
                 $news->programs()->sync($request->programs);
             }
 
+            if ($news && $request->has('projects') && !is_null($request->projects[0])) {
+                $news->projects()->sync($request->projects);
+            }
+
             DB::commit();
 
             return redirect()->route('admin.news.index', ['lang' => $lang])->with('success', 'تمت الاضافة بنجاح');
@@ -201,6 +205,12 @@ class NewsController extends Controller implements HasMiddleware
                 $news->programs()->sync($request->programs);
             } else if (!$request->has('programs') || ($request->has('programs') && is_null($request->programs[0]))) {
                 $news->programs()->detach();
+            }
+
+            if ($request->has('projects') && !is_null($request->projects[0])) {
+                $news->projects()->sync($request->projects);
+            } else if (!$request->has('projects') || ($request->has('projects') && is_null($request->projects[0]))) {
+                $news->projects()->detach();
             }
 
             if (!is_null($newImagePath) && !is_null($imagePath)) {
