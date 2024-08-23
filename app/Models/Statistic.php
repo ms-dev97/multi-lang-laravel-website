@@ -22,7 +22,7 @@ class Statistic extends Model implements TranslatableContract
 
     protected static function booted(): void {
         static::deleted(function (Statistic $statistic) {
-            AdminHelpers::removeModelImage($statistic->image);
+            AdminHelpers::removeModelImage($statistic->icon);
         });
     }
 }
