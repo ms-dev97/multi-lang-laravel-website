@@ -16,7 +16,7 @@
             <h1 class="page-title">{{ $title }}</h1>
 
             <section class="row row-gap-5 mb-5">
-                @foreach ($news as $item)
+                @forelse($news as $item)
                     <article class="col-md-4">
                         @php
                             $newsText = $item->translate()->excerpt ?? Str::limit(html_entity_decode(strip_tags($item->translate()->body)), 300)
@@ -30,7 +30,9 @@
                             :date="$item->created_at"
                         />
                     </article>
-                @endforeach
+                @empty
+                    @include('public.includes.no-data')
+                @endforelse
             </section>
 
             {{ $news->withQueryString()->links('pagination::default') }}
