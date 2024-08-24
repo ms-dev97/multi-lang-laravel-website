@@ -1,0 +1,13 @@
+.page-banner {
+    position: relative;
+
+    .banner-text {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9));
+        color: #fff;
+        margin: 0;
+    }
+}
