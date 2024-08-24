@@ -64,7 +64,7 @@
                         <div class="col-md-4">
                             <x-cards.overlay-card
                                 :title="$program->translate()->title"
-                                :cover="getImgFromPath($program->cover)"
+                                :cover="getImgFromPath($program->image)"
                                 :icon="getImgFromPath($program->icon)"
                                 :link="route('programs.show', $program)"
                             />
