@@ -34,6 +34,10 @@
                     <li class="nav-item">
                         <a href="{{ route('projects.index') }}" class="nav-link">المشاريع</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('stories.index') }}" class="nav-link">قصص النجاح</a>
+                    </li>
                 </ul>
             </div>
         </div>

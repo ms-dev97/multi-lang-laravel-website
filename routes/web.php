@@ -27,4 +27,8 @@ Route::group([
     // Projects
     Route::get('projects', 'ProjectController@index')->name('projects.index');
     Route::get('projects/{project:slug}', 'ProjectController@show')->name('projects.show');
+
+    // Success stories
+    Route::get('stories', 'StoryController@index')->name('stories.index');
+    Route::get('stories/{story:slug}', 'StoryController@show')->name('stories.show');
 });
