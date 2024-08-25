@@ -43,7 +43,7 @@
                             <x-cards.basic-card
                                 :title="$item->translate()->title"
                                 :text="Str::limit($newsText, 300)"
-                                :img="getImgFromPath($item->image)"
+                                :img="getImgThumbnail($item->image)"
                                 :link="route('news.show', $item)"
                                 :date="$item->created_at"
                             />
@@ -64,7 +64,7 @@
                         <div class="col-md-4">
                             <x-cards.overlay-card
                                 :title="$program->translate()->title"
-                                :cover="getImgFromPath($program->image)"
+                                :cover="getImgThumbnail($program->image)"
                                 :icon="getImgFromPath($program->icon)"
                                 :link="route('programs.show', $program)"
                             />
