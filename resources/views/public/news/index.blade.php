@@ -25,7 +25,7 @@
                         <x-cards.basic-card
                             :title="$item->translate()->title"
                             :text="Str::limit($newsText, 300)"
-                            :img="getImgFromPath($item->image)"
+                            :img="getImgThumbnail($item->image)"
                             :link="route('news.show', $item)"
                             :date="$item->created_at"
                         />
