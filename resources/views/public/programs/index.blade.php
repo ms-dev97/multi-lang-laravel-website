@@ -20,7 +20,7 @@
                     <article class="col-md-4">
                         <x-cards.overlay-card
                             :title="$item->translate()->title"
-                            :cover="getImgFromPath($item->image)"
+                            :cover="getImgThumbnail($item->image)"
                             :icon="getImgFromPath($item->icon)"
                             :link="route('programs.show', $item)"
                         />
