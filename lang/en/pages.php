@@ -8,6 +8,8 @@ return [
     'programs_description' => 'Programs in our organization',
     'projects' => 'Projects',
     'projects_description' => 'Projects in our organization',
+    'success_stories' => 'Success stories',
+    'success_stories_description' => 'Check out the latest stories',
     'org_in_numbers' => 'Organization in numbers',
     'partners' => 'Partners',
     'our_partners' => 'Our partners',

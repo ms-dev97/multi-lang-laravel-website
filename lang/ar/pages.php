@@ -8,6 +8,8 @@ return [
     'programs_description' => 'تصفح البرامج',
     'projects' => 'المشاريع',
     'projects_description' => 'تصفح المشاريع',
+    'success_stories' => 'قصص النجاح',
+    'success_stories_description' => 'تصفح اخر قصص النجاح',
     'org_in_numbers' => 'المؤسسة في أرقام',
     'partners' => 'الشركاء',
     'our_partners' => 'شركاؤنا',
