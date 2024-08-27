@@ -38,6 +38,10 @@
                     <li class="nav-item">
                         <a href="{{ route('stories.index') }}" class="nav-link">قصص النجاح</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('announcements.index') }}" class="nav-link">الإعلانات</a>
+                    </li>
                 </ul>
             </div>
         </div>
