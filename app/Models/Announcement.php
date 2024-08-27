@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\AdminHelpers;
+use App\Traits\StatusTrait;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,13 +14,13 @@ use Illuminate\Support\Facades\Storage;
 
 class Announcement extends Model implements TranslatableContract
 {
-    use HasFactory, Translatable;
+    use HasFactory, Translatable, StatusTrait;
 
     protected $table = 'ads';
     protected $translationForeignKey = 'ad_id';
 
     public $translatedAttributes = ['title', 'excerpt', 'body'];
-    protected $fillable = ['image', 'file', 'apply_link', 'ad_category_id', 'featured', 'status'];
+    protected $fillable = ['image', 'file', 'apply_link', 'ad_category_id', 'deadline', 'featured', 'status'];
 
     public function category(): BelongsTo {
         return $this->belongsTo(AnnouncementCategory::class, 'ad_category_id');
