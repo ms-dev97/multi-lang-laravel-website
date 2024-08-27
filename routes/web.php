@@ -34,5 +34,5 @@ Route::group([
 
     // Announcements
     Route::get('announcements', 'AnnouncementController@index')->name('announcements.index');
-    Route::get('announcements/{ad}', 'AnnouncementController@show')->name('announcements.show');
+    Route::get('announcements/{announcement}', 'AnnouncementController@show')->name('announcements.show');
 });
