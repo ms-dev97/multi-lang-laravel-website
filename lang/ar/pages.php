@@ -19,4 +19,6 @@ return [
     'contact_us' => 'تواصل معنا',
     'gallery' => 'المعرض',
     'photo_gallery' => 'معرض الصور',
+    'announcements' => 'الإعلانات',
+    'announcements_description' => 'تصفح اخر الإعلانات على موقعنا',
 ];

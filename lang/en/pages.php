@@ -19,4 +19,6 @@ return [
     'contact_us' => 'Contact us',
     'gallery' => 'Gallery',
     'photo_gallery' => 'Photo Gallery',
+    'announcements' => 'Announcements',
+    'announcements_description' => 'Check out our latest announcements',
 ];
