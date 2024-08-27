@@ -31,4 +31,8 @@ Route::group([
     // Success stories
     Route::get('stories', 'StoryController@index')->name('stories.index');
     Route::get('stories/{story:slug}', 'StoryController@show')->name('stories.show');
+
+    // Announcements
+    Route::get('announcements', 'AnnouncementController@index')->name('announcements.index');
+    Route::get('announcements/{ad}', 'AnnouncementController@show')->name('announcements.show');
 });
