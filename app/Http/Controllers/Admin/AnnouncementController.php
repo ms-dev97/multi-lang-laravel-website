@@ -70,6 +70,7 @@ class AnnouncementController extends Controller implements HasMiddleware
             'apply_link' => ['nullable', 'url'],
             'excerpt' => ['nullable', 'string'],
             'body' => ['required', 'string'],
+            'deadline' => 'date',
         ]);
 
         $lang = $request->lang ?? env('APP_LOCALE');
@@ -93,6 +94,7 @@ class AnnouncementController extends Controller implements HasMiddleware
                 'file' => $filePath,
                 'apply_link' => $request->apply_link,
                 'ad_category_id' =>  $request->has('ad_category_id') ? $request->ad_category_id : null,
+                'deadline' => $validated['deadline'],
                 $lang => [
                     'title' => $validated['title'],
                     'excerpt' => $validated['excerpt'],
@@ -155,6 +157,7 @@ class AnnouncementController extends Controller implements HasMiddleware
             'apply_link' => ['nullable', 'url'],
             'excerpt' => ['nullable', 'string'],
             'body' => ['required', 'string'],
+            'deadline' => 'date',
         ]);
 
         $lang = $request->lang ?? env('APP_LOCALE');
@@ -181,6 +184,7 @@ class AnnouncementController extends Controller implements HasMiddleware
                 'file' => $newFilePath ?? $filePath,
                 'apply_link' => $request->apply_link,
                 'ad_category_id' =>  $request->ad_category_id,
+                'deadline' => $validated['deadline'],
                 $lang => [
                     'title' => $validated['title'],
                     'excerpt' => $validated['excerpt'],
