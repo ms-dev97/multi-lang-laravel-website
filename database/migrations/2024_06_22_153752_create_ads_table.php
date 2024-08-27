@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('file')->nullable();
             $table->string('apply_link')->nullable();
             $table->foreignId('ad_category_id')->nullable()->constrained()->nullOnDelete();
+            $table->date('deadline');
             $table->boolean('status')->default(true);
             $table->boolean('featured')->default(true);
             $table->timestamps();
