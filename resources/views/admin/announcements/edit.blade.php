@@ -66,6 +66,16 @@
                         'required' => true,
                         'value' => old('title') ?? $announcement->translate($currentLang)->title ?? ''
                     ])
+
+                    @include('admin.partials.text-input', [
+                        'type' => 'date',
+                        'id' => 'deadline',
+                        'name' => 'deadline',
+                        'label' => 'تاريخ الانتهاء',
+                        'required' => false,
+                        'value' => old('deadline') ?? $announcement->deadline,
+                        'placeholder' => 'تاريخ الانتهاء'
+                    ])
                 </div>
 
                 @include('admin.partials.textarea', [
