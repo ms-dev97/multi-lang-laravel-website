@@ -42,6 +42,10 @@
                     <li class="nav-item">
                         <a href="{{ route('announcements.index') }}" class="nav-link">الإعلانات</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('galleries.index') }}" class="nav-link">{{ __('pages.photo_gallery') }}</a>
+                    </li>
                 </ul>
             </div>
         </div>

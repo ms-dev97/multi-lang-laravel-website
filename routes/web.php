@@ -35,4 +35,9 @@ Route::group([
     // Announcements
     Route::get('announcements', 'AnnouncementController@index')->name('announcements.index');
     Route::get('announcements/{announcement}', 'AnnouncementController@show')->name('announcements.show');
+
+    // Galleries
+    Route::get('galleries', 'GalleryController@index')->name('galleries.index');
+    Route::get('galleries/{gallery:slug}', 'GalleryController@show')->name('galleries.show');
+    
 });
