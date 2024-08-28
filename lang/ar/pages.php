@@ -19,6 +19,9 @@ return [
     'contact_us' => 'تواصل معنا',
     'gallery' => 'المعرض',
     'photo_gallery' => 'معرض الصور',
+    'gallery_description' => 'تصفح الصور والالبومات',
     'announcements' => 'الإعلانات',
     'announcements_description' => 'تصفح اخر الإعلانات على موقعنا',
+    'documents' => 'المستندات',
+    'documents_description' => 'تصفح مستندات المؤسسة',
 ];

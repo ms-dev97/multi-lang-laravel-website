@@ -8,4 +8,5 @@ return [
     'deadline' => 'تاريخ الانتهاء',
     'category' => 'القسم',
     'apply_link' => 'رابط التقديم',
+    'download' => 'تنزيل',
 ];

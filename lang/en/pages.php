@@ -19,6 +19,9 @@ return [
     'contact_us' => 'Contact us',
     'gallery' => 'Gallery',
     'photo_gallery' => 'Photo Gallery',
+    'gallery_description' => 'Browse our gallery of photos and albums',
     'announcements' => 'Announcements',
     'announcements_description' => 'Check out our latest announcements',
+    'documents' => 'Documents',
+    'documents_description' => 'Check out our latest documents',
 ];

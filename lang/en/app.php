@@ -8,4 +8,5 @@ return [
     'deadline' => 'Deadline',
     'category' => 'Category',
     'apply_link' => 'Apply link',
+    'download' => 'Download',
 ];
