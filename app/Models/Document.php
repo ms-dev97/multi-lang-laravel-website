@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\AdminHelpers;
+use App\Traits\StatusTrait;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Document extends Model implements TranslatableContract
 {
-    use HasFactory, Translatable;
+    use HasFactory, Translatable, StatusTrait;
 
     public $translatedAttributes = ['title', 'excerpt', 'body'];
     protected $fillable = ['slug', 'path', 'link', 'get_from_link', 'image', 'document_category_id', 'status', 'featured'];
