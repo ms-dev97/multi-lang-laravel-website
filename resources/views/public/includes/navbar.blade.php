@@ -46,6 +46,10 @@
                     <li class="nav-item">
                         <a href="{{ route('galleries.index') }}" class="nav-link">{{ __('pages.photo_gallery') }}</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('documents.index') }}" class="nav-link">{{ __('pages.documents') }}</a>
+                    </li>
                 </ul>
             </div>
         </div>

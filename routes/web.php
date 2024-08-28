@@ -40,4 +40,7 @@ Route::group([
     Route::get('galleries', 'GalleryController@index')->name('galleries.index');
     Route::get('galleries/{gallery:slug}', 'GalleryController@show')->name('galleries.show');
     
+    // Documents
+    Route::get('documents', 'DocumentController@index')->name('documents.index');
+    Route::get('documents/{document:slug}', 'DocumentController@show')->name('documents.show');
 });
