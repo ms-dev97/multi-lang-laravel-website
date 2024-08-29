@@ -43,4 +43,8 @@ Route::group([
     // Documents
     Route::get('documents', 'DocumentController@index')->name('documents.index');
     Route::get('documents/{document:slug}', 'DocumentController@show')->name('documents.show');
+
+    // Videos
+    Route::get('videos', 'VideoController@index')->name('videos.index');
+    Route::get('videos/{video:slug}', 'VideoController@show')->name('videos.show');
 });
