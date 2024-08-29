@@ -24,4 +24,6 @@ return [
     'announcements_description' => 'Check out our latest announcements',
     'documents' => 'Documents',
     'documents_description' => 'Check out our latest documents',
+    'videos' => 'Videos',
+    'video_description' => 'check out our latest videos',
 ];

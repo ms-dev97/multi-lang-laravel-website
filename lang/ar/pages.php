@@ -24,4 +24,6 @@ return [
     'announcements_description' => 'تصفح اخر الإعلانات على موقعنا',
     'documents' => 'المستندات',
     'documents_description' => 'تصفح مستندات المؤسسة',
+    'videos' => 'الفيديو',
+    'video_description' => 'تصفح اخر الفيديوهات على موقعنا',
 ];
