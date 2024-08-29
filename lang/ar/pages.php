@@ -26,4 +26,5 @@ return [
     'documents_description' => 'تصفح مستندات المؤسسة',
     'videos' => 'الفيديو',
     'video_description' => 'تصفح اخر الفيديوهات على موقعنا',
+    'more_videos' => 'المزيد من الفيديوهات',
 ];

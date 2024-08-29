@@ -26,4 +26,5 @@ return [
     'documents_description' => 'Check out our latest documents',
     'videos' => 'Videos',
     'video_description' => 'check out our latest videos',
+    'more_videos' => 'More videos',
 ];
