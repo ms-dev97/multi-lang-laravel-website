@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\AdminHelpers;
+use App\Traits\StatusTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ use Astrotomic\Translatable\Translatable;
 
 class Video extends Model implements TranslatableContract
 {
-    use HasFactory, Translatable;
+    use HasFactory, Translatable, StatusTrait;
 
     public $translatedAttributes = ['title', 'excerpt', 'body'];
     protected $fillable = ['slug', 'image', 'link', 'category_id', 'status', 'featured'];
