@@ -47,4 +47,7 @@ Route::group([
     // Videos
     Route::get('videos', 'VideoController@index')->name('videos.index');
     Route::get('videos/{video:slug}', 'VideoController@show')->name('videos.show');
+
+    // Page route: must be the last one
+    Route::get('/{page:slug}', 'PageController@show')->name('pages.show');
 });
