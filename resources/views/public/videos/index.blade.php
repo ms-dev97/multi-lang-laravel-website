@@ -19,11 +19,11 @@
                 @forelse($videos as $item)
                     <article class="col-md-4">
                         @php
-                            $itemText = $itemTrans->excerpt ?? html_entity_decode(strip_tags($itemTrans->body));
+                            $itemText = $item->translate()->excerpt ?? html_entity_decode(strip_tags($item->translate()->body));
                         @endphp
 
                         <x-cards.basic-card
-                            :title="$itemTrans->title"
+                            :title="$item->translate()->title"
                             :text="Str::limit($itemText, 300)"
                             :img="getImgThumbnail($item->image)"
                             :link="route('videos.show', $item)"
