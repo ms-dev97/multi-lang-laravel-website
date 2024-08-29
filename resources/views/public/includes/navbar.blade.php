@@ -50,6 +50,10 @@
                     <li class="nav-item">
                         <a href="{{ route('documents.index') }}" class="nav-link">{{ __('pages.documents') }}</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('videos.index') }}" class="nav-link">{{ __('pages.videos') }}</a>
+                    </li>
                 </ul>
             </div>
         </div>
