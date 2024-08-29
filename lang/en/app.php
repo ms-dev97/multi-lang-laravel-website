@@ -9,4 +9,10 @@ return [
     'category' => 'Category',
     'apply_link' => 'Apply link',
     'download' => 'Download',
+    'name' => 'Name',
+    'subject' => 'Subject',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'message' => 'Message',
+    'send' => 'Send',
 ];
