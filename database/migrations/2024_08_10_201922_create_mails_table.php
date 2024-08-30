@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('subject')->nullable();
             $table->string('phone_number')->nullable();
+            $table->text('message');
+            $table->string('email')->nullable();
             $table->boolean('is_read')->default(false);
             $table->unsignedTinyInteger('status')->default(0);
-            $table->text('message');
 
             $table->timestamps();
             $table->softDeletes();
