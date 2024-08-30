@@ -15,4 +15,5 @@ return [
     'email' => 'Email',
     'message' => 'Message',
     'send' => 'Send',
+    'message_sent' => 'Message sent',
 ];
