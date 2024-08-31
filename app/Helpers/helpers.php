@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Mail;
 use App\Models\Program;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Cache;
@@ -42,5 +43,14 @@ if (!function_exists('getPrograms')) {
         });
 
         return $programs;
+    }
+}
+
+// Unread mails in the dashboard
+if (!function_exists('checkUnreadMails')) {
+    function checkUnreadMails() {
+        return Cache::remember('checkUnreadMails', 600, function() {
+            return Mail::firstWhere('is_read', false);
+        });
     }
 }
