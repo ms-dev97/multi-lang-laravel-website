@@ -20,27 +20,27 @@
             <div class="offcanas-body">
                 <ul class="navbar-nav justify-content-end me-auto">
                     <li class="nav-item">
-                        <a href="/" class="nav-link">الرئيسية</a>
+                        <a href="{{ route('home') }}" class="nav-link">{{ __('pages.home') }}</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="/" class="nav-link">البرامج</a>
+                        <a href="{{ route('programs.index') }}" class="nav-link">{{ __('pages.programs') }}</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('news.index') }}" class="nav-link">الاخبار</a>
+                        <a href="{{ route('news.index') }}" class="nav-link">{{ __('pages.news') }}</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('projects.index') }}" class="nav-link">المشاريع</a>
+                        <a href="{{ route('projects.index') }}" class="nav-link">{{ __('pages.projects') }}</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('stories.index') }}" class="nav-link">قصص النجاح</a>
+                        <a href="{{ route('stories.index') }}" class="nav-link">{{ __('pages.success_stories') }}</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('announcements.index') }}" class="nav-link">الإعلانات</a>
+                        <a href="{{ route('announcements.index') }}" class="nav-link">{{ __('pages.announcements') }}</a>
                     </li>
 
                     <li class="nav-item">
