@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'home' => 'Home',
     'news' => 'News',
     'news_description' => 'Check out our latest news',
     'more_news' => 'More news',
