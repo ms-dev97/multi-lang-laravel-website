@@ -66,6 +66,7 @@ class SliderController extends Controller implements HasMiddleware
         $validated = $request->validate([
             'title' => 'required',
             'image' => ['required', 'image', 'max:2000'],
+            'link' => ['url', 'nullable'],
             'order' => ['nullable', 'numeric', 'integer'],
             'slider_location' => ['nullable', 'integer'],
         ]);
@@ -84,6 +85,7 @@ class SliderController extends Controller implements HasMiddleware
 
             Slider::create([
                 'image' => $imagePath,
+                'link' => $validated['link'],
                 'order' => $validated['order'] ?? 0,
                 'slider_location' => $validated['slider_location'] ?? 1,
                 'status' => $request->has('status') ? true : false,
@@ -139,6 +141,7 @@ class SliderController extends Controller implements HasMiddleware
         $validated = $request->validate([
             'title' => 'required',
             'image' => ['nullable', 'image', 'max:2000'],
+            'link' => ['url', 'nullable'],
             'order' => ['nullable', 'numeric', 'integer'],
             'slider_location' => ['nullable', 'integer'],
         ]);
@@ -158,6 +161,7 @@ class SliderController extends Controller implements HasMiddleware
 
             $slider->update([
                 'image' => $newImagePath ?? $imagePath,
+                'link' => $validated['link'],
                 'order' => $validated['order'] ?? 0,
                 'slider_location' => $validated['slider_location'] ?? 1,
                 'status' => $request->has('status') ? true : false,

@@ -18,8 +18,15 @@
                         <div class="swiper-slide">
                             <div class="banner-slide position-relative">
                                 <img class="slide-img" src="{{ getImgFromPath($slide->image) }}" alt="{{ $slide->translate()->title }}">
-                                <div class="slide-text position-absolute top-0 bottom-0 start-0 end-0 d-flex align-items-center justify-content-center text-white fw-bold fs-4">
-                                    {{ $slide->translate()->title }}
+                                <div class="slide-text position-absolute top-0 bottom-0 start-0 end-0 d-flex flex-column gap-2 align-items-center justify-content-center text-white fw-bold fs-4">
+                                    <div>
+                                        {{ $slide->translate()->title }}
+                                    </div>
+                                    @if(!is_null($slide->link))
+                                        <a href="{{ $slide->link }}" class="btn btn-primary">
+                                            {{ __('app.read-more') }}
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>

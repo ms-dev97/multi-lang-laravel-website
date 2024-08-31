@@ -82,6 +82,16 @@
                     'src' => asset('storage/'.$slider->image),
                 ])
 
+                @include('admin.partials.text-input', [
+                    'type' => 'url',
+                    'name' => 'link',
+                    'id' => 'link',
+                    'label' => 'الرابط',
+                    'placeholder' => 'الرابط',
+                    'required' => false,
+                    'value' => old('link') ?? $slider->link
+                ])
+
                 <div class="form-group">
                     <label for="slider_location">موقع السلايدر</label>
                     <select name="slider_location" id="slider_location" class="form-control">

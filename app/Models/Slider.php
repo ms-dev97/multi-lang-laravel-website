@@ -14,7 +14,7 @@ class Slider extends Model implements TranslatableContract
     use HasFactory, Translatable;
 
     public $translatedAttributes = ['title'];
-    protected $fillable = ['slider_location', 'image', 'order', 'status'];
+    protected $fillable = ['slider_location', 'image', 'link', 'order', 'status'];
 
     public function scopeActive(Builder $q) {
         $q->where('status', 1);
