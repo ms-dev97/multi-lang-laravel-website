@@ -1,7 +1,7 @@
 @php
-    $title = $item->translate()->title;
-    $excerpt = $item->translate()->excerpt;
-    $content = $item->translate()->body;
+    $title = $item->translate(app()->getLocale(), true)->title;
+    $excerpt = $item->translate(app()->getLocale(), true)->excerpt;
+    $content = $item->translate(app()->getLocale(), true)->body;
     $description = $excerpt ??  Str::limit(html_entity_decode(strip_tags($content)), 300);
     $image = getImgFromPath($item->image);
     $thumbnail = getImgThumbnail($item->image);
@@ -39,10 +39,10 @@
                         @foreach ($related as $item)
                             <article class="col-md-4">
                                 @php
-                                    $newsText = $item->translate()->excerpt ?? Str::limit(html_entity_decode(strip_tags($item->translate()->body)), 300)
+                                    $newsText = $item->translate(app()->getLocale(), true)->excerpt ?? Str::limit(html_entity_decode(strip_tags($item->translate(app()->getLocale(), true)->body)), 300)
                                 @endphp
                                 <x-cards.basic-card
-                                    :title="$item->translate()->title"
+                                    :title="$item->translate(app()->getLocale(), true)->title"
                                     :text="Str::limit($newsText, 300)"
                                     :img="getImgFromPath($item->image)"
                                     :link="route('news.show', $item)"

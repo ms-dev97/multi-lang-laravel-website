@@ -19,7 +19,7 @@
                 @forelse ($programs as $item)
                     <article class="col-md-4">
                         <x-cards.overlay-card
-                            :title="$item->translate()->title"
+                            :title="$item->translate(app()->getLocale(), true)->title"
                             :cover="getImgThumbnail($item->image)"
                             :icon="getImgFromPath($item->icon)"
                             :link="route('programs.show', $item)"

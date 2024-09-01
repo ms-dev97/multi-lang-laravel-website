@@ -1,7 +1,7 @@
 @php
-    $title = $item->translate()->title;
-    $excerpt = $item->translate()->excerpt;
-    $content = $item->translate()->body;
+    $title = $item->translate(app()->getLocale(), true)->title;
+    $excerpt = $item->translate(app()->getLocale(), true)->excerpt;
+    $content = $item->translate(app()->getLocale(), true)->body;
     $description = $excerpt ??  Str::limit(html_entity_decode(strip_tags($content)), 300);
     $photos = $item->photos;
 @endphp

@@ -19,11 +19,11 @@
                 @forelse($news as $item)
                     <article class="col-md-4">
                         @php
-                            $newsText = $item->translate()->excerpt ?? Str::limit(html_entity_decode(strip_tags($item->translate()->body)), 300)
+                            $newsText = $item->translate(app()->getLocale(), true)->excerpt ?? Str::limit(html_entity_decode(strip_tags($item->translate(app()->getLocale(), true)->body)), 300)
                         @endphp
 
                         <x-cards.basic-card
-                            :title="$item->translate()->title"
+                            :title="$item->translate(app()->getLocale(), true)->title"
                             :text="Str::limit($newsText, 300)"
                             :img="getImgThumbnail($item->image)"
                             :link="route('news.show', $item)"

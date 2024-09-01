@@ -17,10 +17,10 @@
                     @foreach ($slides as $slide)
                         <div class="swiper-slide">
                             <div class="banner-slide position-relative">
-                                <img class="slide-img" src="{{ getImgFromPath($slide->image) }}" alt="{{ $slide->translate()->title }}">
+                                <img class="slide-img" src="{{ getImgFromPath($slide->image) }}" alt="{{ $slide->translate(app()->getLocale(), true)->title }}">
                                 <div class="slide-text position-absolute top-0 bottom-0 start-0 end-0 d-flex flex-column gap-2 align-items-center justify-content-center text-white fw-bold fs-4">
                                     <div>
-                                        {{ $slide->translate()->title }}
+                                        {{ $slide->translate(app()->getLocale(), true)->title }}
                                     </div>
                                     @if(!is_null($slide->link))
                                         <a href="{{ $slide->link }}" class="btn btn-primary">
@@ -44,11 +44,11 @@
                 <div class="row row-gap-5">
                     @foreach ($news as $item)
                         @php
-                            $newsText = $item->translate()->excerpt ?? strip_tags($item->translate()->body)
+                            $newsText = $item->translate(app()->getLocale(), true)->excerpt ?? strip_tags($item->translate(app()->getLocale(), true)->body)
                         @endphp
                         <div class="col-md-4">
                             <x-cards.basic-card
-                                :title="$item->translate()->title"
+                                :title="$item->translate(app()->getLocale(), true)->title"
                                 :text="Str::limit($newsText, 300)"
                                 :img="getImgThumbnail($item->image)"
                                 :link="route('news.show', $item)"
@@ -70,7 +70,7 @@
                     @foreach ($programs as $program)
                         <div class="col-md-4">
                             <x-cards.overlay-card
-                                :title="$program->translate()->title"
+                                :title="$program->translate(app()->getLocale(), true)->title"
                                 :cover="getImgThumbnail($program->image)"
                                 :icon="getImgFromPath($program->icon)"
                                 :link="route('programs.show', $program)"
@@ -96,7 +96,7 @@
                                     {{ $stat->number }}
                                 </div>
 
-                                <div class="name fw-medium">{{ $stat->translate()->name }}</div>
+                                <div class="name fw-medium">{{ $stat->translate(app()->getLocale(), true)->name }}</div>
                             </div>
                         </div>
                     @endforeach
@@ -116,7 +116,7 @@
                         @foreach ($partners as $partner)
                             <div class="swiper-slide partners-swiper-slide">
                                 <div class="partner-box">
-                                    <img src="{{ getImgFromPath($partner->image) }}" title="{{$partner->translate()->name}}" alt="" class="partner-logo">
+                                    <img src="{{ getImgFromPath($partner->image) }}" title="{{$partner->translate(app()->getLocale(), true)->name}}" alt="" class="partner-logo">
                                 </div>
                             </div>
                         @endforeach

@@ -19,11 +19,11 @@
                 @forelse($galleries as $item)
                     <article class="col-md-4">
                         @php
-                            $itemText = $item->translate()->excerpt ?? html_entity_decode(strip_tags($item->translate()->body));
+                            $itemText = $item->translate(app()->getLocale(), true)->excerpt ?? html_entity_decode(strip_tags($item->translate(app()->getLocale(), true)->body));
                         @endphp
 
                         <x-cards.basic-card
-                            :title="$item->translate()->title"
+                            :title="$item->translate(app()->getLocale(), true)->title"
                             :text="Str::limit($itemText, 300)"
                             :img="$item->photos[0]"
                             :link="route('galleries.show', $item)"
