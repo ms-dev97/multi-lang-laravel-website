@@ -11,7 +11,7 @@
 ])
 
 @section('content')
-    <main class="videos-page">
+    <div class="videos-page">
         <div class="container">
             <h1 class="page-title">{{ $title }}</h1>
 
@@ -37,5 +37,5 @@
 
             {{ $videos->withQueryString()->links('pagination::default') }}
         </div>
-    </main>
+    </div>
 @endsection

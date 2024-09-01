@@ -17,38 +17,36 @@
 
 @section('content')
     <div class="ad-page-single">
-        <main>
-            <div class="container my-5">
-                {{-- Main title --}}
-                <h1 class="page-title">{{ $title }}</h1>
-                <div>
-                    {{-- Date --}}
-                    <b>{{ __('app.publish_date') }}: </b>{{ Carbon\Carbon::parse($item->created_at)->isoFormat('Do MMMM YYYY') }}
-                    <br>
-                    {{-- Deadline --}}
-                    <b>{{ __('app.deadline') }}: </b>{{ Carbon\Carbon::parse($item->deadline)->isoFormat('Do MMMM YYYY') }}
-                    <br>
-                    {{-- Category --}}
-                    @if ($item->category && !is_null($category = $item->category->translate(app()->getLocale(), true)))
-                        <b>{{ __('app.category') }}: </b>{{ $category->title }}
-                    @endif
-                </div>
-                {{-- Featured image --}}
-                <div class="featured-img mt-3 mb-4">
-                    <img src="{{ $image }}" alt="{{ $title }}">
-                </div>
-                {{-- Body content --}}
-                <div class="body-container">
-                    {!! $content !!}
-                </div>
-                {{-- Apply link --}}
-                @if (!is_null($item->apply_link))
-                    <a href="{{ $item->apply_link }}" class="btn btn-primary">
-                        {{ __('app.apply_link') }}
-                    </a>
+        <div class="container my-5">
+            {{-- Main title --}}
+            <h1 class="page-title">{{ $title }}</h1>
+            <div>
+                {{-- Date --}}
+                <b>{{ __('app.publish_date') }}: </b>{{ Carbon\Carbon::parse($item->created_at)->isoFormat('Do MMMM YYYY') }}
+                <br>
+                {{-- Deadline --}}
+                <b>{{ __('app.deadline') }}: </b>{{ Carbon\Carbon::parse($item->deadline)->isoFormat('Do MMMM YYYY') }}
+                <br>
+                {{-- Category --}}
+                @if ($item->category && !is_null($category = $item->category->translate(app()->getLocale(), true)))
+                    <b>{{ __('app.category') }}: </b>{{ $category->title }}
                 @endif
             </div>
-        </main>
+            {{-- Featured image --}}
+            <div class="featured-img mt-3 mb-4">
+                <img src="{{ $image }}" alt="{{ $title }}">
+            </div>
+            {{-- Body content --}}
+            <div class="body-container">
+                {!! $content !!}
+            </div>
+            {{-- Apply link --}}
+            @if (!is_null($item->apply_link))
+                <a href="{{ $item->apply_link }}" class="btn btn-primary">
+                    {{ __('app.apply_link') }}
+                </a>
+            @endif
+        </div>
 
         {{-- Related items --}}
         @if ($related->count() > 0)

@@ -14,22 +14,20 @@
 
 @section('content')
     <div class="videos-page-single">
-        <main>
-            <div class="container my-5">
-                {{-- Main title --}}
-                <h1 class="page-title">{{ $title }}</h1>
-                {{-- Date --}}
-                <x-date :date="$item->created_at" />
-                {{-- Video frame --}}
-                <div class="my-4">
-                    {!! $item->vidFrame() !!}
-                </div>
-                {{-- Body content --}}
-                <div class="body-container">
-                    {!! $content !!}
-                </div>
+        <div class="container my-5">
+            {{-- Main title --}}
+            <h1 class="page-title">{{ $title }}</h1>
+            {{-- Date --}}
+            <x-date :date="$item->created_at" />
+            {{-- Video frame --}}
+            <div class="my-4">
+                {!! $item->vidFrame() !!}
             </div>
-        </main>
+            {{-- Body content --}}
+            <div class="body-container">
+                {!! $content !!}
+            </div>
+        </div>
 
         {{-- Related items --}}
         @if ($related->count() > 0)

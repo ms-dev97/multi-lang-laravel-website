@@ -11,7 +11,7 @@
 ])
 
 @section('content')
-    <main class="ad-page">
+    <div class="ad-page">
         <div class="container">
             <h1 class="page-title">{{ $title }}</h1>
 
@@ -38,5 +38,5 @@
 
             {{ $announcements->withQueryString()->links('pagination::default') }}
         </div>
-    </main>
+    </div>
 @endsection

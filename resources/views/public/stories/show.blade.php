@@ -16,26 +16,24 @@
 
 @section('content')
     <div class="stories-page-single">
-        <main>
-            <div class="container my-5">
-                {{-- Main title --}}
-                <h1 class="page-title">{{ $title }}</h1>
-                {{-- Date --}}
-                <x-date :date="$item->created_at" />
-                {{-- Featured image --}}
-                <div class="featured-img mt-3 mb-4">
-                    <img src="{{ $image }}" alt="{{ $title }}">
-                </div>
-                {{-- Body content --}}
-                <div class="body-container">
-                    {!! $content !!}
-                </div>
-                {{-- Gallery --}}
-                @if (!empty($gallery))
-                    <x-gallery :gallery="$gallery" />
-                @endif
+        <div class="container my-5">
+            {{-- Main title --}}
+            <h1 class="page-title">{{ $title }}</h1>
+            {{-- Date --}}
+            <x-date :date="$item->created_at" />
+            {{-- Featured image --}}
+            <div class="featured-img mt-3 mb-4">
+                <img src="{{ $image }}" alt="{{ $title }}">
             </div>
-        </main>
+            {{-- Body content --}}
+            <div class="body-container">
+                {!! $content !!}
+            </div>
+            {{-- Gallery --}}
+            @if (!empty($gallery))
+                <x-gallery :gallery="$gallery" />
+            @endif
+        </div>
 
         {{-- Related items --}}
         @if ($related->count() > 0)

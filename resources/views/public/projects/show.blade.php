@@ -16,24 +16,22 @@
 
 @section('content')
     <div class="projects-page-single">
-        <main>
-            {{-- Page banner --}}
-            <div class="page-banner">
-                <img src="{{ $image }}" alt="{{ $title }}" class="banner-img">
-                <h1 class="banner-text">{{ $title }}</h1>
+        {{-- Page banner --}}
+        <div class="page-banner">
+            <img src="{{ $image }}" alt="{{ $title }}" class="banner-img">
+            <h1 class="banner-text">{{ $title }}</h1>
+        </div>
+
+        <div class="container my-5">
+            {{-- Body content --}}
+            <div class="body-container">
+                {!! $content !!}
             </div>
 
-            <div class="container my-5">
-                {{-- Body content --}}
-                <div class="body-container">
-                    {!! $content !!}
-                </div>
-
-                {{-- Gallery --}}
-                @if (!empty($gallery))
-                    <x-gallery :gallery="$gallery" />
-                @endif
-            </div>
-        </main>
+            {{-- Gallery --}}
+            @if (!empty($gallery))
+                <x-gallery :gallery="$gallery" />
+            @endif
+        </div>
     </div>
 @endsection

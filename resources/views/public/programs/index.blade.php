@@ -11,7 +11,7 @@
 ])
 
 @section('content')
-    <main class="programs-page">
+    <div class="programs-page">
         <div class="container">
             <h1 class="page-title">{{ $title }}</h1>
 
@@ -32,5 +32,5 @@
 
             {{ $programs->withQueryString()->links('pagination::default') }}
         </div>
-    </main>
+    </div>
 @endsection

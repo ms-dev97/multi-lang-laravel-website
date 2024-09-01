@@ -15,26 +15,24 @@
 ])
 
 @section('content')
-    <div class="ad-page-single">
-        <main>
-            <div class="container my-5">
-                {{-- Main title --}}
-                <h1 class="page-title">{{ $title }}</h1>
-                {{-- Featured image --}}
-                <div class="featured-img mt-3 mb-4">
-                    <img src="{{ $image }}" alt="{{ $title }}">
-                </div>
-                {{-- Body content --}}
-                <div class="body-container">
-                    {!! $content !!}
-                </div>
-                {{-- download link --}}
-                @if ($file)
-                    <a href="{{ $file }}" class="btn btn-primary" download>
-                        {{ __('app.download') }}
-                    </a>
-                @endif
+    <div class="document-page-single">
+        <div class="container my-5">
+            {{-- Main title --}}
+            <h1 class="page-title">{{ $title }}</h1>
+            {{-- Featured image --}}
+            <div class="featured-img mt-3 mb-4">
+                <img src="{{ $image }}" alt="{{ $title }}">
             </div>
-        </main>
+            {{-- Body content --}}
+            <div class="body-container">
+                {!! $content !!}
+            </div>
+            {{-- download link --}}
+            @if ($file)
+                <a href="{{ $file }}" class="btn btn-primary" download>
+                    {{ __('app.download') }}
+                </a>
+            @endif
+        </div>
     </div>
 @endsection
