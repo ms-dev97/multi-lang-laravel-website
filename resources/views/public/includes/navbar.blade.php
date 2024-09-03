@@ -20,39 +20,57 @@
             <div class="offcanas-body">
                 <ul class="navbar-nav justify-content-end me-auto">
                     <li class="nav-item">
-                        <a href="{{ route('home') }}" class="nav-link">{{ __('pages.home') }}</a>
+                        <a href="{{ route('home') }}" @class(['nav-link', 'active' => Route::is('home')])>
+                            {{ __('pages.home') }}
+                        </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('programs.index') }}" class="nav-link">{{ __('pages.programs') }}</a>
+                        <a href="{{ route('programs.index') }}" @class(['nav-link', 'active' => Route::is('programs.*')])>
+                            {{ __('pages.programs') }}
+                        </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('news.index') }}" class="nav-link">{{ __('pages.news') }}</a>
+                        <a href="{{ route('news.index') }}" @class(['nav-link', 'active' => Route::is('news.*')])>
+                            {{ __('pages.news') }}
+                        </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('projects.index') }}" class="nav-link">{{ __('pages.projects') }}</a>
+                        <a href="{{ route('projects.index') }}" @class(['nav-link', 'active' => Route::is('projects.*')])>
+                            {{ __('pages.projects') }}
+                        </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('stories.index') }}" class="nav-link">{{ __('pages.success_stories') }}</a>
+                        <a href="{{ route('stories.index') }}" @class(['nav-link', 'active' => Route::is('stories.*')])>
+                            {{ __('pages.success_stories') }}
+                        </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('announcements.index') }}" class="nav-link">{{ __('pages.announcements') }}</a>
+                        <a href="{{ route('announcements.index') }}" @class(['nav-link', 'active' => Route::is('announcements.*')])>
+                            {{ __('pages.announcements') }}
+                        </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('galleries.index') }}" class="nav-link">{{ __('pages.photo_gallery') }}</a>
+                        <a href="{{ route('galleries.index') }}" @class(['nav-link', 'active' => Route::is('galleries.*')])>
+                            {{ __('pages.photo_gallery') }}
+                        </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('documents.index') }}" class="nav-link">{{ __('pages.documents') }}</a>
+                        <a href="{{ route('documents.index') }}" @class(['nav-link', 'active' => Route::is('documents.*')])>
+                            {{ __('pages.documents') }}
+                        </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('videos.index') }}" class="nav-link">{{ __('pages.videos') }}</a>
+                        <a href="{{ route('videos.index') }}" @class(['nav-link', 'active' => Route::is('videos.*')])>
+                            {{ __('pages.videos') }}
+                        </a>
                     </li>
                 </ul>
             </div>
