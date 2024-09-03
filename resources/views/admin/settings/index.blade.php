@@ -87,7 +87,7 @@
             </div>
 
             <div class="card-body">
-                <form class="create-setting-form" action="" method="post">
+                <form class="create-setting-form" action="{{ route('admin.settings.store') }}" method="post">
                     @csrf
 
                     @include('admin.partials.text-input', [
