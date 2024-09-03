@@ -18,9 +18,8 @@ class SettingController extends Controller implements HasMiddleware
     public static function middleware()
     {
         return [
-            new Middleware('can:edit-settings', only: ['index']),
+            new Middleware('can:edit-settings', only: ['index', 'updateAll']),
             new Middleware('can:edit-settings', only: ['store']),
-            new Middleware('can:edit-settings', only: ['updateAll']),
             new Middleware('can:edit-settings', only: ['destroy']),
         ];
     }
