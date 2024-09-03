@@ -19,8 +19,7 @@ class SettingController extends Controller implements HasMiddleware
     {
         return [
             new Middleware('can:edit-settings', only: ['index', 'updateAll']),
-            new Middleware('can:edit-settings', only: ['store']),
-            new Middleware('can:edit-settings', only: ['destroy']),
+            new Middleware(\Spatie\Permission\Middleware\RoleMiddleware::using('super-admin'), only: ['store', 'destroy']),
         ];
     }
 
