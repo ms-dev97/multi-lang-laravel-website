@@ -10,10 +10,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Story extends Model implements TranslatableContract
 {
-    use HasFactory, Translatable, StatusTrait;
+    use HasFactory, Translatable, StatusTrait, SoftDeletes;
 
     public $translatedAttributes = ['title', 'excerpt', 'body'];
     protected $fillable = ['slug', 'type', 'image', 'gallery', 'video_link', 'featured', 'status', 'program_id', 'project_id'];

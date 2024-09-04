@@ -11,10 +11,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Program extends Model implements TranslatableContract
 {
-    use HasFactory, Translatable, StatusTrait;
+    use HasFactory, Translatable, StatusTrait, SoftDeletes;
 
     public $translatedAttributes = ['title', 'excerpt', 'body'];
     protected $fillable = ['slug', 'image', 'icon', 'cover', 'gallery', 'featured', 'status'];

@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class News extends Model implements TranslatableContract
 {
-    use HasFactory, Translatable, StatusTrait;
+    use HasFactory, Translatable, StatusTrait, SoftDeletes;
 
     public $translatedAttributes = ['title', 'excerpt', 'body'];
     protected $fillable = ['slug', 'image', 'gallery', 'featured', 'status'];

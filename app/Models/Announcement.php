@@ -10,11 +10,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
 class Announcement extends Model implements TranslatableContract
 {
-    use HasFactory, Translatable, StatusTrait;
+    use HasFactory, Translatable, StatusTrait, SoftDeletes;
 
     protected $table = 'ads';
     protected $translationForeignKey = 'ad_id';

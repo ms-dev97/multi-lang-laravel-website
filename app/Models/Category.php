@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Category extends Model implements TranslatableContract
 {
-    use HasFactory, Translatable;
+    use HasFactory, Translatable, SoftDeletes;
 
     public $translatedAttributes = ['title'];
     protected $fillable = ['slug', 'featured', 'status'];

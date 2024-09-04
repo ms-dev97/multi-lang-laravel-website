@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Gallery extends Model implements TranslatableContract
 {
-    use HasFactory, Translatable, StatusTrait;
+    use HasFactory, Translatable, StatusTrait, SoftDeletes;
 
     public $translatedAttributes = ['title', 'excerpt', 'body'];
     protected $fillable = ['slug', 'photos','featured', 'status'];
