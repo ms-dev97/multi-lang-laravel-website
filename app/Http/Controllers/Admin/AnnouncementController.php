@@ -70,7 +70,7 @@ class AnnouncementController extends Controller implements HasMiddleware
             'apply_link' => ['nullable', 'url'],
             'excerpt' => ['nullable', 'string'],
             'body' => ['required', 'string'],
-            'deadline' => 'date',
+            'deadline' => 'date|nullable',
         ]);
 
         $lang = $request->lang ?? env('APP_LOCALE');
@@ -157,7 +157,7 @@ class AnnouncementController extends Controller implements HasMiddleware
             'apply_link' => ['nullable', 'url'],
             'excerpt' => ['nullable', 'string'],
             'body' => ['required', 'string'],
-            'deadline' => 'date',
+            'deadline' => 'date|nullable',
         ]);
 
         $lang = $request->lang ?? env('APP_LOCALE');
