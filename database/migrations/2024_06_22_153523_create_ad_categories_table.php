@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique();
             $table->boolean('status')->default(true);
-            $table->boolean('featured')->default(true);
+            $table->boolean('featured')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

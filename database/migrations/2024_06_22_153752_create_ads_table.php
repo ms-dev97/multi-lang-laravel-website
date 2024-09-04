@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('ad_category_id')->nullable()->constrained()->nullOnDelete();
             $table->date('deadline')->nullable();
             $table->boolean('status')->default(true);
-            $table->boolean('featured')->default(true);
+            $table->boolean('featured')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
