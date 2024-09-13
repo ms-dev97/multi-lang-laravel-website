@@ -20,8 +20,10 @@ class SettingSeeder extends Seeder
             ['key' => 'twitter_link', 'display_name' => 'رابط صفحة تويتر', 'type' => 'text', 'group' => 'info'],
             ['key' => 'linkedin_link', 'display_name' => 'رابط صفحة لنكد ان', 'type' => 'text', 'group' => 'info'],
             ['key' => 'instagram_link', 'display_name' => 'رابط انستجرام', 'type' => 'text', 'group' => 'info'],
-            ['key' => 'header_logo', 'display_name' => 'شعار الموقع (الهيدر)', 'type' => 'image', 'group' => 'backgrounds'],
-            ['key' => 'footer_logo', 'display_name' => 'شعار الموقع (الفوتر)', 'type' => 'image', 'group' => 'backgrounds'],
+            ['key' => 'google_tag', 'display_name' => 'Google Tag', 'type' => 'text', 'group' => 'info'],
+            ['key' => 'header_logo', 'display_name' => 'شعار الموقع (الهيدر)', 'type' => 'image', 'group' => 'logos'],
+            ['key' => 'footer_logo', 'display_name' => 'شعار الموقع (الفوتر)', 'type' => 'image', 'group' => 'logos'],
+            ['key' => 'cp_logo', 'display_name' => 'شعار لوحة التحكم', 'type' => 'image', 'group' => 'logos'],
         ]);
     }
 }
