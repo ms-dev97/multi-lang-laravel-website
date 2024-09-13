@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.9",
         "maatwebsite/excel": "^3.1",
         "mcamara/laravel-localization": "^2.0",
+        "protonemedia/laravel-cross-eloquent-search": "^3.4",
         "spatie/laravel-permission": "^6.7",
         "spatie/pdf-to-image": "^2.2",
         "unisharp/laravel-filemanager": "^2.9"
