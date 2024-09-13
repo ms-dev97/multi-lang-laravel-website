@@ -93,7 +93,7 @@
                         <div class="col-md-4">
                             <div class="statistic text-center">
                                 <div class="number counter-up fw-bold fs-2" data-count="{{ $stat->number }}">
-                                    {{ $stat->number }}
+                                    0
                                 </div>
 
                                 <div class="name fw-medium">{{ $stat->translate(app()->getLocale(), true)->name }}</div>

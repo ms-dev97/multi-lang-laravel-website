@@ -10,6 +10,37 @@ document.addEventListener('DOMContentLoaded', function() {
     if (gallerySection) {
         openGallery(gallerySection);
     }
+
+    // Counter up effect
+    const counterUpNumbers = document.querySelectorAll('.counter-up');
+
+    if (counterUpNumbers.length > 0) {
+        const countObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const target = entry.target;
+                const count = Number(target.dataset.count);
+                let currentCount = 0;
+                target.textContent = 0;
+
+                const interval = setInterval(() => {
+                    if (currentCount > count) {
+                        clearInterval(interval);
+                        countObserver.unobserve(target);
+                        target.textContent = count;
+                        return;
+                    }
+                    target.textContent = currentCount;
+                    currentCount += Math.ceil(count / 40);
+                }, 32);
+            });
+        }, {threshold: 1});
+
+        counterUpNumbers.forEach(item => {
+            countObserver.observe(item);
+        });
+    }
+
 });
 
 function openGallery(gallerySection) {
