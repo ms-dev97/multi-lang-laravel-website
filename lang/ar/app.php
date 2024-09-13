@@ -16,4 +16,5 @@ return [
     'message' => 'الرسالة',
     'send' => 'إرسال',
     'message_sent' => 'تم إرسال الرسالة',
+    'search' => 'بحث',
 ];
