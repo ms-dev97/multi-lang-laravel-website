@@ -18,7 +18,7 @@
             </div>
 
             <div class="offcanas-body">
-                <ul class="navbar-nav justify-content-end me-auto">
+                <ul class="navbar-nav justify-content-end align-items-center me-auto">
                     <li class="nav-item">
                         <a href="{{ route('home') }}" @class(['nav-link', 'active' => Route::is('home')])>
                             {{ __('pages.home') }}
@@ -72,6 +72,13 @@
                             {{ __('pages.videos') }}
                         </a>
                     </li>
+
+                    @php
+                        $langLink = $lang == 'ar' ? LaravelLocalization::getLocalizedURL('en', null, [], true) : LaravelLocalization::getLocalizedURL('ar', null, [], true);
+                    @endphp
+                    <a href="{{ $langLink }}" class="lang-switcher bg-primary text-white">
+                        {{ $lang == 'ar' ? 'EN' : 'AR' }}
+                    </a>
                 </ul>
             </div>
         </div>
