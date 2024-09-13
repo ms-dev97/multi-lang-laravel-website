@@ -59,12 +59,10 @@
 
     {{-- Google tag (gtag.js) --}}
     @php
-        $googleTag = "setting('google_tag')";
+        $googleTag = setting('google_tag');
     @endphp
     @if ($googleTag)
-        <script async
-            src="https://www.googletagmanager.com/gtag/js?id={{ $googleTag }}">
-        </script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $googleTag }}"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
 
