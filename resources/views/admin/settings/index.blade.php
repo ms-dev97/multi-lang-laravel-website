@@ -161,7 +161,7 @@
         .setting-tabs {
             display: flex;
             flex-wrap: wrap;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
         }
         .setting-tabs .tab {
             background-color: var(--neutral-100);
@@ -193,6 +193,9 @@
         .tab-content.active {
             display: block;
             opacity: 1;
+        }
+        .tab-content .form-group {
+            margin-bottom: 1.5rem;
         }
     </style>
 @endpush
