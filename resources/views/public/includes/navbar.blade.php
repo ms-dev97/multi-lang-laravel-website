@@ -73,10 +73,24 @@
                         </a>
                     </li>
 
+                    <div class="search-wrapper">
+                        <form action="{{ route('search.index') }}">
+                            <input
+                                type="search"
+                                name="q"
+                                id="search"
+                                class="search"
+                                placeholder="{{ __('app.search') }}..."
+                                list="search-suggestions"
+                                autocomplete="off"
+                            >
+                        </form>
+                    </div>
+
                     @php
                         $langLink = $lang == 'ar' ? LaravelLocalization::getLocalizedURL('en', null, [], true) : LaravelLocalization::getLocalizedURL('ar', null, [], true);
                     @endphp
-                    <a href="{{ $langLink }}" class="lang-switcher bg-primary text-white">
+                    <a href="{{ $langLink }}" class="lang-switcher bg-primary text-white mt-lg-0 mt-3">
                         {{ $lang == 'ar' ? 'EN' : 'AR' }}
                     </a>
                 </ul>

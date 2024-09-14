@@ -1,5 +1,21 @@
-.lang-switcher {
-    font-size: 0.875rem;
-    padding: 3px 10px;
-    border-radius: 5px;
+.navbar {
+    .lang-switcher {
+        font-size: 0.875rem;
+        padding: 3px 10px;
+        border-radius: 5px;
+    }
+
+    .search-wrapper {
+        margin-inline-start: 1.25rem;
+        margin-inline-end: 0.625rem;
+    }
+    
+    .search {
+        padding: 2px 5px;
+        outline-color: transparent;
+        transition: 0.1s;
+        &:focus-visible {
+            outline-color: #{$primary};
+        }
+    }
 }

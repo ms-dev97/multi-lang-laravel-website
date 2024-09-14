@@ -51,6 +51,9 @@ Route::group([
     // Store contact us
     Route::post('contact-us', 'MailController@storeContactUs')->name('contact_us.store');
 
+    // Search
+    Route::get('search', 'SearchController@index')->name('search.index');
+
     // Page route: must be the last one
     Route::get('/{page:slug}', 'PageController@show')->name('pages.show');
 });
