@@ -1,5 +1,5 @@
 <header class="header">
-    <a href="/" class="logo">
+    <a href="{{ route('admin.home') }}" class="logo">
         <img src="{{ getImgFromPath(setting('cp_logo')) }}" alt="لوحة التحكم">
     </a>
     <a href="{{ route('admin.mails.index') }}" class="inbox relative">

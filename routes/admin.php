@@ -6,13 +6,9 @@ Route::group([
     'middleware' => 'auth',
     'namespace' => 'App\Http\Controllers\Admin'
 ], function() {
-    Route::get('/', function() {
-        return 'admin index page';
-    })->name('index');
+    Route::get('/', 'HomeController@index')->name('home');
 
-    Route::get('dashboard', function() {
-        return 'dashboard';
-    })->name('dashboard');
+    Route::get('dashboard', 'HomeController@index')->name('dashboard');
     
     // Categories routes
     Route::resource('categories', CategoryController::class);
