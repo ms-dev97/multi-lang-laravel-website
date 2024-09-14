@@ -37,4 +37,12 @@ class Document extends Model implements TranslatableContract
             }
         });
     }
+
+    // for search
+    protected $appends  = ["showUrl"];
+
+    public function getShowUrlAttribute($value)
+    {
+        return route('documents.show', $this);
+    }
 }
