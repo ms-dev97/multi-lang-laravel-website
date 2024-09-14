@@ -24,4 +24,12 @@ class Gallery extends Model implements TranslatableContract
     public function scopeActive(Builder $q) {
         $q->where('status', 1);
     }
+
+    // for search
+    protected $appends  = ["showUrl"];
+
+    public function getShowUrlAttribute($value)
+    {
+        return route('galleries.show', $this);
+    }
 }

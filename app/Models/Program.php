@@ -49,4 +49,12 @@ class Program extends Model implements TranslatableContract
             $program->news()->detach();
         });
     }
+
+    // for search
+    protected $appends  = ["showUrl"];
+
+    public function getShowUrlAttribute($value)
+    {
+        return route('programs.show', $this);
+    }
 }

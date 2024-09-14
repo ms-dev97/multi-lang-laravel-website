@@ -44,4 +44,12 @@ class Video extends Model implements TranslatableContract
             AdminHelpers::removeModelImage($video->image);
         });
     }
+
+    // for search
+    protected $appends  = ["showUrl"];
+
+    public function getShowUrlAttribute($value)
+    {
+        return route('videos.show', $this);
+    }
 }

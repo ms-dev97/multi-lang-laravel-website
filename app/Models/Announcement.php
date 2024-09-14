@@ -40,4 +40,12 @@ class Announcement extends Model implements TranslatableContract
             }
         });
     }
+
+    // for search
+    protected $appends  = ["showUrl"];
+
+    public function getShowUrlAttribute($value)
+    {
+        return route('announcements.show', $this);
+    }
 }

@@ -48,4 +48,12 @@ class News extends Model implements TranslatableContract
             $news->projects()->detach();
         });
     }
+
+    // for search
+    protected $appends  = ["showUrl"];
+
+    public function getShowUrlAttribute($value)
+    {
+        return route('news.show', $this);
+    }
 }

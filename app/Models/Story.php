@@ -40,4 +40,12 @@ class Story extends Model implements TranslatableContract
             AdminHelpers::removeModelImage($story->image);
         });
     }
+
+    // for search
+    protected $appends  = ["showUrl"];
+
+    public function getShowUrlAttribute($value)
+    {
+        return route('stories.show', $this);
+    }
 }

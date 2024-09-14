@@ -44,4 +44,12 @@ class Project extends Model implements TranslatableContract
             $project->news()->detach();
         });
     }
+
+    // for search
+    protected $appends  = ["showUrl"];
+
+    public function getShowUrlAttribute($value)
+    {
+        return route('projects.show', $this);
+    }
 }
