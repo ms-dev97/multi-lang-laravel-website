@@ -17,4 +17,7 @@ return [
     'send' => 'Send',
     'message_sent' => 'Message sent',
     'search' => 'Search',
+    'search_results' => 'Search results',
+    'searching_for' => 'Searching for',
+    'no_search_results' => 'Sorry! We couldn\'t find any results.',
 ];
