@@ -526,6 +526,7 @@ dialog::backdrop {
     border-radius: 20px 0 0 20px;
 }
 .sidebar-item.active,
+.dropdown:has(.sidebar-item.active) summary.sidebar-item,
 .sidebar-item:hover {
     background-image: linear-gradient(to right ,var(--primary-dark), var(--primary-light));
     color: #fff;
@@ -570,13 +571,32 @@ dialog::backdrop {
     border-bottom: 1px solid var(--divider);
     margin-bottom: 1.25rem;
 }
-.header .user-menu-btn {
-    width: 40px;
-    height: 40px;
+.header .inbox {
+    width: 20px;
+    height: 20px;
     margin-inline-start: auto;
-    background: #333;
+    margin-inline-end: 1rem;
+}
+.header .unread {
+    width: 8px;
+    height: 8px;
+    background-color: var(--danger);
+    border-radius: 50%;
+    bottom: -1px;
+}
+.header .user-menu-btn {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    color: var(--text-primary);
     border-radius: 50%;
     anchor-name: --user-menu;
+}
+.user-menu-btn > svg:first-of-type {
+    min-width: 24px;
+}
+.user-menu-btn > svg:last-of-type {
+    min-width: 20px;
 }
 .header .user-menu {
     position: fixed;
