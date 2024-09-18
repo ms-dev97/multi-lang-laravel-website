@@ -85,12 +85,15 @@
                 <div class="icon">
                     {!! $stat['icon'] !!}
                 </div>
+
                 <div class="title">
                     {{ $stat['name'] }}
                 </div>
+
                 <div class="count">
                     {{ $stat['count'] }}
                 </div>
+
                 <a href="{{ $stat['addRoute'] }}" class="add-new flex align-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 11H7V13H11V17H13V13H17V11H13V7H11V11Z"></path></svg>
                     <span>إضافة جديد</span>
@@ -106,6 +109,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.25rem;
+            padding-bottom: 1.25rem;
         }
         .stat-item {
             background-color: var(--card-bg);
@@ -116,10 +120,12 @@
         .stat-item .icon {
             width: 40px;
         }
+        .stat-item .icon > svg {
+            display: block;
+        }
         .stat-item .title {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            margin-block: 0.875rem;
         }
         .stat-item .count {
             font-size: 2rem;
