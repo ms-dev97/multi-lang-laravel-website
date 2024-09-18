@@ -65,7 +65,7 @@
 
             <div class="show-field">
                 <div class="show-field-name">الرسالة</div>
-                <div class="show-field-value">{{ $mail->message }}</div>
+                <div class="show-field-value">{!! $mail->message !!}</div>
             </div>
         </div>
     </div>
