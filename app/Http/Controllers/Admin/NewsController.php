@@ -167,6 +167,7 @@ class NewsController extends Controller implements HasMiddleware
             'image' => ['nullable', 'image'],
             'excerpt' => ['nullable', 'string'],
             'body' => ['required', 'string'],
+            'created_at' => ['nullable', 'date_format:Y-m-d H:i:s']
         ]);
 
         $lang = $request->lang ?? env('APP_LOCALE');
@@ -188,6 +189,7 @@ class NewsController extends Controller implements HasMiddleware
                 'featured' => $request->has('featured') ? true : false,
                 'image' => $newImagePath ?? $imagePath,
                 'gallery' => !is_null($galleryItems) ? explode(',', $galleryItems) : [],
+                'created_at' => $validated['created_at'] ?? $news->created_at,
                 $lang => [
                     'title' => $validated['title'],
                     'excerpt' => $validated['excerpt'],
