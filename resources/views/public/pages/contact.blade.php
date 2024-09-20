@@ -127,17 +127,22 @@
                 </div>
 
                 {{-- use captcha --}}
-                {{-- 
-                    ---------
-                    ---------
-                    ---------
-                    ---------    
-                --}}
+                {!! NoCaptcha::display() !!}
 
-                <button type="submit" class="btn btn-primary">
+                @error('g-recaptcha-response')
+                    <div class="invalid-feedback d-block">
+                        {{ $message }}
+                    </div>
+                @enderror
+
+                <button type="submit" class="btn btn-primary mt-4">
                     {{ __('app.send') }}
                 </button>
             </div>
         </form>
     </div>
 @endsection
+
+@push('scripts')
+    {!! NoCaptcha::renderJs() !!}
+@endpush

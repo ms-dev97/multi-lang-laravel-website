@@ -13,6 +13,7 @@ class MailController extends Controller
             'subject' => 'required|string',
             'email' => 'email|nullable',
             'message' => 'string|required',
+            'g-recaptcha-response' => 'required|captcha'
         ]);
 
         $request['name'] = $this->sanitizeUserInput($request->name);
