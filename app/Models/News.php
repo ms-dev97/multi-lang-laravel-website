@@ -17,7 +17,7 @@ class News extends Model implements TranslatableContract
     use HasFactory, Translatable, StatusTrait, SoftDeletes;
 
     public $translatedAttributes = ['title', 'excerpt', 'body'];
-    protected $fillable = ['slug', 'image', 'gallery', 'featured', 'status'];
+    protected $fillable = ['slug', 'image', 'gallery', 'featured', 'status', 'created_at'];
 
     protected $casts = [
         'gallery' => 'array',
