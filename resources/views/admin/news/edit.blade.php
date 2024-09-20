@@ -145,6 +145,16 @@
                     'gallery_items' => old('gallery-input') ? explode(',', old('gallery-input')) : $news->gallery,
                 ])
 
+                @include('admin.partials.text-input', [
+                    'type' => 'text',
+                    'name' => 'created_at',
+                    'id' => 'created_at',
+                    'label' => 'تعديل تاريخ النشر',
+                    'placeholder' => 'تعديل تاريخ النشر',
+                    'required' => false,
+                    'value' => old('created_at') ?? $news->created_at
+                ])
+
                 <div class="form-group">
                     @include('admin.partials.toggle', [
                         'name' => 'status',
@@ -173,6 +183,7 @@
 
 @push('styles')
     <link href="{{ asset('assets/admin/css/select2.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endpush
 
 @push('scripts')
@@ -180,6 +191,16 @@
 
     {{-- jQuery required for select2 --}}
     <script src="{{ asset('assets/admin/js/jquery-3.7.1.min.js') }}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script>
+        flatpickr("#created_at", {
+            'enableTime': true,
+            'enableSeconds': true,
+            'dateFormat': 'Y-m-d H:i:s'
+        });
+    </script>
 
     @include('admin.partials.scripts.select2', [
         'selector' => '#categories',
