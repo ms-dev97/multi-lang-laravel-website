@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'skip-to-main' => 'Skip to main content',
     'read-more' => 'Read more',
     'more' => 'More',
     'no_data' => 'Sorry! There is no data.',
