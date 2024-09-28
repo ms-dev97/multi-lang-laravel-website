@@ -37,6 +37,14 @@
             </div>
         </div>
 
+        @if ($errors->any())
+            <ul class="form-errors">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
+
         <div class="card-body">
             <form action="{{ route('admin.projects.update', $project) }}" method="POST" id="edit" class="main-form" enctype="multipart/form-data">
                 @csrf
