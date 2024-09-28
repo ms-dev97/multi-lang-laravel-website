@@ -139,7 +139,7 @@
                             </tr>
                         @empty
                             <tr class="no-data">
-                                <td colspan="7" class="text-center">لا توجد سجلات متاحة</td>
+                                <td colspan="8" class="text-center">لا توجد سجلات متاحة</td>
                             </tr>
                         @endforelse
                     </tbody>
