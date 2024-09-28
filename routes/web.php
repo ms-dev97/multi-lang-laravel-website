@@ -55,5 +55,7 @@ Route::group([
     Route::get('search', 'SearchController@index')->name('search.index');
 
     // Page route: must be the last one
-    Route::get('/{page:slug}', 'PageController@show')->name('pages.show');
+    Route::get('/{page:slug}', 'PageController@show')
+        ->where('page', '^(?!admin)[a-zA-Z0-9-]+$')
+        ->name('pages.show');
 });
