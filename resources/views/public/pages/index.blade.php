@@ -17,7 +17,7 @@
         <h1 class="page-title text-center mb-5">{{ $title }}</h1>
 
         <div class="featured-img mt-3 mb-4">
-            <img src="{{ $image }}" alt="{{ $title }}">
+            <img src="{{ $image }}" alt="{{ $title }}" class="w-100">
         </div>
 
         <div class="body-content">
