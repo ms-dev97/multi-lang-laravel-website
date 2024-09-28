@@ -1,4 +1,4 @@
-<div class="card basic-card">
+<div {{ $attributes->merge(['class' => 'card basic-card']) }}>
     <a href="{{ $link }}">
         <img src="{{ $img }}" alt="{{ $title }}" class="card-img-top">
     </a>
