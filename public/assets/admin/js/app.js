@@ -46,6 +46,10 @@ document.addEventListener('DOMContentLoaded', function(e) {
             item.animate([{opacity: 1}, {opacity: 0}], {duration: 300}).onfinish = () => item.remove();
         });
     });
+
+    // Keep dropdown open it has active item
+    const activeSidebarDropdown = this.querySelector('.dropdown:has(.sidebar-item.active)');
+    if (activeSidebarDropdown) activeSidebarDropdown.setAttribute('open', true);
 });
 
 // unisharp file manager

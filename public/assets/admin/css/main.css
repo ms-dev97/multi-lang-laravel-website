@@ -526,7 +526,6 @@ dialog::backdrop {
     border-radius: 20px 0 0 20px;
 }
 .sidebar-item.active,
-.dropdown:has(.sidebar-item.active) summary.sidebar-item,
 .sidebar-item:hover {
     background-image: linear-gradient(to right ,var(--primary-dark), var(--primary-light));
     color: #fff;
