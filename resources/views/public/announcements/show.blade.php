@@ -34,7 +34,7 @@
             </div>
             {{-- Featured image --}}
             <div class="featured-img mt-3 mb-4">
-                <img src="{{ $image }}" alt="{{ $title }}">
+                <img src="{{ $image }}" alt="{{ $title }}" class="w-100">
             </div>
             {{-- Body content --}}
             <div class="body-container">
