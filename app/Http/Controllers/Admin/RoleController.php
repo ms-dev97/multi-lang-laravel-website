@@ -19,11 +19,11 @@ class RoleController extends Controller implements HasMiddleware
     public static function middleware()
     {
         return [
-            new Middleware(['can:browse-user'], only: ['index']),
-            new Middleware('can:add-user', only: ['create', 'store']),
-            new Middleware('can:read-user', only: ['show']),
-            new Middleware('can:edit-user', only: ['edit', 'update']),
-            new Middleware('can:delete-user', only: ['destroy']),
+            new Middleware(['can:browse-role'], only: ['index']),
+            new Middleware('can:add-role', only: ['create', 'store']),
+            new Middleware('can:read-role', only: ['show']),
+            new Middleware('can:edit-role', only: ['edit', 'update']),
+            new Middleware('can:delete-role', only: ['destroy']),
             new Middleware(function(Request $request, Closure $next) {
                 // only super admin can access super admin role
                 $reqParamRole = $request->route()->parameter('role')->name;
