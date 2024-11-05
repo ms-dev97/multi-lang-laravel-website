@@ -26,10 +26,11 @@ class RoleController extends Controller implements HasMiddleware
             new Middleware('can:delete-role', only: ['destroy']),
             new Middleware(function(Request $request, Closure $next) {
                 // only super admin can access super admin role
+                // only super admin and admin can access admin role
                 $reqParamRole = $request->route()->parameter('role')->name;
                 $authUserRoles = $request->user()->roles->pluck('name')->toArray();
 
-                if ($reqParamRole == 'super-admin' && !in_array('super-admin', $authUserRoles)) abort(404);
+                if (($reqParamRole == 'super-admin' || $reqParamRole == 'admin') && !in_array('super-admin', $authUserRoles)) abort(404);
                 return $next($request);
             }, except: ['index', 'create', 'store']),
         ];
@@ -40,7 +41,7 @@ class RoleController extends Controller implements HasMiddleware
      */
     public function index()
     {
-        $roles = Role::where('id', '!=', 1)->get();
+        $roles = Role::latest()->whereNotIn('id', [1, 2])->get();
         return view('admin.roles.index', compact('roles'));
     }
 
